@@ -1,7 +1,7 @@
 import { Effect } from "effect"
 import { detect } from "package-manager-detector"
 
-const PACKAGE_MANAGERS = ["npm", "bun", "pnpm", "yarn", "yarn@berry"] as const
+const PACKAGE_MANAGERS = ["npm", "bun", "pnpm", "yarn@berry", "yarn"] as const
 
 const BINARY_RUNNERS = {
   npm: ["npx", "--yes"],
