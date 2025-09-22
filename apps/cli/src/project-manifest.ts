@@ -68,7 +68,7 @@ const FILE_CHECKS: Array<FileCheck> = [
   {
     name: "Root Layout",
     fileNames: ["app/_layout.tsx", "src/app/_layout.tsx"],
-    docs: "hhttps://reactnativereusables.com/docs/installation/manual#add-the-portal-host-to-your-root-layout", //
+    docs: "https://reactnativereusables.com/docs/installation/manual#add-the-portal-host-to-your-root-layout", //
     includes: [
       {
         content: [".css"],
