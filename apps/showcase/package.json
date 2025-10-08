@@ -1,7 +1,7 @@
 {
   "name": "@rnr/showcase",
   "main": "index.js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
     "start": "ENV=development expo start --clear --dev-client",
     "device:ios": "ENV=development expo run:ios --device",
