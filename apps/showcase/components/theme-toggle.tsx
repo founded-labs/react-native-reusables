@@ -1,7 +1,7 @@
 import { Button } from '@/registry/new-york/components/ui/button';
 import * as Haptics from 'expo-haptics';
 import { useColorScheme } from 'nativewind';
-import { Image, type ImageStyle, Pressable } from 'react-native';
+import { Image, type ImageStyle } from 'react-native';
 
 const THEME_TOGGLE_IMAGES = {
   light: require('@showcase/assets/images/theme-toggle-light.png'),
@@ -27,7 +27,7 @@ export function ThemeToggle() {
       onPress={toggleColorScheme}
       variant="ghost"
       size="icon"
-      className="web:mr-5 translate-x-1">
+      className="web:mr-5 size-9 rounded-full">
       <Image source={THEME_TOGGLE_IMAGES[colorScheme]} style={IMAGE_STYLE} />
     </Button>
   );

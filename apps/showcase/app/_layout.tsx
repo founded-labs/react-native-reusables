@@ -64,9 +64,7 @@ export default function RootLayout() {
                 headerLargeTitle: true,
                 headerTitle: 'Showcase',
                 headerLargeTitleShadowVisible: false,
-                headerLargeStyle: {
-                  backgroundColor: colorScheme === 'dark' ? 'hsl(0 0% 3.9%)' : 'hsl(0 0% 100%)',
-                },
+                headerTransparent: true,
               }}
             />
           </Stack>

@@ -62,12 +62,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       favicon: './assets/images/favicon.png',
     },
     plugins: [
-      [
-        'expo-dev-client',
-        {
-          launchMode: 'most-recent',
-        },
-      ],
       'expo-router',
       [
         'expo-font',
@@ -83,15 +77,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
             '../../node_modules/@expo-google-fonts/geist/200ExtraLight/Geist_200ExtraLight.ttf',
             '../../node_modules/@expo-google-fonts/geist/100Thin/Geist_100Thin.ttf',
           ],
-        },
-      ],
-      [
-        'react-native-edge-to-edge',
-        {
-          android: {
-            parentTheme: 'Material3',
-            enforceNavigationBarContrast: false,
-          },
         },
       ],
     ],

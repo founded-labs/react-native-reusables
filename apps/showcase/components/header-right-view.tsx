@@ -23,13 +23,13 @@ export function HeaderRightView() {
     return (
       <Button
         size="sm"
-        className="h-7 rounded-full bg-sky-500 dark:bg-sky-600"
+        className="h-7 rounded-full bg-transparent active:bg-transparent"
         onPress={onReload}
         disabled={isDownloading}>
         {isDownloading ? (
           <ActivityIndicator color="white" size="small" className="scale-75" />
         ) : (
-          <Text className="text-white">Update</Text>
+          <Text className="text-sky-600 dark:text-sky-500">Update</Text>
         )}
       </Button>
     );

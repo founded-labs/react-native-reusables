@@ -8,13 +8,14 @@ import { FlashList } from '@shopify/flash-list';
 import { COMPONENTS } from '@showcase/lib/constants';
 import { Link } from 'expo-router';
 import { ChevronRight } from 'lucide-react-native';
-import { cssInterop } from 'nativewind';
+import { cssInterop, useColorScheme } from 'nativewind';
 import * as React from 'react';
 import { Platform, View } from 'react-native';
 
 cssInterop(FlashList, { className: 'style', contentContainerClassName: 'contentContainerStyle' });
 
 export default function ComponentsScreen() {
+  const { colorScheme } = useColorScheme();
   const [search, setSearch] = React.useState('');
   const [isAtTop, setIsAtTop] = React.useState(true);
   const isAtTopRef = React.useRef(true);
@@ -45,7 +46,6 @@ export default function ComponentsScreen() {
         })}
         contentInsetAdjustmentBehavior="automatic"
         contentContainerClassName="px-4 pb-2"
-        estimatedItemSize={49}
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="on-drag"
         showsVerticalScrollIndicator={false}
@@ -63,19 +63,22 @@ export default function ComponentsScreen() {
         })}
         renderItem={({ item, index }) => (
           <Link href={`/components/${item.slug}`} asChild>
-            <Button
-              variant="outline"
-              size="lg"
-              unstable_pressDelay={100}
-              className={cn(
-                'dark:bg-background border-border flex-row justify-between rounded-none border-b-0 pl-4 pr-3.5',
-                index === 0 && 'rounded-t-lg',
-                index === data.length - 1 && 'rounded-b-lg border-b'
-              )}>
-              <Text className="text-base font-normal">{item.name}</Text>
+            <Link.Trigger>
+              <Button
+                variant="outline"
+                size="lg"
+                unstable_pressDelay={100}
+                className={cn(
+                  'dark:bg-background border-border flex-row justify-between rounded-none border-b-0 pl-4 pr-3.5',
+                  index === 0 && 'rounded-t-lg',
+                  index === data.length - 1 && 'rounded-b-lg border-b'
+                )}>
+                <Text className="text-base font-normal">{item.name}</Text>
 
-              <Icon as={ChevronRight} className="text-muted-foreground size-4 stroke-[1.5px]" />
-            </Button>
+                <Icon as={ChevronRight} className="text-muted-foreground size-4 stroke-[1.5px]" />
+              </Button>
+            </Link.Trigger>
+            <Link.Preview style={{ backgroundColor: colorScheme === 'dark' ? 'black' : 'white' }} />
           </Link>
         )}
         ListFooterComponent={<View className="android:pb-safe" />}
