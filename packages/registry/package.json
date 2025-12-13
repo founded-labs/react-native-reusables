@@ -47,9 +47,9 @@
     "@rn-primitives/tooltip": "~1.2.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "expo-router": "~6.0.10",
-    "expo-constants": "~18.0.9",
-    "expo-linking": "~8.0.8",
+    "expo-router": "~6.0.19",
+    "expo-constants": "~18.0.12",
+    "expo-linking": "~8.0.10",
     "lucide-react-native": "^0.545.0",
     "nativewind": "^4.2.1",
     "react-native-reanimated": "~4.1.2",
@@ -64,7 +64,7 @@
     "@tsconfig/recommended": "^1.0.1",
     "@types/react": "~19.1.17",
     "react": "19.1.0",
-    "react-native": "0.81.4"
+    "react-native": "0.81.5"
   },
   "peerDependencies": {
     "react": "*",
