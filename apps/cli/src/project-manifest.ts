@@ -210,6 +210,18 @@ const CUSTOM_FILE_CHECKS = {
       }
     ]
   },
+  uniwindTypes: {
+    name: "Uniwind Types",
+    defaultFileNames: ["uniwind-types.d.ts"],
+    docs: "https://docs.uniwind.dev/api/metro-config#dtsfile",
+    includes: [
+      {
+        content: ["uniwind/types"],
+        message: "The uniwind types are missing",
+        docs: "https://docs.uniwind.dev/api/metro-config#dtsfile"
+      }
+    ]
+  },
   utils: {
     name: "Utils",
     defaultFileNames: ["lib/utils.ts"],
@@ -242,6 +254,7 @@ const CUSTOM_FILE_CHECKS = {
 }
 
 const NATIVEWIND_ENV_FILE = "nativewind-env.d.ts"
+const UNIWIND_TYPES_FILE = "uniwind-types.d.ts"
 
 const COMPONENTS = [
   "accordion",
@@ -297,6 +310,7 @@ const PROJECT_MANIFEST = {
   deprecatedFromUi: DEPRECATED_FROM_UI,
   customFileChecks: CUSTOM_FILE_CHECKS,
   nativewindEnvFile: NATIVEWIND_ENV_FILE,
+  uniwindTypesFile: UNIWIND_TYPES_FILE,
   components: COMPONENTS,
   templates: TEMPLATES
 }

@@ -64,6 +64,20 @@ class ProjectConfig extends Effect.Service<ProjectConfig>()("ProjectConfig", {
         return config
       })
 
+    const getStylingLibrary = () =>
+      Effect.gen(function* () {
+        const nativewindEnvExists = yield* fs.exists(path.join(options.cwd, "nativewind-env.d.ts"))
+        const uniwindTypesExists = yield* fs.exists(path.join(options.cwd, "uniwind-types.d.ts"))
+
+        if (nativewindEnvExists) {
+          return "nativewind"
+        }
+        if (uniwindTypesExists) {
+          return "uniwind"
+        }
+        return "nativewind" // default to nativewind
+      })
+
     const handleInvalidComponentJson = (exists: boolean) =>
       Effect.gen(function* () {
         yield* Effect.logWarning(
@@ -231,7 +245,8 @@ class ProjectConfig extends Effect.Service<ProjectConfig>()("ProjectConfig", {
     return {
       getComponentJson,
       getTsConfig,
-      resolvePathFromAlias
+      resolvePathFromAlias,
+      getStylingLibrary
     }
   })
 }) {}

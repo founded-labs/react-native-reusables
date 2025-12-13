@@ -184,13 +184,23 @@ class RequiredFilesChecker extends Effect.Service<RequiredFilesChecker>()("Requi
           missingIncludes.push({ ...include, fileName: customFileChecks.css.name })
         }
 
-        // Check Nativewind env file
+        // Check Nativewind env or Uniwind types file
         if (componentJson.tsx !== false) {
+          const missingTypeFiles: Array<CustomFileCheck> = []
           const nativewindEnvContent = yield* fs
             .readFileString(path.join(options.cwd, PROJECT_MANIFEST.nativewindEnvFile))
             .pipe(
               Effect.catchAll(() => {
-                missingFiles.push(customFileChecks.nativewindEnv)
+                missingTypeFiles.push(customFileChecks.nativewindEnv)
+                return Effect.succeed(null)
+              })
+            )
+
+          const uniwindTypesContent = yield* fs
+            .readFileString(path.join(options.cwd, PROJECT_MANIFEST.uniwindTypesFile))
+            .pipe(
+              Effect.catchAll(() => {
+                missingTypeFiles.push(customFileChecks.uniwindTypes)
                 return Effect.succeed(null)
               })
             )
@@ -208,8 +218,25 @@ class RequiredFilesChecker extends Effect.Service<RequiredFilesChecker>()("Requi
               )
               missingIncludes.push({ ...include, fileName: customFileChecks.nativewindEnv.name })
             }
-          } else {
-            yield* Effect.logDebug(`${logSymbols.error} ${customFileChecks.nativewindEnv.name} not found`)
+          }
+
+          if (uniwindTypesContent) {
+            for (const include of customFileChecks.uniwindTypes.includes) {
+              if (include.content.every((str) => uniwindTypesContent.includes(str))) {
+                yield* Effect.logDebug(
+                  `${logSymbols.success} ${customFileChecks.uniwindTypes.name} has ${include.content.join(", ")}`
+                )
+                continue
+              }
+              yield* Effect.logDebug(
+                `${logSymbols.error} ${customFileChecks.uniwindTypes.name} missing ${include.content.join(", ")}`
+              )
+              missingIncludes.push({ ...include, fileName: customFileChecks.uniwindTypes.name })
+            }
+          }
+
+          if (missingTypeFiles.length === 2) {
+            missingFiles.push(missingTypeFiles[0], missingTypeFiles[1])
           }
         }
 
