@@ -20,9 +20,12 @@ function Skeleton({
     sv.value = withRepeat(withTiming(0.5, { duration }), -1, true);
   }, []);
 
-  const style = useAnimatedStyle(() => ({
-    opacity: sv.value,
-  }));
+  const style = useAnimatedStyle(
+    () => ({
+      opacity: sv.value,
+    }),
+    [sv]
+  );
   return (
     <Animated.View
       style={style}
