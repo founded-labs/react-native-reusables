@@ -54,7 +54,7 @@ function AccordionItem({
   );
 }
 
-const TriggerInner = Platform.OS === 'web' ? View : Pressable;
+const Trigger = Platform.OS === 'web' ? View : Pressable;
 
 function AccordionTrigger({
   className,
@@ -83,8 +83,8 @@ function AccordionTrigger({
         Platform.select({ web: 'group-hover:underline' })
       )}>
       <AccordionPrimitive.Header>
-        <AccordionPrimitive.Trigger {...props} asChild>
-          <Pressable
+        <AccordionPrimitive.Trigger {...props} asChild={Platform.OS !== 'web'}>
+          <Trigger
             className={cn(
               'flex-row items-start justify-between gap-4 rounded-md py-4 disabled:opacity-50',
               Platform.select({
@@ -105,7 +105,7 @@ function AccordionTrigger({
                 )}
               />
             </Animated.View>
-          </Pressable>
+          </Trigger>
         </AccordionPrimitive.Trigger>
       </AccordionPrimitive.Header>
     </TextClassContext.Provider>

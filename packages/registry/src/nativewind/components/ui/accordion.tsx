@@ -43,7 +43,7 @@ function AccordionItem({
         className
       )}
       value={value}
-      asChild
+      asChild={Platform.OS !== 'web'}
       {...props}>
       <Animated.View
         className="native:overflow-hidden"
