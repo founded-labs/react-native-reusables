@@ -16,6 +16,7 @@ const config = {
     'nativewind',
     'react-native-css-interop',
     'react-native-reanimated',
+    'react-native-worklets',
     'react-native-calendars',
     'react-native-swipe-gestures',
     'react-native-toast-message',
