@@ -3,7 +3,7 @@ import { cn } from '@/registry/uniwind/lib/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { Platform, Pressable } from 'react-native';
 
-// group-* does not seem to be supported by uniwind
+// NOTE: group-* is not supported yet by Uniwind
 
 const buttonVariants = cva(
   cn(

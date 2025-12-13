@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@docs/components/ui/ta
 import { TooltipPreview } from "@docs/components/examples";
 import { Step, Steps } from 'fumadocs-ui/components/steps';
 import { PortalInfoAlert } from '@docs/components/portal-info-alert';
+import { StylingLibraryTabs, StylingLibraryTabsNativewindContent, StylingLibraryTabsUnwindContent } from '@docs/components/styling-library-tabs';
 
 <ExternalLinks
   links={[
@@ -69,25 +70,51 @@ import { PortalInfoAlert } from '@docs/components/portal-info-alert';
  
         **Copy and paste the following code into your project.**
 
-        ```json doc-gen:file
-        {
-          "file": "./node_modules/@rnr/registry/src/new-york/components/ui/text.tsx",
-          "codeblock": {
-            "lang": "tsx",
-            "meta": "title=\"@/components/ui/text.tsx\""
+        <StylingLibraryTabs>
+          <StylingLibraryTabsNativewindContent>
+            ```json doc-gen:file
+          {
+            "file": "./node_modules/@rnr/registry/src/nativewind/components/ui/text.tsx",
+            "codeblock": {
+              "lang": "tsx",
+              "meta": "title=\"@/components/ui/text.tsx\""
+            }
           }
-        }
-        ```
+          ```
 
-        ```json doc-gen:file
-        {
-          "file": "./node_modules/@rnr/registry/src/new-york/components/ui/tooltip.tsx",
-          "codeblock": {
-            "lang": "tsx",
-            "meta": "title=\"@/components/ui/tooltip.tsx\""
+          ```json doc-gen:file
+          {
+            "file": "./node_modules/@rnr/registry/src/nativewind/components/ui/tooltip.tsx",
+            "codeblock": {
+              "lang": "tsx",
+              "meta": "title=\"@/components/ui/tooltip.tsx\""
+            }
           }
-        }
-        ```
+          ```
+          </StylingLibraryTabsNativewindContent>
+          
+          <StylingLibraryTabsUnwindContent>
+          ```json doc-gen:file
+          {
+            "file": "./node_modules/@rnr/registry/src/uniwind/components/ui/text.tsx",
+            "codeblock": {
+              "lang": "tsx",
+              "meta": "title=\"@/components/ui/text.tsx\""
+            }
+          }
+          ```
+
+          ```json doc-gen:file
+          {
+            "file": "./node_modules/@rnr/registry/src/uniwind/components/ui/tooltip.tsx",
+            "codeblock": {
+              "lang": "tsx",
+              "meta": "title=\"@/components/ui/tooltip.tsx\""
+            }
+          }
+          ```
+          </StylingLibraryTabsUnwindContent>
+        </StylingLibraryTabs>
 
       </Step>
       <Step>

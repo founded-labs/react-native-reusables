@@ -9,6 +9,7 @@ import { PreviewCard } from "@docs/components/preview-card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@docs/components/ui/tabs";
 import { SeparatorPreview } from "@docs/components/examples";
 import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { StylingLibraryTabs, StylingLibraryTabsNativewindContent, StylingLibraryTabsUnwindContent } from '@docs/components/styling-library-tabs';
 
 <ExternalLinks
   links={[
@@ -68,15 +69,31 @@ import { Step, Steps } from 'fumadocs-ui/components/steps';
  
         **Copy and paste the following code into your project.**
 
-        ```json doc-gen:file
-        {
-          "file": "./node_modules/@rnr/registry/src/new-york/components/ui/separator.tsx",
-          "codeblock": {
-            "lang": "tsx",
-            "meta": "title=\"@/components/ui/separator.tsx\""
+        <StylingLibraryTabs>
+          <StylingLibraryTabsNativewindContent>
+            ```json doc-gen:file
+          {
+            "file": "./node_modules/@rnr/registry/src/nativewind/components/ui/separator.tsx",
+            "codeblock": {
+              "lang": "tsx",
+              "meta": "title=\"@/components/ui/separator.tsx\""
+            }
           }
-        }
-        ```
+          ```
+          </StylingLibraryTabsNativewindContent>
+          
+          <StylingLibraryTabsUnwindContent>
+          ```json doc-gen:file
+          {
+            "file": "./node_modules/@rnr/registry/src/uniwind/components/ui/separator.tsx",
+            "codeblock": {
+              "lang": "tsx",
+              "meta": "title=\"@/components/ui/separator.tsx\""
+            }
+          }
+          ```
+          </StylingLibraryTabsUnwindContent>
+        </StylingLibraryTabs>
 
       </Step>
       <Step>

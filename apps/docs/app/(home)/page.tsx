@@ -34,8 +34,8 @@ export default function HomePage() {
               className="decoration-fd-muted-foreground/0 hover:decoration-fd-muted-foreground underline underline-offset-4">
               shadcn/ui
             </a>{' '}
-            to React Native. Beautifully crafted components with Nativewind, open source, and{' '}
-            <i>almost as easy to use.</i>
+            to React Native. Beautifully crafted components with Nativewind or Uniwind, open source,
+            and <i>almost as easy to use.</i>
           </p>
           <div className="**:data-[slot=button]:shadow-none flex w-full items-center justify-center gap-2 pt-2">
             <Button asChild size="sm">

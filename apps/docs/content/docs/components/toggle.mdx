@@ -9,6 +9,7 @@ import { PreviewCard } from "@docs/components/preview-card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@docs/components/ui/tabs";
 import { TogglePreview } from "@docs/components/examples";
 import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { StylingLibraryTabs, StylingLibraryTabsNativewindContent, StylingLibraryTabsUnwindContent } from '@docs/components/styling-library-tabs';
 
 <ExternalLinks
   links={[
@@ -68,35 +69,71 @@ import { Step, Steps } from 'fumadocs-ui/components/steps';
  
         **Copy and paste the following code into your project.**
 
-        ```json doc-gen:file
-        {
-          "file": "./node_modules/@rnr/registry/src/new-york/components/ui/text.tsx",
-          "codeblock": {
-            "lang": "tsx",
-            "meta": "title=\"@/components/ui/text.tsx\""
+        <StylingLibraryTabs>
+          <StylingLibraryTabsNativewindContent>
+            ```json doc-gen:file
+          {
+            "file": "./node_modules/@rnr/registry/src/nativewind/components/ui/text.tsx",
+            "codeblock": {
+              "lang": "tsx",
+              "meta": "title=\"@/components/ui/text.tsx\""
+            }
           }
-        }
-        ```
+          ```
 
-        ```json doc-gen:file
-        {
-          "file": "./node_modules/@rnr/registry/src/new-york/components/ui/icon.tsx",
-          "codeblock": {
-            "lang": "tsx",
-            "meta": "title=\"@/components/ui/icon.tsx\""
+          ```json doc-gen:file
+          {
+            "file": "./node_modules/@rnr/registry/src/nativewind/components/ui/icon.tsx",
+            "codeblock": {
+              "lang": "tsx",
+              "meta": "title=\"@/components/ui/icon.tsx\""
+            }
           }
-        }
-        ```
+          ```
+          
+          ```json doc-gen:file
+          {
+            "file": "./node_modules/@rnr/registry/src/nativewind/components/ui/toggle.tsx",
+            "codeblock": {
+              "lang": "tsx",
+              "meta": "title=\"@/components/ui/toggle.tsx\""
+            }
+          }
+          ```
+          </StylingLibraryTabsNativewindContent>
+          
+          <StylingLibraryTabsUnwindContent>
+          ```json doc-gen:file
+          {
+            "file": "./node_modules/@rnr/registry/src/uniwind/components/ui/text.tsx",
+            "codeblock": {
+              "lang": "tsx",
+              "meta": "title=\"@/components/ui/text.tsx\""
+            }
+          }
+          ```
 
-        ```json doc-gen:file
-        {
-          "file": "./node_modules/@rnr/registry/src/new-york/components/ui/toggle.tsx",
-          "codeblock": {
-            "lang": "tsx",
-            "meta": "title=\"@/components/ui/toggle.tsx\""
+          ```json doc-gen:file
+          {
+            "file": "./node_modules/@rnr/registry/src/uniwind/components/ui/icon.tsx",
+            "codeblock": {
+              "lang": "tsx",
+              "meta": "title=\"@/components/ui/icon.tsx\""
+            }
           }
-        }
-        ```
+          ```
+          
+          ```json doc-gen:file
+          {
+            "file": "./node_modules/@rnr/registry/src/uniwind/components/ui/toggle.tsx",
+            "codeblock": {
+              "lang": "tsx",
+              "meta": "title=\"@/components/ui/toggle.tsx\""
+            }
+          }
+          ```
+          </StylingLibraryTabsUnwindContent>
+        </StylingLibraryTabs>
 
       </Step>
       <Step>
