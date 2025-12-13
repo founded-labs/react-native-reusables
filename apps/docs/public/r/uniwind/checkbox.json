@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox",
+  "type": "registry:ui",
+  "title": "Checkbox",
+  "author": "@mrzachnugent",
+  "description": "A control that allows the user to toggle between checked and not checked.",
+  "dependencies": [
+    "@rn-primitives/checkbox"
+  ],
+  "registryDependencies": [
+    "https://reactnativereusables.com/r/uniwind/icon.json"
+  ],
+  "files": [
+    {
+      "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/checkbox.tsx",
+      "content": "import { Icon } from '@/registry/uniwind/components/ui/icon';\nimport { cn } from '@/registry/uniwind/lib/utils';\nimport * as CheckboxPrimitive from '@rn-primitives/checkbox';\nimport { Check } from 'lucide-react-native';\nimport { Platform } from 'react-native';\n\nconst DEFAULT_HIT_SLOP = 24;\n\nfunction Checkbox({\n  className,\n  checkedClassName,\n  indicatorClassName,\n  iconClassName,\n  ...props\n}: CheckboxPrimitive.RootProps &\n  React.RefAttributes<CheckboxPrimitive.RootRef> & {\n    checkedClassName?: string;\n    indicatorClassName?: string;\n    iconClassName?: string;\n  }) {\n  return (\n    <CheckboxPrimitive.Root\n      className={cn(\n        'border-input dark:bg-input/30 size-4 shrink-0 rounded-[4px] border shadow-sm shadow-black/5',\n        Platform.select({\n          web: 'focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive peer cursor-default outline-none transition-shadow focus-visible:ring-[3px] disabled:cursor-not-allowed',\n          native: 'overflow-hidden',\n        }),\n        props.checked && cn('border-primary', checkedClassName),\n        props.disabled && 'opacity-50',\n        className\n      )}\n      hitSlop={DEFAULT_HIT_SLOP}\n      {...props}>\n      <CheckboxPrimitive.Indicator\n        className={cn('bg-primary h-full w-full items-center justify-center', indicatorClassName)}>\n        <Icon\n          as={Check}\n          size={12}\n          strokeWidth={Platform.OS === 'web' ? 2.5 : 3.5}\n          className={cn('text-primary-foreground', iconClassName)}\n        />\n      </CheckboxPrimitive.Indicator>\n    </CheckboxPrimitive.Root>\n  );\n}\n\nexport { Checkbox };\n",
+      "type": "registry:ui"
+    }
+  ]
+}

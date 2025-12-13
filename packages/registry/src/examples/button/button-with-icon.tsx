@@ -1,6 +1,6 @@
-import { Button } from '@/registry/new-york/components/ui/button';
-import { Icon } from '@/registry/new-york/components/ui/icon';
-import { Text } from '@/registry/new-york/components/ui/text';
+import { Button } from '@/registry/nativewind/components/ui/button';
+import { Icon } from '@/registry/nativewind/components/ui/icon';
+import { Text } from '@/registry/nativewind/components/ui/text';
 import { Mail } from 'lucide-react-native';
 
 export function ButtonWithIconPreview() {

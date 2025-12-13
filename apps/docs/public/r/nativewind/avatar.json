@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "avatar",
+  "type": "registry:ui",
+  "title": "Avatar",
+  "author": "@mrzachnugent",
+  "description": "An image element with a fallback for representing the user.",
+  "dependencies": [
+    "@rn-primitives/avatar"
+  ],
+  "files": [
+    {
+      "path": "./node_modules/@rnr/registry/src/nativewind/components/ui/avatar.tsx",
+      "content": "import { cn } from '@/registry/nativewind/lib/utils';\nimport * as AvatarPrimitive from '@rn-primitives/avatar';\n\nfunction Avatar({\n  className,\n  ...props\n}: AvatarPrimitive.RootProps & React.RefAttributes<AvatarPrimitive.RootRef>) {\n  return (\n    <AvatarPrimitive.Root\n      className={cn('relative flex size-8 shrink-0 overflow-hidden rounded-full', className)}\n      {...props}\n    />\n  );\n}\n\nfunction AvatarImage({\n  className,\n  ...props\n}: AvatarPrimitive.ImageProps & React.RefAttributes<AvatarPrimitive.ImageRef>) {\n  return <AvatarPrimitive.Image className={cn('aspect-square size-full', className)} {...props} />;\n}\n\nfunction AvatarFallback({\n  className,\n  ...props\n}: AvatarPrimitive.FallbackProps & React.RefAttributes<AvatarPrimitive.FallbackRef>) {\n  return (\n    <AvatarPrimitive.Fallback\n      className={cn(\n        'bg-muted flex size-full flex-row items-center justify-center rounded-full',\n        className\n      )}\n      {...props}\n    />\n  );\n}\n\nexport { Avatar, AvatarFallback, AvatarImage };\n",
+      "type": "registry:ui"
+    }
+  ]
+}

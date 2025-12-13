@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "aspect-ratio",
+  "type": "registry:ui",
+  "title": "Aspect Ratio",
+  "author": "@mrzachnugent",
+  "description": "Displays content within a desired ratio.",
+  "dependencies": [
+    "@rn-primitives/aspect-ratio"
+  ],
+  "files": [
+    {
+      "path": "./node_modules/@rnr/registry/src/nativewind/components/ui/aspect-ratio.tsx",
+      "content": "import * as AspectRatioPrimitive from '@rn-primitives/aspect-ratio';\n\nconst AspectRatio = AspectRatioPrimitive.Root;\n\nexport { AspectRatio };\n",
+      "type": "registry:ui"
+    }
+  ]
+}

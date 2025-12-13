@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "popover",
+  "type": "registry:ui",
+  "title": "Popover",
+  "author": "@mrzachnugent",
+  "description": "Displays rich content in a portal, triggered by a button.",
+  "dependencies": [
+    "@rn-primitives/popover"
+  ],
+  "registryDependencies": [
+    "https://reactnativereusables.com/r/nativewind/text.json",
+    "https://reactnativereusables.com/r/nativewind/native-only-animated-view.json"
+  ],
+  "files": [
+    {
+      "path": "./node_modules/@rnr/registry/src/nativewind/components/ui/popover.tsx",
+      "content": "import { NativeOnlyAnimatedView } from '@/registry/nativewind/components/ui/native-only-animated-view';\nimport { TextClassContext } from '@/registry/nativewind/components/ui/text';\nimport { cn } from '@/registry/nativewind/lib/utils';\nimport * as PopoverPrimitive from '@rn-primitives/popover';\nimport * as React from 'react';\nimport { Platform, StyleSheet } from 'react-native';\nimport { FadeIn, FadeOut } from 'react-native-reanimated';\nimport { FullWindowOverlay as RNFullWindowOverlay } from 'react-native-screens';\n\nconst Popover = PopoverPrimitive.Root;\n\nconst PopoverTrigger = PopoverPrimitive.Trigger;\n\nconst FullWindowOverlay = Platform.OS === 'ios' ? RNFullWindowOverlay : React.Fragment;\n\nfunction PopoverContent({\n  className,\n  align = 'center',\n  sideOffset = 4,\n  portalHost,\n  ...props\n}: PopoverPrimitive.ContentProps &\n  React.RefAttributes<PopoverPrimitive.ContentRef> & {\n    portalHost?: string;\n  }) {\n  return (\n    <PopoverPrimitive.Portal hostName={portalHost}>\n      <FullWindowOverlay>\n        <PopoverPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>\n          <NativeOnlyAnimatedView entering={FadeIn.duration(200)} exiting={FadeOut}>\n            <TextClassContext.Provider value=\"text-popover-foreground\">\n              <PopoverPrimitive.Content\n                align={align}\n                sideOffset={sideOffset}\n                className={cn(\n                  'bg-popover border-border outline-hidden z-50 w-72 rounded-md border p-4 shadow-md shadow-black/5',\n                  Platform.select({\n                    web: cn(\n                      'animate-in fade-in-0 zoom-in-95 origin-(--radix-popover-content-transform-origin) cursor-auto',\n                      props.side === 'bottom' && 'slide-in-from-top-2',\n                      props.side === 'top' && 'slide-in-from-bottom-2'\n                    ),\n                  }),\n                  className\n                )}\n                {...props}\n              />\n            </TextClassContext.Provider>\n          </NativeOnlyAnimatedView>\n        </PopoverPrimitive.Overlay>\n      </FullWindowOverlay>\n    </PopoverPrimitive.Portal>\n  );\n}\n\nexport { Popover, PopoverContent, PopoverTrigger };\n",
+      "type": "registry:ui"
+    }
+  ]
+}

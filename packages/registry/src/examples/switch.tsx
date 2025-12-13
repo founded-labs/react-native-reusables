@@ -1,5 +1,5 @@
-import { Label } from '@/registry/new-york/components/ui/label';
-import { Switch } from '@/registry/new-york/components/ui/switch';
+import { Label } from '@/registry/nativewind/components/ui/label';
+import { Switch } from '@/registry/nativewind/components/ui/switch';
 import * as Haptics from 'expo-haptics';
 import * as React from 'react';
 import { View } from 'react-native';

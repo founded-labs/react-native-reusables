@@ -7,7 +7,7 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from '@/registry/new-york/components/ui/select';
+} from '@/registry/nativewind/components/ui/select';
 import type { TriggerRef } from '@rn-primitives/select';
 import * as React from 'react';
 import { Platform } from 'react-native';

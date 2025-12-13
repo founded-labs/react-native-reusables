@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "switch",
+  "type": "registry:ui",
+  "title": "Switch",
+  "author": "@mrzachnugent",
+  "description": "A control that allows the user to toggle between checked and not checked.",
+  "dependencies": [
+    "@rn-primitives/switch"
+  ],
+  "files": [
+    {
+      "path": "./node_modules/@rnr/registry/src/nativewind/components/ui/switch.tsx",
+      "content": "import { cn } from '@/registry/nativewind/lib/utils';\nimport * as SwitchPrimitives from '@rn-primitives/switch';\nimport { Platform } from 'react-native';\n\nfunction Switch({\n  className,\n  ...props\n}: SwitchPrimitives.RootProps & React.RefAttributes<SwitchPrimitives.RootRef>) {\n  return (\n    <SwitchPrimitives.Root\n      className={cn(\n        'flex h-[1.15rem] w-8 shrink-0 flex-row items-center rounded-full border border-transparent shadow-sm shadow-black/5',\n        Platform.select({\n          web: 'focus-visible:border-ring focus-visible:ring-ring/50 peer inline-flex outline-none transition-all focus-visible:ring-[3px] disabled:cursor-not-allowed',\n        }),\n        props.checked ? 'bg-primary' : 'bg-input dark:bg-input/80',\n        props.disabled && 'opacity-50',\n        className\n      )}\n      {...props}>\n      <SwitchPrimitives.Thumb\n        className={cn(\n          'bg-background size-4 rounded-full transition-transform',\n          Platform.select({\n            web: 'pointer-events-none block ring-0',\n          }),\n          props.checked\n            ? 'dark:bg-primary-foreground translate-x-3.5'\n            : 'dark:bg-foreground translate-x-0'\n        )}\n      />\n    </SwitchPrimitives.Root>\n  );\n}\n\nexport { Switch };\n",
+      "type": "registry:ui"
+    }
+  ]
+}

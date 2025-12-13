@@ -1,4 +1,4 @@
-import { Text } from '@/registry/new-york/components/ui/text';
+import { Text } from '@/registry/nativewind/components/ui/text';
 import { Link, Stack } from 'expo-router';
 import { View } from 'react-native';
 

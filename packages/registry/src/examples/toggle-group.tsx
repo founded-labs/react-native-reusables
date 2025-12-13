@@ -3,7 +3,7 @@ import {
   ToggleGroup,
   ToggleGroupIcon,
   ToggleGroupItem,
-} from '@/registry/new-york/components/ui/toggle-group';
+} from '@/registry/nativewind/components/ui/toggle-group';
 import * as React from 'react';
 import * as Haptics from 'expo-haptics';
 

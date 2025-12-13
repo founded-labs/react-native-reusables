@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "social-connections",
+  "type": "registry:component",
+  "title": "Social Connections",
+  "author": "@mrzachnugent",
+  "description": "A set of buttons for authenticating through social providers.",
+  "registryDependencies": [
+    "https://reactnativereusables.com/r/nativewind/button.json"
+  ],
+  "files": [
+    {
+      "path": "./node_modules/@rnr/registry/src/blocks/social-connections.tsx",
+      "content": "import { cn } from '@/registry/nativewind/lib/utils';\nimport { Button } from '@/registry/nativewind/components/ui/button';\nimport { useColorScheme } from 'nativewind';\nimport { Image, Platform, View } from 'react-native';\n\nconst SOCIAL_CONNECTION_STRATEGIES = [\n  {\n    type: 'oauth_apple',\n    source: { uri: 'https://img.clerk.com/static/apple.png?width=160' },\n    useTint: true,\n  },\n  {\n    type: 'oauth_google',\n    source: { uri: 'https://img.clerk.com/static/google.png?width=160' },\n    useTint: false,\n  },\n  {\n    type: 'oauth_github',\n    source: { uri: 'https://img.clerk.com/static/github.png?width=160' },\n    useTint: true,\n  },\n];\n\nexport function SocialConnections() {\n  const { colorScheme } = useColorScheme();\n\n  return (\n    <View className=\"gap-2 sm:flex-row sm:gap-3\">\n      {SOCIAL_CONNECTION_STRATEGIES.map((strategy) => {\n        return (\n          <Button\n            key={strategy.type}\n            variant=\"outline\"\n            size=\"sm\"\n            className=\"sm:flex-1\"\n            onPress={() => {\n              // TODO: Authenticate with social provider and navigate to protected screen if successful\n            }}>\n            <Image\n              className={cn('size-4', strategy.useTint && Platform.select({ web: 'dark:invert' }))}\n              tintColor={Platform.select({\n                native: strategy.useTint ? (colorScheme === 'dark' ? 'white' : 'black') : undefined,\n              })}\n              source={strategy.source}\n            />\n          </Button>\n        );\n      })}\n    </View>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ]
+}

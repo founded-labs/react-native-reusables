@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const registryDir = path.resolve('./registry');
-const files = ['new-york.json'];
+const files = ['new-york.json', 'uniwind.json', 'nativewind.json'];
 const targetDomain = 'https://reactnativereusables.com';
 const localDomain = 'http://localhost:3000';
 

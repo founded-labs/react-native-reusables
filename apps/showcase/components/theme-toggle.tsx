@@ -1,4 +1,4 @@
-import { Button } from '@/registry/new-york/components/ui/button';
+import { Button } from '@/registry/nativewind/components/ui/button';
 import * as Haptics from 'expo-haptics';
 import { useColorScheme } from 'nativewind';
 import { Image, type ImageStyle } from 'react-native';

@@ -1,6 +1,6 @@
 import '../global.css';
 
-import { Text } from '@/registry/new-york/components/ui/text';
+import { Text } from '@/registry/nativewind/components/ui/text';
 import { ThemeProvider } from '@react-navigation/native';
 import { PortalHost } from '@rn-primitives/portal';
 import { HeaderRightView } from '@showcase/components/header-right-view';

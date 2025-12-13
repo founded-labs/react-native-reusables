@@ -1,4 +1,4 @@
-import { Input } from '@/registry/new-york/components/ui/input';
+import { Input } from '@/registry/nativewind/components/ui/input';
 
 export function InputPreview() {
   return (

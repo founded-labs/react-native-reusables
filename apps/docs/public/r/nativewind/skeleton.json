@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "skeleton",
+  "type": "registry:ui",
+  "title": "Skeleton",
+  "author": "@mrzachnugent",
+  "description": "Use to show a placeholder while content is loading.",
+  "files": [
+    {
+      "path": "./node_modules/@rnr/registry/src/nativewind/components/ui/skeleton.tsx",
+      "content": "import { cn } from '@/registry/nativewind/lib/utils';\nimport { View } from 'react-native';\n\nfunction Skeleton({\n  className,\n  ...props\n}: React.ComponentProps<typeof View> & React.RefAttributes<View>) {\n  return <View className={cn('bg-accent animate-pulse rounded-md', className)} {...props} />;\n}\n\nexport { Skeleton };\n",
+      "type": "registry:ui"
+    }
+  ]
+}

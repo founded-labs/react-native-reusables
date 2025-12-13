@@ -31,3 +31,5 @@ next-env.d.ts
 # local registry
 public/local
 registry/new-york.local.json
+registry/nativewind.local.json
+registry/uniwind.local.json

@@ -1,4 +1,4 @@
-import { AspectRatio } from '@/registry/new-york/components/ui/aspect-ratio';
+import { AspectRatio } from '@/registry/nativewind/components/ui/aspect-ratio';
 import { Image } from 'react-native';
 
 export function AspectRatioPreview() {

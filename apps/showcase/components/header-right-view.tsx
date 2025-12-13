@@ -1,5 +1,5 @@
-import { Button } from '@/registry/new-york/components/ui/button';
-import { Text } from '@/registry/new-york/components/ui/text';
+import { Button } from '@/registry/nativewind/components/ui/button';
+import { Text } from '@/registry/nativewind/components/ui/text';
 import { ThemeToggle } from '@showcase/components/theme-toggle';
 import * as Updates from 'expo-updates';
 import * as React from 'react';

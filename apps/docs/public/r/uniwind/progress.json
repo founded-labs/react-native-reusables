@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "progress",
+  "type": "registry:ui",
+  "title": "Progress",
+  "author": "@mrzachnugent",
+  "description": "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
+  "dependencies": [
+    "@rn-primitives/progress"
+  ],
+  "files": [
+    {
+      "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/progress.tsx",
+      "content": "import { cn } from '@/registry/uniwind/lib/utils';\nimport * as ProgressPrimitive from '@rn-primitives/progress';\nimport { Platform, View } from 'react-native';\nimport Animated, {\n  Extrapolation,\n  interpolate,\n  useAnimatedStyle,\n  useDerivedValue,\n  withSpring,\n} from 'react-native-reanimated';\n\nfunction Progress({\n  className,\n  value,\n  indicatorClassName,\n  ...props\n}: ProgressPrimitive.RootProps &\n  React.RefAttributes<ProgressPrimitive.RootRef> & {\n    indicatorClassName?: string;\n  }) {\n  return (\n    <ProgressPrimitive.Root\n      className={cn('bg-primary/20 relative h-2 w-full overflow-hidden rounded-full', className)}\n      {...props}>\n      <Indicator value={value} className={indicatorClassName} />\n    </ProgressPrimitive.Root>\n  );\n}\n\nexport { Progress };\n\nconst Indicator = Platform.select({\n  web: WebIndicator,\n  native: NativeIndicator,\n  default: NullIndicator,\n});\n\ntype IndicatorProps = {\n  value: number | undefined | null;\n  className?: string;\n};\n\nfunction WebIndicator({ value, className }: IndicatorProps) {\n  if (Platform.OS !== 'web') {\n    return null;\n  }\n\n  return (\n    <View\n      className={cn('bg-primary h-full w-full flex-1 transition-all', className)}\n      style={{ transform: `translateX(-${100 - (value ?? 0)}%)` }}>\n      <ProgressPrimitive.Indicator className={cn('h-full w-full', className)} />\n    </View>\n  );\n}\n\nfunction NativeIndicator({ value, className }: IndicatorProps) {\n  const progress = useDerivedValue(() => value ?? 0);\n\n  const indicator = useAnimatedStyle(() => {\n    return {\n      width: withSpring(\n        `${interpolate(progress.value, [0, 100], [1, 100], Extrapolation.CLAMP)}%`,\n        { overshootClamping: true }\n      ),\n    };\n  }, [value]);\n\n  if (Platform.OS === 'web') {\n    return null;\n  }\n\n  return (\n    <ProgressPrimitive.Indicator asChild>\n      <Animated.View style={indicator} className={cn('bg-foreground h-full', className)} />\n    </ProgressPrimitive.Indicator>\n  );\n}\n\nfunction NullIndicator(_props: IndicatorProps) {\n  return null;\n}\n",
+      "type": "registry:ui"
+    }
+  ]
+}

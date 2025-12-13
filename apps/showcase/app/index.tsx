@@ -1,8 +1,8 @@
-import { cn } from '@/registry/new-york/lib/utils';
-import { Button } from '@/registry/new-york/components/ui/button';
-import { Icon } from '@/registry/new-york/components/ui/icon';
-import { Input } from '@/registry/new-york/components/ui/input';
-import { Text } from '@/registry/new-york/components/ui/text';
+import { cn } from '@/registry/nativewind/lib/utils';
+import { Button } from '@/registry/nativewind/components/ui/button';
+import { Icon } from '@/registry/nativewind/components/ui/icon';
+import { Input } from '@/registry/nativewind/components/ui/input';
+import { Text } from '@/registry/nativewind/components/ui/text';
 import { useScrollToTop } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
 import { COMPONENTS } from '@showcase/lib/constants';

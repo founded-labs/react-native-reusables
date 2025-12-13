@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "badge",
+  "type": "registry:ui",
+  "title": "Badge",
+  "author": "@mrzachnugent",
+  "description": "Displays a badge or a component that looks like a badge.",
+  "dependencies": [
+    "@rn-primitives/slot"
+  ],
+  "registryDependencies": [
+    "https://reactnativereusables.com/r/uniwind/text.json"
+  ],
+  "files": [
+    {
+      "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/badge.tsx",
+      "content": "import { TextClassContext } from '@/registry/uniwind/components/ui/text';\nimport { cn } from '@/registry/uniwind/lib/utils';\nimport * as Slot from '@rn-primitives/slot';\nimport { cva, type VariantProps } from 'class-variance-authority';\nimport { Platform, View, ViewProps } from 'react-native';\n\nconst badgeVariants = cva(\n  cn(\n    'border-border group shrink-0 flex-row items-center justify-center gap-1 overflow-hidden rounded-full border px-2 py-0.5',\n    Platform.select({\n      web: 'focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive w-fit whitespace-nowrap transition-[color,box-shadow] focus-visible:ring-[3px] [&>svg]:pointer-events-none [&>svg]:size-3',\n    })\n  ),\n  {\n    variants: {\n      variant: {\n        default: cn(\n          'bg-primary border-transparent',\n          Platform.select({ web: '[a&]:hover:bg-primary/90' })\n        ),\n        secondary: cn(\n          'bg-secondary border-transparent',\n          Platform.select({ web: '[a&]:hover:bg-secondary/90' })\n        ),\n        destructive: cn(\n          'bg-destructive border-transparent',\n          Platform.select({ web: '[a&]:hover:bg-destructive/90' })\n        ),\n        outline: Platform.select({ web: '[a&]:hover:bg-accent [a&]:hover:text-accent-foreground' }),\n      },\n    },\n    defaultVariants: {\n      variant: 'default',\n    },\n  }\n);\n\nconst badgeTextVariants = cva('text-xs font-medium', {\n  variants: {\n    variant: {\n      default: 'text-primary-foreground',\n      secondary: 'text-secondary-foreground',\n      destructive: 'text-white',\n      outline: 'text-foreground',\n    },\n  },\n  defaultVariants: {\n    variant: 'default',\n  },\n});\n\ntype BadgeProps = ViewProps &\n  React.RefAttributes<View> & {\n    asChild?: boolean;\n  } & VariantProps<typeof badgeVariants>;\n\nfunction Badge({ className, variant, asChild, ...props }: BadgeProps) {\n  const Component = asChild ? Slot.View : View;\n  return (\n    <TextClassContext.Provider value={badgeTextVariants({ variant })}>\n      <Component className={cn(badgeVariants({ variant }), className)} {...props} />\n    </TextClassContext.Provider>\n  );\n}\n\nexport { Badge, badgeTextVariants, badgeVariants };\nexport type { BadgeProps };\n",
+      "type": "registry:ui"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
-import { Alert, AlertDescription, AlertTitle } from '@/registry/new-york/components/ui/alert';
-import { Text } from '@/registry/new-york/components/ui/text';
+import { Alert, AlertDescription, AlertTitle } from '@/registry/nativewind/components/ui/alert';
+import { Text } from '@/registry/nativewind/components/ui/text';
 import { AlertCircleIcon, CheckCircle2Icon, Terminal } from 'lucide-react-native';
 import { View } from 'react-native';
 

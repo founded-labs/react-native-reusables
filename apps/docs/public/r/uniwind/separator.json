@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "separator",
+  "type": "registry:ui",
+  "title": "Separator",
+  "author": "@mrzachnugent",
+  "description": "Visually or semantically separates content.",
+  "dependencies": [
+    "@rn-primitives/separator"
+  ],
+  "files": [
+    {
+      "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/separator.tsx",
+      "content": "import { cn } from '@/registry/uniwind/lib/utils';\nimport * as SeparatorPrimitive from '@rn-primitives/separator';\n\nfunction Separator({\n  className,\n  orientation = 'horizontal',\n  decorative = true,\n  ...props\n}: SeparatorPrimitive.RootProps & React.RefAttributes<SeparatorPrimitive.RootRef>) {\n  return (\n    <SeparatorPrimitive.Root\n      decorative={decorative}\n      orientation={orientation}\n      className={cn(\n        'bg-border shrink-0',\n        orientation === 'horizontal' ? 'h-[1px] w-full' : 'h-full w-[1px]',\n        className\n      )}\n      {...props}\n    />\n  );\n}\n\nexport { Separator };\n",
+      "type": "registry:ui"
+    }
+  ]
+}

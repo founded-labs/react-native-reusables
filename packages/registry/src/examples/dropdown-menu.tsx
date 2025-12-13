@@ -1,4 +1,4 @@
-import { Button } from '@/registry/new-york/components/ui/button';
+import { Button } from '@/registry/nativewind/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,8 +11,8 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from '@/registry/new-york/components/ui/dropdown-menu';
-import { Text } from '@/registry/new-york/components/ui/text';
+} from '@/registry/nativewind/components/ui/dropdown-menu';
+import { Text } from '@/registry/nativewind/components/ui/text';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export function DropdownMenuPreview() {

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "user-menu",
+  "type": "registry:component",
+  "title": "User Menu",
+  "author": "@mrzachnugent",
+  "description": "A popover menu presenting options and actions for the current user.",
+  "registryDependencies": [
+    "https://reactnativereusables.com/r/nativewind/avatar.json",
+    "https://reactnativereusables.com/r/nativewind/button.json",
+    "https://reactnativereusables.com/r/nativewind/icon.json",
+    "https://reactnativereusables.com/r/nativewind/popover.json",
+    "https://reactnativereusables.com/r/nativewind/text.json"
+  ],
+  "files": [
+    {
+      "path": "./node_modules/@rnr/registry/src/blocks/user-menu.tsx",
+      "content": "import { Avatar, AvatarFallback, AvatarImage } from '@/registry/nativewind/components/ui/avatar';\nimport { Button } from '@/registry/nativewind/components/ui/button';\nimport { Icon } from '@/registry/nativewind/components/ui/icon';\nimport {\n  Popover,\n  PopoverContent,\n  PopoverTrigger,\n} from '@/registry/nativewind/components/ui/popover';\nimport { Text } from '@/registry/nativewind/components/ui/text';\nimport { cn } from '@/registry/nativewind/lib/utils';\nimport type { TriggerRef } from '@rn-primitives/popover';\nimport { LogOutIcon, PlusIcon, SettingsIcon } from 'lucide-react-native';\nimport * as React from 'react';\nimport { View } from 'react-native';\n\nconst USER = {\n  fullName: 'Zach Nugent',\n  initials: 'ZN',\n  imgSrc: { uri: 'https://github.com/mrzachnugent.png' },\n  username: 'mrzachnugent',\n};\n\nexport function UserMenu() {\n  const popoverTriggerRef = React.useRef<TriggerRef>(null);\n\n  async function onSignOut() {\n    popoverTriggerRef.current?.close();\n    // TODO: Sign out and navigate to sign in screen\n  }\n\n  return (\n    <Popover>\n      <PopoverTrigger asChild ref={popoverTriggerRef}>\n        <Button variant=\"ghost\" size=\"icon\" className=\"size-8 rounded-full\">\n          <UserAvatar />\n        </Button>\n      </PopoverTrigger>\n      <PopoverContent align=\"center\" side=\"bottom\" className=\"w-80 p-0\">\n        <View className=\"border-border gap-3 border-b p-3\">\n          <View className=\"flex-row items-center gap-3\">\n            <UserAvatar className=\"size-10\" />\n            <View className=\"flex-1\">\n              <Text className=\"font-medium leading-5\">{USER.fullName}</Text>\n              {USER.fullName?.length ? (\n                <Text className=\"text-muted-foreground text-sm font-normal leading-4\">\n                  {USER.username}\n                </Text>\n              ) : null}\n            </View>\n          </View>\n          <View className=\"flex-row flex-wrap gap-3 py-0.5\">\n            <Button\n              variant=\"outline\"\n              size=\"sm\"\n              onPress={() => {\n                // TODO: Navigate to account settings screen\n              }}>\n              <Icon as={SettingsIcon} className=\"size-4\" />\n              <Text>Manage Account</Text>\n            </Button>\n            <Button variant=\"outline\" size=\"sm\" className=\"flex-1\" onPress={onSignOut}>\n              <Icon as={LogOutIcon} className=\"size-4\" />\n              <Text>Sign Out</Text>\n            </Button>\n          </View>\n        </View>\n        <Button\n          variant=\"ghost\"\n          size=\"lg\"\n          className=\"h-16 justify-start gap-3 rounded-none rounded-b-md px-3 sm:h-14\"\n          onPress={() => {\n            // TODO: Navigate to add account screen\n          }}>\n          <View className=\"size-10 items-center justify-center\">\n            <View className=\"border-border bg-muted/50 size-7 items-center justify-center rounded-full border border-dashed\">\n              <Icon as={PlusIcon} className=\"size-5\" />\n            </View>\n          </View>\n          <Text>Add account</Text>\n        </Button>\n      </PopoverContent>\n    </Popover>\n  );\n}\n\nfunction UserAvatar({ className, ...props }: Omit<React.ComponentProps<typeof Avatar>, 'alt'>) {\n  return (\n    <Avatar alt={`${USER.fullName}'s avatar`} className={cn('size-8', className)} {...props}>\n      <AvatarImage source={USER.imgSrc} />\n      <AvatarFallback>\n        <Text>{USER.initials}</Text>\n      </AvatarFallback>\n    </Avatar>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ]
+}

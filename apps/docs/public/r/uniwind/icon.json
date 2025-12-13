@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon",
+  "type": "registry:ui",
+  "title": "Icon",
+  "author": "@mrzachnugent",
+  "description": "A component for displaying icons with consistent styling.",
+  "files": [
+    {
+      "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/icon.tsx",
+      "content": "import { cn } from '@/registry/uniwind/lib/utils';\nimport type { LucideIcon, LucideProps } from 'lucide-react-native';\nimport { withUniwind } from 'uniwind';\n\ntype IconProps = LucideProps & {\n  as: LucideIcon;\n};\n\nfunction IconImpl({ as: IconComponent, ...props }: IconProps) {\n  return <IconComponent {...props} />;\n}\n\nconst StyledIcon = withUniwind(IconImpl, {\n  size: {\n    fromClassName: 'className',\n    styleProperty: 'width',\n  },\n  color: {\n    fromClassName: 'className',\n    styleProperty: 'color',\n  },\n});\n\n/**\n * A wrapper component for Lucide icons with Uniwind `className` support via `withUniwind`.\n *\n * This component allows you to render any Lucide icon while applying utility classes\n * using `uniwind`. It avoids the need to wrap or configure each icon individually.\n *\n * @component\n * @example\n * ```tsx\n * import { ArrowRight } from 'lucide-react-native';\n * import { Icon } from '@/registry/uniwind/registry/components/ui/icon';\n *\n * <Icon as={ArrowRight} className=\"text-red-500 size-4\" />\n * ```\n *\n * @param {LucideIcon} as - The Lucide icon component to render.\n * @param {string} className - Utility classes to style the icon using Uniwind.\n * @param {number} size - Icon size (overrides the size class).\n * @param {...LucideProps} ...props - Additional Lucide icon props passed to the \"as\" icon.\n */\nfunction Icon({ as: IconComponent, className, ...props }: IconProps) {\n  return (\n    <StyledIcon as={IconComponent} className={cn('text-foreground size-5', className)} {...props} />\n  );\n}\n\nexport { Icon };\n",
+      "type": "registry:ui"
+    }
+  ]
+}

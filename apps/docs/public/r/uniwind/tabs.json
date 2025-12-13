@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tabs",
+  "type": "registry:ui",
+  "title": "Tabs",
+  "author": "@mrzachnugent",
+  "description": "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
+  "dependencies": [
+    "@rn-primitives/tabs"
+  ],
+  "registryDependencies": [
+    "https://reactnativereusables.com/r/uniwind/text.json"
+  ],
+  "files": [
+    {
+      "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/tabs.tsx",
+      "content": "import { TextClassContext } from '@/registry/uniwind/components/ui/text';\nimport { cn } from '@/registry/uniwind/lib/utils';\nimport * as TabsPrimitive from '@rn-primitives/tabs';\nimport { Platform } from 'react-native';\n\nfunction Tabs({\n  className,\n  ...props\n}: TabsPrimitive.RootProps & React.RefAttributes<TabsPrimitive.RootRef>) {\n  return <TabsPrimitive.Root className={cn('flex flex-col gap-2', className)} {...props} />;\n}\n\nfunction TabsList({\n  className,\n  ...props\n}: TabsPrimitive.ListProps & React.RefAttributes<TabsPrimitive.ListRef>) {\n  return (\n    <TabsPrimitive.List\n      className={cn(\n        'bg-muted flex h-9 flex-row items-center justify-center rounded-lg p-[3px]',\n        Platform.select({ web: 'inline-flex w-fit', native: 'mr-auto' }),\n        className\n      )}\n      {...props}\n    />\n  );\n}\n\nfunction TabsTrigger({\n  className,\n  ...props\n}: TabsPrimitive.TriggerProps & React.RefAttributes<TabsPrimitive.TriggerRef>) {\n  const { value } = TabsPrimitive.useRootContext();\n  return (\n    <TextClassContext.Provider\n      value={cn(\n        'text-foreground dark:text-muted-foreground text-sm font-medium',\n        value === props.value && 'dark:text-foreground'\n      )}>\n      <TabsPrimitive.Trigger\n        className={cn(\n          'flex flex-row items-center justify-center gap-1.5 rounded-md border border-transparent px-2 py-1 shadow-none shadow-black/5',\n          Platform.select({\n            web: 'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring web:h-[calc(100%-1px)] inline-flex cursor-default whitespace-nowrap transition-[color,box-shadow] focus-visible:outline-1 focus-visible:ring-[3px] disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0',\n          }),\n          props.disabled && 'opacity-50',\n          props.value === value && 'bg-background dark:border-foreground/10 dark:bg-input/30',\n          className\n        )}\n        {...props}\n      />\n    </TextClassContext.Provider>\n  );\n}\n\nfunction TabsContent({\n  className,\n  ...props\n}: TabsPrimitive.ContentProps & React.RefAttributes<TabsPrimitive.ContentRef>) {\n  return (\n    <TabsPrimitive.Content\n      className={cn(Platform.select({ web: 'flex-1 outline-none' }), className)}\n      {...props}\n    />\n  );\n}\n\nexport { Tabs, TabsContent, TabsList, TabsTrigger };\n",
+      "type": "registry:ui"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import { Toggle, ToggleIcon } from '@/registry/new-york/components/ui/toggle';
+import { Toggle, ToggleIcon } from '@/registry/nativewind/components/ui/toggle';
 import { Bold } from 'lucide-react-native';
 import * as React from 'react';
 import * as Haptics from 'expo-haptics';

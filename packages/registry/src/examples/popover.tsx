@@ -1,8 +1,12 @@
-import { Button } from '@/registry/new-york/components/ui/button';
-import { Input } from '@/registry/new-york/components/ui/input';
-import { Label } from '@/registry/new-york/components/ui/label';
-import { Popover, PopoverContent, PopoverTrigger } from '@/registry/new-york/components/ui/popover';
-import { Text } from '@/registry/new-york/components/ui/text';
+import { Button } from '@/registry/nativewind/components/ui/button';
+import { Input } from '@/registry/nativewind/components/ui/input';
+import { Label } from '@/registry/nativewind/components/ui/label';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/registry/nativewind/components/ui/popover';
+import { Text } from '@/registry/nativewind/components/ui/text';
 import { View } from 'react-native';
 
 export function PopoverPreview() {

@@ -1,4 +1,4 @@
-import { Button } from '@/registry/new-york/components/ui/button';
+import { Button } from '@/registry/nativewind/components/ui/button';
 import {
   Dialog,
   DialogClose,
@@ -8,10 +8,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/registry/new-york/components/ui/dialog';
-import { Input } from '@/registry/new-york/components/ui/input';
-import { Label } from '@/registry/new-york/components/ui/label';
-import { Text } from '@/registry/new-york/components/ui/text';
+} from '@/registry/nativewind/components/ui/dialog';
+import { Input } from '@/registry/nativewind/components/ui/input';
+import { Label } from '@/registry/nativewind/components/ui/label';
+import { Text } from '@/registry/nativewind/components/ui/text';
 import { View } from 'react-native';
 
 export function DialogPreview() {

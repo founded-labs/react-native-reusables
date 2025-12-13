@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tooltip",
+  "type": "registry:ui",
+  "title": "Tooltip",
+  "author": "@mrzachnugent",
+  "description": "A popup that displays information related to an element when the element receives keyboard focus, the mouse hovers over it, or when it is pressed.",
+  "dependencies": [
+    "@rn-primitives/tooltip"
+  ],
+  "registryDependencies": [
+    "https://reactnativereusables.com/r/nativewind/text.json",
+    "https://reactnativereusables.com/r/nativewind/native-only-animated-view.json"
+  ],
+  "files": [
+    {
+      "path": "./node_modules/@rnr/registry/src/nativewind/components/ui/tooltip.tsx",
+      "content": "import { NativeOnlyAnimatedView } from '@/registry/nativewind/components/ui/native-only-animated-view';\nimport { TextClassContext } from '@/registry/nativewind/components/ui/text';\nimport { cn } from '@/registry/nativewind/lib/utils';\nimport * as TooltipPrimitive from '@rn-primitives/tooltip';\nimport * as React from 'react';\nimport { Platform, StyleSheet } from 'react-native';\nimport { FadeInDown, FadeInUp, FadeOut } from 'react-native-reanimated';\nimport { FullWindowOverlay as RNFullWindowOverlay } from 'react-native-screens';\n\nconst Tooltip = TooltipPrimitive.Root;\n\nconst TooltipTrigger = TooltipPrimitive.Trigger;\n\nconst FullWindowOverlay = Platform.OS === 'ios' ? RNFullWindowOverlay : React.Fragment;\n\nfunction TooltipContent({\n  className,\n  sideOffset = 4,\n  portalHost,\n  side = 'top',\n  ...props\n}: TooltipPrimitive.ContentProps &\n  React.RefAttributes<TooltipPrimitive.ContentRef> & {\n    portalHost?: string;\n  }) {\n  return (\n    <TooltipPrimitive.Portal hostName={portalHost}>\n      <FullWindowOverlay>\n        <TooltipPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>\n          <NativeOnlyAnimatedView\n            entering={\n              side === 'top'\n                ? FadeInDown.withInitialValues({ transform: [{ translateY: 3 }] }).duration(150)\n                : FadeInUp.withInitialValues({ transform: [{ translateY: -5 }] })\n            }\n            exiting={FadeOut}>\n            <TextClassContext.Provider value=\"text-xs text-primary-foreground\">\n              <TooltipPrimitive.Content\n                sideOffset={sideOffset}\n                className={cn(\n                  'bg-primary z-50 rounded-md px-3 py-2 sm:py-1.5',\n                  Platform.select({\n                    web: cn(\n                      'animate-in fade-in-0 zoom-in-95 origin-(--radix-tooltip-content-transform-origin) w-fit text-balance',\n                      side === 'bottom' && 'slide-in-from-top-2',\n                      side === 'left' && 'slide-in-from-right-2',\n                      side === 'right' && 'slide-in-from-left-2',\n                      side === 'top' && 'slide-in-from-bottom-2'\n                    ),\n                  }),\n                  className\n                )}\n                side={side}\n                {...props}\n              />\n            </TextClassContext.Provider>\n          </NativeOnlyAnimatedView>\n        </TooltipPrimitive.Overlay>\n      </FullWindowOverlay>\n    </TooltipPrimitive.Portal>\n  );\n}\n\nexport { Tooltip, TooltipContent, TooltipTrigger };\n",
+      "type": "registry:ui"
+    }
+  ]
+}

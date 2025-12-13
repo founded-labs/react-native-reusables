@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "social-connections-clerk",
+  "type": "registry:component",
+  "title": "Social Connections (Clerk)",
+  "author": "@mrzachnugent",
+  "description": "A set of buttons for authenticating through social providers with Clerk integration.",
+  "dependencies": [
+    "@clerk/clerk-expo",
+    "expo-auth-session",
+    "expo-web-browser"
+  ],
+  "registryDependencies": [
+    "https://reactnativereusables.com/r/nativewind/button.json"
+  ],
+  "files": [
+    {
+      "path": "./node_modules/@rnr/registry/src/blocks/clerk/social-connections.tsx",
+      "content": "import { cn } from '@/registry/nativewind/lib/utils';\nimport { Button } from '@/registry/nativewind/components/ui/button';\nimport { useSSO, type StartSSOFlowParams } from '@clerk/clerk-expo';\nimport * as AuthSession from 'expo-auth-session';\nimport * as WebBrowser from 'expo-web-browser';\nimport { useColorScheme } from 'nativewind';\nimport * as React from 'react';\nimport { Image, Platform, View, type ImageSourcePropType } from 'react-native';\n\nWebBrowser.maybeCompleteAuthSession();\n\ntype SocialConnectionStrategy = Extract<\n  StartSSOFlowParams['strategy'],\n  'oauth_google' | 'oauth_github' | 'oauth_apple'\n>;\n\nconst SOCIAL_CONNECTION_STRATEGIES: {\n  type: SocialConnectionStrategy;\n  source: ImageSourcePropType;\n  useTint?: boolean;\n}[] = [\n  {\n    type: 'oauth_apple',\n    source: { uri: 'https://img.clerk.com/static/apple.png?width=160' },\n    useTint: true,\n  },\n  {\n    type: 'oauth_google',\n    source: { uri: 'https://img.clerk.com/static/google.png?width=160' },\n    useTint: false,\n  },\n  {\n    type: 'oauth_github',\n    source: { uri: 'https://img.clerk.com/static/github.png?width=160' },\n    useTint: true,\n  },\n];\n\nexport function SocialConnections() {\n  useWarmUpBrowser();\n  const { colorScheme } = useColorScheme();\n  const { startSSOFlow } = useSSO();\n\n  function onSocialLoginPress(strategy: SocialConnectionStrategy) {\n    return async () => {\n      try {\n        // Start the authentication process by calling `startSSOFlow()`\n        const { createdSessionId, setActive, signIn } = await startSSOFlow({\n          strategy,\n          // For web, defaults to current path\n          // For native, you must pass a scheme, like AuthSession.makeRedirectUri({ scheme, path })\n          // For more info, see https://docs.expo.dev/versions/latest/sdk/auth-session/#authsessionmakeredirecturioptions\n          redirectUrl: AuthSession.makeRedirectUri(),\n        });\n\n        // If sign in was successful, set the active session\n        if (createdSessionId && setActive) {\n          setActive({ session: createdSessionId });\n          // TODO: If your app does not use `Stack.Protected`, redirect authenticated users to your protected screen\n          return;\n        }\n\n        // TODO: Handle other statuses\n        // If there is no `createdSessionId`,\n        // there are missing requirements, such as MFA\n        // Use the `signIn` or `signUp` returned from `startSSOFlow`\n        // to handle next steps\n      } catch (err) {\n        // See https://go.clerk.com/mRUDrIe for more info on error handling\n        console.error(JSON.stringify(err, null, 2));\n      }\n    };\n  }\n\n  return (\n    <View className=\"gap-2 sm:flex-row sm:gap-3\">\n      {SOCIAL_CONNECTION_STRATEGIES.map((strategy) => {\n        return (\n          <Button\n            key={strategy.type}\n            variant=\"outline\"\n            size=\"sm\"\n            className=\"sm:flex-1\"\n            onPress={onSocialLoginPress(strategy.type)}>\n            <Image\n              className={cn('size-4', strategy.useTint && Platform.select({ web: 'dark:invert' }))}\n              tintColor={Platform.select({\n                native: strategy.useTint ? (colorScheme === 'dark' ? 'white' : 'black') : undefined,\n              })}\n              source={strategy.source}\n            />\n          </Button>\n        );\n      })}\n    </View>\n  );\n}\n\nconst useWarmUpBrowser = Platform.select({\n  web: () => {},\n  default: () => {\n    React.useEffect(() => {\n      // Preloads the browser for Android devices to reduce authentication load time\n      // See: https://docs.expo.dev/guides/authentication/#improving-user-experience\n      void WebBrowser.warmUpAsync();\n      return () => {\n        // Cleanup: closes browser when component unmounts\n        void WebBrowser.coolDownAsync();\n      };\n    }, []);\n  },\n});\n",
+      "type": "registry:component"
+    }
+  ]
+}

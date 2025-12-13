@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "radio-group",
+  "type": "registry:ui",
+  "title": "Radio Group",
+  "author": "@mrzachnugent",
+  "description": "A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time.",
+  "dependencies": [
+    "@rn-primitives/radio-group"
+  ],
+  "files": [
+    {
+      "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/radio-group.tsx",
+      "content": "import { cn } from '@/registry/uniwind/lib/utils';\nimport * as RadioGroupPrimitive from '@rn-primitives/radio-group';\nimport { Platform } from 'react-native';\n\nfunction RadioGroup({\n  className,\n  ...props\n}: RadioGroupPrimitive.RootProps & React.RefAttributes<RadioGroupPrimitive.RootRef>) {\n  return <RadioGroupPrimitive.Root className={cn('gap-3', className)} {...props} />;\n}\n\nfunction RadioGroupItem({\n  className,\n  ...props\n}: RadioGroupPrimitive.ItemProps & React.RefAttributes<RadioGroupPrimitive.ItemRef>) {\n  return (\n    <RadioGroupPrimitive.Item\n      className={cn(\n        'border-input dark:bg-input/30 aspect-square size-4 shrink-0 items-center justify-center rounded-full border shadow-sm shadow-black/5',\n        Platform.select({\n          web: 'focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive outline-none transition-all focus-visible:ring-[3px] disabled:cursor-not-allowed',\n        }),\n        props.disabled && 'opacity-50',\n        className\n      )}\n      {...props}>\n      <RadioGroupPrimitive.Indicator className=\"bg-primary size-2 rounded-full\" />\n    </RadioGroupPrimitive.Item>\n  );\n}\n\nexport { RadioGroup, RadioGroupItem };\n",
+      "type": "registry:ui"
+    }
+  ]
+}

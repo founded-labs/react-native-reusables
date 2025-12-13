@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "text",
+  "type": "registry:ui",
+  "title": "Text",
+  "author": "@mrzachnugent",
+  "description": "A component for displaying text.",
+  "dependencies": [
+    "@rn-primitives/slot"
+  ],
+  "files": [
+    {
+      "path": "./node_modules/@rnr/registry/src/nativewind/components/ui/text.tsx",
+      "content": "import { cn } from '@/registry/nativewind/lib/utils';\nimport * as Slot from '@rn-primitives/slot';\nimport { cva, type VariantProps } from 'class-variance-authority';\nimport * as React from 'react';\nimport { Platform, Text as RNText, type Role } from 'react-native';\n\nconst textVariants = cva(\n  cn(\n    'text-foreground text-base',\n    Platform.select({\n      web: 'select-text',\n    })\n  ),\n  {\n    variants: {\n      variant: {\n        default: '',\n        h1: cn(\n          'text-center text-4xl font-extrabold tracking-tight',\n          Platform.select({ web: 'scroll-m-20 text-balance' })\n        ),\n        h2: cn(\n          'border-border border-b pb-2 text-3xl font-semibold tracking-tight',\n          Platform.select({ web: 'scroll-m-20 first:mt-0' })\n        ),\n        h3: cn('text-2xl font-semibold tracking-tight', Platform.select({ web: 'scroll-m-20' })),\n        h4: cn('text-xl font-semibold tracking-tight', Platform.select({ web: 'scroll-m-20' })),\n        p: 'mt-3 leading-7 sm:mt-6',\n        blockquote: 'mt-4 border-l-2 pl-3 italic sm:mt-6 sm:pl-6',\n        code: cn(\n          'bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold'\n        ),\n        lead: 'text-muted-foreground text-xl',\n        large: 'text-lg font-semibold',\n        small: 'text-sm font-medium leading-none',\n        muted: 'text-muted-foreground text-sm',\n      },\n    },\n    defaultVariants: {\n      variant: 'default',\n    },\n  }\n);\n\ntype TextVariantProps = VariantProps<typeof textVariants>;\n\ntype TextVariant = NonNullable<TextVariantProps['variant']>;\n\nconst ROLE: Partial<Record<TextVariant, Role>> = {\n  h1: 'heading',\n  h2: 'heading',\n  h3: 'heading',\n  h4: 'heading',\n  blockquote: Platform.select({ web: 'blockquote' as Role }),\n  code: Platform.select({ web: 'code' as Role }),\n};\n\nconst ARIA_LEVEL: Partial<Record<TextVariant, string>> = {\n  h1: '1',\n  h2: '2',\n  h3: '3',\n  h4: '4',\n};\n\nconst TextClassContext = React.createContext<string | undefined>(undefined);\n\nfunction Text({\n  className,\n  asChild = false,\n  variant = 'default',\n  ...props\n}: React.ComponentProps<typeof RNText> &\n  TextVariantProps &\n  React.RefAttributes<RNText> & {\n    asChild?: boolean;\n  }) {\n  const textClass = React.useContext(TextClassContext);\n  const Component = asChild ? Slot.Text : RNText;\n  return (\n    <Component\n      className={cn(textVariants({ variant }), textClass, className)}\n      role={variant ? ROLE[variant] : undefined}\n      aria-level={variant ? ARIA_LEVEL[variant] : undefined}\n      {...props}\n    />\n  );\n}\n\nexport { Text, TextClassContext };\n",
+      "type": "registry:ui"
+    }
+  ]
+}

@@ -8,9 +8,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/registry/new-york/components/ui/alert-dialog';
-import { Button } from '@/registry/new-york/components/ui/button';
-import { Text } from '@/registry/new-york/components/ui/text';
+} from '@/registry/nativewind/components/ui/alert-dialog';
+import { Button } from '@/registry/nativewind/components/ui/button';
+import { Text } from '@/registry/nativewind/components/ui/text';
 
 export function AlertDialogPreview() {
   return (

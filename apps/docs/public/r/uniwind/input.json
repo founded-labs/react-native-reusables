@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input",
+  "type": "registry:ui",
+  "title": "Input",
+  "author": "@mrzachnugent",
+  "description": "Displays a form input field or a component that looks like an input field.",
+  "files": [
+    {
+      "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/input.tsx",
+      "content": "import { cn } from '@/registry/uniwind/lib/utils';\nimport { Platform, TextInput, type TextInputProps } from 'react-native';\n\nfunction Input({\n  className,\n  placeholderClassName,\n  ...props\n}: TextInputProps & React.RefAttributes<TextInput>) {\n  return (\n    <TextInput\n      className={cn(\n        'dark:bg-input/30 border-input bg-background text-foreground flex h-10 w-full min-w-0 flex-row items-center rounded-md border px-3 py-1 text-base leading-5 shadow-sm shadow-black/5 sm:h-9',\n        props.editable === false &&\n          cn(\n            'opacity-50',\n            Platform.select({ web: 'disabled:pointer-events-none disabled:cursor-not-allowed' })\n          ),\n        Platform.select({\n          web: cn(\n            'placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground outline-none transition-[color,box-shadow] md:text-sm',\n            'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',\n            'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive'\n          ),\n          native: 'placeholder:text-muted-foreground/50',\n        }),\n        className\n      )}\n      {...props}\n    />\n  );\n}\n\nexport { Input };\n",
+      "type": "registry:ui"
+    }
+  ]
+}

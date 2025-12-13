@@ -1,4 +1,4 @@
-import { Text, TextClassContext } from '@/registry/new-york/components/ui/text';
+import { Text, TextClassContext } from '@/registry/nativewind/components/ui/text';
 import { View } from 'react-native';
 
 export function TextCascadePreview() {

@@ -1,5 +1,5 @@
-import { cn } from '@/registry/new-york/lib/utils';
-import { Button } from '@/registry/new-york/components/ui/button';
+import { cn } from '@/registry/nativewind/lib/utils';
+import { Button } from '@/registry/nativewind/components/ui/button';
 import { useColorScheme } from 'nativewind';
 import { Image, Platform, View } from 'react-native';
 

@@ -1,6 +1,6 @@
-import { cn } from '@/registry/new-york/lib/utils';
-import { Button } from '@/registry/new-york/components/ui/button';
-import { Icon } from '@/registry/new-york/components/ui/icon';
+import { cn } from '@/registry/nativewind/lib/utils';
+import { Button } from '@/registry/nativewind/components/ui/button';
+import { Icon } from '@/registry/nativewind/components/ui/icon';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react-native';
 import * as React from 'react';
 import { useState } from 'react';

@@ -1,5 +1,5 @@
-import { Label } from '@/registry/new-york/components/ui/label';
-import { RadioGroup, RadioGroupItem } from '@/registry/new-york/components/ui/radio-group';
+import { Label } from '@/registry/nativewind/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/registry/nativewind/components/ui/radio-group';
 import * as Haptics from 'expo-haptics';
 import * as React from 'react';
 import { View } from 'react-native';

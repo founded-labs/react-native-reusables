@@ -1,0 +1,794 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "React Native Reusables",
+  "homepage": "https://reactnativereusables.com/",
+  "items": [
+    {
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "A vertically stacked set of interactive headings that each reveal a section of content.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/accordion.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/uniwind/text.json",
+        "https://reactnativereusables.com/r/uniwind/icon.json"
+      ],
+      "dependencies": ["@rn-primitives/accordion"]
+    },
+    {
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "description": "Displays a callout for user attention.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/alert.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/uniwind/text.json",
+        "https://reactnativereusables.com/r/uniwind/icon.json"
+      ]
+    },
+    {
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "title": "Alert Dialog",
+      "description": "A modal dialog that interrupts the user with important content and expects a response.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/alert-dialog.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/uniwind/button.json",
+        "https://reactnativereusables.com/r/uniwind/native-only-animated-view.json",
+        "https://reactnativereusables.com/r/uniwind/text.json"
+      ],
+      "dependencies": ["@rn-primitives/alert-dialog"]
+    },
+    {
+      "name": "aspect-ratio",
+      "type": "registry:ui",
+      "title": "Aspect Ratio",
+      "description": "Displays content within a desired ratio.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/aspect-ratio.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["@rn-primitives/aspect-ratio"]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "An image element with a fallback for representing the user.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/avatar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["@rn-primitives/avatar"]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "Displays a badge or a component that looks like a badge.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/badge.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": ["https://reactnativereusables.com/r/uniwind/text.json"],
+      "dependencies": ["@rn-primitives/slot"]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Displays a button or a component that looks like a button.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/button.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": ["https://reactnativereusables.com/r/uniwind/text.json"]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "Displays a card with header, content, and footer.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/card.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": ["https://reactnativereusables.com/r/uniwind/text.json"]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "A control that allows the user to toggle between checked and not checked.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": ["https://reactnativereusables.com/r/uniwind/icon.json"],
+      "dependencies": ["@rn-primitives/checkbox"]
+    },
+    {
+      "name": "collapsible",
+      "type": "registry:ui",
+      "title": "Collapsible",
+      "description": "A control that allows the user to toggle between checked and not checked.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/collapsible.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["@rn-primitives/collapsible"]
+    },
+    {
+      "name": "context-menu",
+      "type": "registry:ui",
+      "title": "Context Menu",
+      "description": "Displays a menu to the user — such as a set of actions or functions — triggered by a button.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/context-menu.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/uniwind/text.json",
+        "https://reactnativereusables.com/r/uniwind/native-only-animated-view.json",
+        "https://reactnativereusables.com/r/uniwind/icon.json"
+      ],
+      "dependencies": ["@rn-primitives/context-menu"]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/dialog.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/uniwind/text.json",
+        "https://reactnativereusables.com/r/uniwind/native-only-animated-view.json",
+        "https://reactnativereusables.com/r/uniwind/icon.json"
+      ],
+      "dependencies": ["@rn-primitives/dialog"]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Dropdown Menu",
+      "description": "Displays a menu to the user — such as a set of actions or functions — triggered by a button.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/dropdown-menu.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/uniwind/text.json",
+        "https://reactnativereusables.com/r/uniwind/native-only-animated-view.json",
+        "https://reactnativereusables.com/r/uniwind/icon.json"
+      ],
+      "dependencies": ["@rn-primitives/dropdown-menu"]
+    },
+    {
+      "name": "hover-card",
+      "type": "registry:ui",
+      "title": "Hover Card",
+      "description": "For sighted users to preview content available behind a link.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/hover-card.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/uniwind/text.json",
+        "https://reactnativereusables.com/r/uniwind/native-only-animated-view.json"
+      ],
+      "dependencies": ["@rn-primitives/hover-card"]
+    },
+    {
+      "name": "icon",
+      "type": "registry:ui",
+      "title": "Icon",
+      "description": "A component for displaying icons with consistent styling.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/icon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "Displays a form input field or a component that looks like an input field.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "Renders an accessible label associated with controls.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/label.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["@rn-primitives/label"]
+    },
+    {
+      "name": "menubar",
+      "type": "registry:ui",
+      "title": "Menubar",
+      "description": "A visually persistent menu common in desktop applications that provides quick access to a consistent set of commands.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/menubar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/uniwind/text.json",
+        "https://reactnativereusables.com/r/uniwind/native-only-animated-view.json",
+        "https://reactnativereusables.com/r/uniwind/icon.json"
+      ],
+      "dependencies": ["@rn-primitives/menubar"]
+    },
+    {
+      "name": "native-only-animated-view",
+      "type": "registry:ui",
+      "title": "Native Only Animated View",
+      "description": "A component that is only rendered and animated on native platforms.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/native-only-animated-view.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "Displays rich content in a portal, triggered by a button.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/popover.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/uniwind/text.json",
+        "https://reactnativereusables.com/r/uniwind/native-only-animated-view.json"
+      ],
+      "dependencies": ["@rn-primitives/popover"]
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/progress.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["@rn-primitives/progress"]
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio Group",
+      "description": "A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/radio-group.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["@rn-primitives/radio-group"]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "Displays a list of options for the user to pick from—triggered by a button.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/select.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/uniwind/text.json",
+        "https://reactnativereusables.com/r/uniwind/native-only-animated-view.json",
+        "https://reactnativereusables.com/r/uniwind/icon.json"
+      ],
+      "dependencies": ["@rn-primitives/select"]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "Visually or semantically separates content.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/separator.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["@rn-primitives/separator"]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "Use to show a placeholder while content is loading.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/skeleton.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "A control that allows the user to toggle between checked and not checked.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/switch.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["@rn-primitives/switch"]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/tabs.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": ["https://reactnativereusables.com/r/uniwind/text.json"],
+      "dependencies": ["@rn-primitives/tabs"]
+    },
+    {
+      "name": "text",
+      "type": "registry:ui",
+      "title": "Text",
+      "description": "A component for displaying text.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/text.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": ["@rn-primitives/slot"]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "Displays a form textarea or a component that looks like a textarea.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/textarea.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toggle",
+      "type": "registry:ui",
+      "title": "Toggle",
+      "description": "A two-state button that can be either on or off.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/toggle.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/uniwind/text.json",
+        "https://reactnativereusables.com/r/uniwind/icon.json"
+      ],
+      "dependencies": ["@rn-primitives/toggle"]
+    },
+    {
+      "name": "toggle-group",
+      "type": "registry:ui",
+      "title": "Toggle Group",
+      "description": "A set of two-state buttons that can be toggled on or off.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/toggle-group.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/uniwind/text.json",
+        "https://reactnativereusables.com/r/uniwind/icon.json",
+        "https://reactnativereusables.com/r/uniwind/toggle.json"
+      ],
+      "dependencies": ["@rn-primitives/toggle-group"]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "A popup that displays information related to an element when the element receives keyboard focus, the mouse hovers over it, or when it is pressed.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/uniwind/text.json",
+        "https://reactnativereusables.com/r/uniwind/native-only-animated-view.json"
+      ],
+      "dependencies": ["@rn-primitives/tooltip"]
+    },
+    {
+      "name": "sign-in-form",
+      "type": "registry:component",
+      "title": "Sign In Form",
+      "description": "A form for signing in using email and password or social providers.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/blocks/sign-in-form.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/uniwind/button.json",
+        "https://reactnativereusables.com/r/uniwind/card.json",
+        "https://reactnativereusables.com/r/uniwind/input.json",
+        "https://reactnativereusables.com/r/uniwind/label.json",
+        "https://reactnativereusables.com/r/uniwind/separator.json",
+        "https://reactnativereusables.com/r/uniwind/social-connections.json",
+        "https://reactnativereusables.com/r/uniwind/text.json"
+      ]
+    },
+    {
+      "name": "sign-up-form",
+      "type": "registry:component",
+      "title": "Sign Up Form",
+      "description": "A form for creating an account with email and password or social providers.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/blocks/sign-up-form.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/uniwind/button.json",
+        "https://reactnativereusables.com/r/uniwind/card.json",
+        "https://reactnativereusables.com/r/uniwind/input.json",
+        "https://reactnativereusables.com/r/uniwind/label.json",
+        "https://reactnativereusables.com/r/uniwind/separator.json",
+        "https://reactnativereusables.com/r/uniwind/social-connections.json",
+        "https://reactnativereusables.com/r/uniwind/text.json"
+      ]
+    },
+    {
+      "name": "forgot-password-form",
+      "type": "registry:component",
+      "title": "Forgot Password Form",
+      "description": "A form that sends a password reset OTP to the user's email address.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/blocks/forgot-password-form.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/uniwind/button.json",
+        "https://reactnativereusables.com/r/uniwind/card.json",
+        "https://reactnativereusables.com/r/uniwind/input.json",
+        "https://reactnativereusables.com/r/uniwind/label.json",
+        "https://reactnativereusables.com/r/uniwind/text.json"
+      ]
+    },
+    {
+      "name": "reset-password-form",
+      "type": "registry:component",
+      "title": "Reset Password Form",
+      "description": "A form for resetting a password with an OTP sent via email.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/blocks/reset-password-form.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/uniwind/button.json",
+        "https://reactnativereusables.com/r/uniwind/card.json",
+        "https://reactnativereusables.com/r/uniwind/input.json",
+        "https://reactnativereusables.com/r/uniwind/label.json",
+        "https://reactnativereusables.com/r/uniwind/text.json"
+      ]
+    },
+    {
+      "name": "verify-email-form",
+      "type": "registry:component",
+      "title": "Verify Email Form",
+      "description": "A form for verifying an email address with an OTP sent via email.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/blocks/verify-email-form.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/uniwind/button.json",
+        "https://reactnativereusables.com/r/uniwind/card.json",
+        "https://reactnativereusables.com/r/uniwind/input.json",
+        "https://reactnativereusables.com/r/uniwind/label.json",
+        "https://reactnativereusables.com/r/uniwind/text.json"
+      ]
+    },
+    {
+      "name": "user-menu",
+      "type": "registry:component",
+      "title": "User Menu",
+      "description": "A popover menu presenting options and actions for the current user.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/blocks/user-menu.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/uniwind/avatar.json",
+        "https://reactnativereusables.com/r/uniwind/button.json",
+        "https://reactnativereusables.com/r/uniwind/icon.json",
+        "https://reactnativereusables.com/r/uniwind/popover.json",
+        "https://reactnativereusables.com/r/uniwind/text.json"
+      ]
+    },
+    {
+      "name": "social-connections",
+      "type": "registry:component",
+      "title": "Social Connections",
+      "description": "A set of buttons for authenticating through social providers.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/blocks/social-connections.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": ["https://reactnativereusables.com/r/uniwind/button.json"]
+    },
+    {
+      "name": "sign-in-form-clerk",
+      "type": "registry:component",
+      "title": "Sign In Form (Clerk)",
+      "description": "A form for signing in using email and password or social providers with Clerk integration.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/blocks/clerk/sign-in-form.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": ["@clerk/clerk-expo"],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/uniwind/button.json",
+        "https://reactnativereusables.com/r/uniwind/card.json",
+        "https://reactnativereusables.com/r/uniwind/input.json",
+        "https://reactnativereusables.com/r/uniwind/label.json",
+        "https://reactnativereusables.com/r/uniwind/separator.json",
+        "https://reactnativereusables.com/r/uniwind/social-connections-clerk.json",
+        "https://reactnativereusables.com/r/uniwind/text.json"
+      ]
+    },
+    {
+      "name": "sign-up-form-clerk",
+      "type": "registry:component",
+      "title": "Sign Up Form (Clerk)",
+      "description": "A form for creating an account with email and password or social providers with Clerk integration.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/blocks/clerk/sign-up-form.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": ["@clerk/clerk-expo"],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/uniwind/button.json",
+        "https://reactnativereusables.com/r/uniwind/card.json",
+        "https://reactnativereusables.com/r/uniwind/input.json",
+        "https://reactnativereusables.com/r/uniwind/label.json",
+        "https://reactnativereusables.com/r/uniwind/separator.json",
+        "https://reactnativereusables.com/r/uniwind/social-connections-clerk.json",
+        "https://reactnativereusables.com/r/uniwind/text.json"
+      ]
+    },
+    {
+      "name": "forgot-password-form-clerk",
+      "type": "registry:component",
+      "title": "Forgot Password Form (Clerk)",
+      "description": "A form that sends a password reset OTP to the user's email address with Clerk integration.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/blocks/clerk/forgot-password-form.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": ["@clerk/clerk-expo"],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/uniwind/button.json",
+        "https://reactnativereusables.com/r/uniwind/card.json",
+        "https://reactnativereusables.com/r/uniwind/input.json",
+        "https://reactnativereusables.com/r/uniwind/label.json",
+        "https://reactnativereusables.com/r/uniwind/text.json"
+      ]
+    },
+    {
+      "name": "reset-password-form-clerk",
+      "type": "registry:component",
+      "title": "Reset Password Form (Clerk)",
+      "description": "A form for resetting a password with an OTP sent via email with Clerk integration.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/blocks/clerk/reset-password-form.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": ["@clerk/clerk-expo"],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/uniwind/button.json",
+        "https://reactnativereusables.com/r/uniwind/card.json",
+        "https://reactnativereusables.com/r/uniwind/input.json",
+        "https://reactnativereusables.com/r/uniwind/label.json",
+        "https://reactnativereusables.com/r/uniwind/text.json"
+      ]
+    },
+    {
+      "name": "verify-email-form-clerk",
+      "type": "registry:component",
+      "title": "Verify Email Form (Clerk)",
+      "description": "A form for verifying an email address with an OTP sent via email with Clerk integration.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/blocks/clerk/verify-email-form.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": ["@clerk/clerk-expo"],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/uniwind/button.json",
+        "https://reactnativereusables.com/r/uniwind/card.json",
+        "https://reactnativereusables.com/r/uniwind/input.json",
+        "https://reactnativereusables.com/r/uniwind/label.json",
+        "https://reactnativereusables.com/r/uniwind/text.json"
+      ]
+    },
+    {
+      "name": "user-menu-clerk",
+      "type": "registry:component",
+      "title": "User Menu (Clerk)",
+      "description": "A popover menu presenting options and actions for the current user with Clerk integration.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/blocks/clerk/user-menu.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": ["@clerk/clerk-expo"],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/uniwind/avatar.json",
+        "https://reactnativereusables.com/r/uniwind/button.json",
+        "https://reactnativereusables.com/r/uniwind/icon.json",
+        "https://reactnativereusables.com/r/uniwind/popover.json",
+        "https://reactnativereusables.com/r/uniwind/text.json"
+      ]
+    },
+    {
+      "name": "social-connections-clerk",
+      "type": "registry:component",
+      "title": "Social Connections (Clerk)",
+      "description": "A set of buttons for authenticating through social providers with Clerk integration.",
+      "author": "@mrzachnugent",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/registry/src/blocks/clerk/social-connections.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": ["@clerk/clerk-expo", "expo-auth-session", "expo-web-browser"],
+      "registryDependencies": ["https://reactnativereusables.com/r/uniwind/button.json"]
+    }
+  ]
+}

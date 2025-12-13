@@ -51,10 +51,12 @@ class Add extends Effect.Service<Add>()("Add", {
 
           yield* Effect.logDebug(`Selected components: ${components.join(", ")}`)
 
+          // TODO: detect if using nativewind or uniwind using [uniwind-types|nativewind-env].d.ts file
+
           const baseUrl =
             process.env.INTERNAL_ENV === "development"
-              ? "http://localhost:3000/local/r/new-york"
-              : "https://reactnativereusables.com/r/new-york"
+              ? "http://localhost:3000/local/r/nativewind"
+              : "https://reactnativereusables.com/r/nativewind"
 
           const componentUrls = components.map((component) => {
             const lowerCaseComponent = component.toLocaleLowerCase()

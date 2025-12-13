@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hover-card",
+  "type": "registry:ui",
+  "title": "Hover Card",
+  "author": "@mrzachnugent",
+  "description": "For sighted users to preview content available behind a link.",
+  "dependencies": [
+    "@rn-primitives/hover-card"
+  ],
+  "registryDependencies": [
+    "https://reactnativereusables.com/r/uniwind/text.json",
+    "https://reactnativereusables.com/r/uniwind/native-only-animated-view.json"
+  ],
+  "files": [
+    {
+      "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/hover-card.tsx",
+      "content": "import { NativeOnlyAnimatedView } from '@/registry/uniwind/components/ui/native-only-animated-view';\nimport { TextClassContext } from '@/registry/uniwind/components/ui/text';\nimport { cn } from '@/registry/uniwind/lib/utils';\nimport * as HoverCardPrimitive from '@rn-primitives/hover-card';\nimport * as React from 'react';\nimport { Platform, StyleSheet } from 'react-native';\nimport { FadeIn, FadeOut } from 'react-native-reanimated';\nimport { FullWindowOverlay as RNFullWindowOverlay } from 'react-native-screens';\n\nconst HoverCard = HoverCardPrimitive.Root;\n\nconst HoverCardTrigger = HoverCardPrimitive.Trigger;\n\nconst FullWindowOverlay = Platform.OS === 'ios' ? RNFullWindowOverlay : React.Fragment;\n\nfunction HoverCardContent({\n  className,\n  align = 'center',\n  sideOffset = 4,\n  ...props\n}: HoverCardPrimitive.ContentProps & React.RefAttributes<HoverCardPrimitive.ContentRef>) {\n  return (\n    <HoverCardPrimitive.Portal>\n      <FullWindowOverlay>\n        <HoverCardPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>\n          <NativeOnlyAnimatedView entering={FadeIn} exiting={FadeOut}>\n            <TextClassContext.Provider value=\"text-popover-foreground\">\n              <HoverCardPrimitive.Content\n                align={align}\n                sideOffset={sideOffset}\n                className={cn(\n                  'bg-popover border-border outline-hidden z-50 w-64 rounded-md border p-4 shadow-md shadow-black/5',\n                  Platform.select({\n                    web: cn(\n                      'animate-in fade-in-0 zoom-in-95 origin-(--radix-hover-card-content-transform-origin) cursor-default [&>*]:cursor-auto',\n                      props.side === 'bottom' && 'slide-in-from-top-2',\n                      props.side === 'top' && 'slide-in-from-bottom-2'\n                    ),\n                  }),\n                  className\n                )}\n                {...props}\n              />\n            </TextClassContext.Provider>\n          </NativeOnlyAnimatedView>\n        </HoverCardPrimitive.Overlay>\n      </FullWindowOverlay>\n    </HoverCardPrimitive.Portal>\n  );\n}\n\nexport { HoverCard, HoverCardContent, HoverCardTrigger };\n",
+      "type": "registry:ui"
+    }
+  ]
+}

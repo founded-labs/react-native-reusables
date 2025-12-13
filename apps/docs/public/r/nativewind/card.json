@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "card",
+  "type": "registry:ui",
+  "title": "Card",
+  "author": "@mrzachnugent",
+  "description": "Displays a card with header, content, and footer.",
+  "registryDependencies": [
+    "https://reactnativereusables.com/r/nativewind/text.json"
+  ],
+  "files": [
+    {
+      "path": "./node_modules/@rnr/registry/src/nativewind/components/ui/card.tsx",
+      "content": "import { Text, TextClassContext } from '@/registry/nativewind/components/ui/text';\nimport { cn } from '@/registry/nativewind/lib/utils';\nimport { View, type ViewProps } from 'react-native';\n\nfunction Card({ className, ...props }: ViewProps & React.RefAttributes<View>) {\n  return (\n    <TextClassContext.Provider value=\"text-card-foreground\">\n      <View\n        className={cn(\n          'bg-card border-border flex flex-col gap-6 rounded-xl border py-6 shadow-sm shadow-black/5',\n          className\n        )}\n        {...props}\n      />\n    </TextClassContext.Provider>\n  );\n}\n\nfunction CardHeader({ className, ...props }: ViewProps & React.RefAttributes<View>) {\n  return <View className={cn('flex flex-col gap-1.5 px-6', className)} {...props} />;\n}\n\nfunction CardTitle({\n  className,\n  ...props\n}: React.ComponentProps<typeof Text> & React.RefAttributes<Text>) {\n  return (\n    <Text\n      role=\"heading\"\n      aria-level={3}\n      className={cn('font-semibold leading-none', className)}\n      {...props}\n    />\n  );\n}\n\nfunction CardDescription({\n  className,\n  ...props\n}: React.ComponentProps<typeof Text> & React.RefAttributes<Text>) {\n  return <Text className={cn('text-muted-foreground text-sm', className)} {...props} />;\n}\n\nfunction CardContent({ className, ...props }: ViewProps & React.RefAttributes<View>) {\n  return <View className={cn('px-6', className)} {...props} />;\n}\n\nfunction CardFooter({ className, ...props }: ViewProps & React.RefAttributes<View>) {\n  return <View className={cn('flex flex-row items-center px-6', className)} {...props} />;\n}\n\nexport { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle };\n",
+      "type": "registry:ui"
+    }
+  ]
+}

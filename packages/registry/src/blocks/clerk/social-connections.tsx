@@ -1,5 +1,5 @@
-import { cn } from '@/registry/new-york/lib/utils';
-import { Button } from '@/registry/new-york/components/ui/button';
+import { cn } from '@/registry/nativewind/lib/utils';
+import { Button } from '@/registry/nativewind/components/ui/button';
 import { useSSO, type StartSSOFlowParams } from '@clerk/clerk-expo';
 import * as AuthSession from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';

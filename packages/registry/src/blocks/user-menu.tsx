@@ -1,9 +1,13 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/registry/new-york/components/ui/avatar';
-import { Button } from '@/registry/new-york/components/ui/button';
-import { Icon } from '@/registry/new-york/components/ui/icon';
-import { Popover, PopoverContent, PopoverTrigger } from '@/registry/new-york/components/ui/popover';
-import { Text } from '@/registry/new-york/components/ui/text';
-import { cn } from '@/registry/new-york/lib/utils';
+import { Avatar, AvatarFallback, AvatarImage } from '@/registry/nativewind/components/ui/avatar';
+import { Button } from '@/registry/nativewind/components/ui/button';
+import { Icon } from '@/registry/nativewind/components/ui/icon';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/registry/nativewind/components/ui/popover';
+import { Text } from '@/registry/nativewind/components/ui/text';
+import { cn } from '@/registry/nativewind/lib/utils';
 import type { TriggerRef } from '@rn-primitives/popover';
 import { LogOutIcon, PlusIcon, SettingsIcon } from 'lucide-react-native';
 import * as React from 'react';

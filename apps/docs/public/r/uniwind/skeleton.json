@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "skeleton",
+  "type": "registry:ui",
+  "title": "Skeleton",
+  "author": "@mrzachnugent",
+  "description": "Use to show a placeholder while content is loading.",
+  "files": [
+    {
+      "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/skeleton.tsx",
+      "content": "import { cn } from '@/registry/uniwind/lib/utils';\nimport { View } from 'react-native';\nimport Animated, {\n  useAnimatedStyle,\n  useSharedValue,\n  withRepeat,\n  withTiming,\n} from 'react-native-reanimated';\nimport * as React from 'react';\n\nconst duration = 1000;\n\nfunction Skeleton({\n  className,\n  ...props\n}: React.ComponentProps<typeof View> & React.RefAttributes<View>) {\n  const sv = useSharedValue(1);\n\n  React.useEffect(() => {\n    sv.value = withRepeat(withTiming(0.5, { duration }), -1, true);\n  }, []);\n\n  const style = useAnimatedStyle(() => ({\n    opacity: sv.value,\n  }));\n  return (\n    <Animated.View\n      style={style}\n      className={cn('bg-secondary dark:bg-muted rounded-md', className)}\n      {...props}\n    />\n  );\n}\n\nexport { Skeleton };\n",
+      "type": "registry:ui"
+    }
+  ]
+}

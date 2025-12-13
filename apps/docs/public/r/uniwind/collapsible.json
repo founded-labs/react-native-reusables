@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "collapsible",
+  "type": "registry:ui",
+  "title": "Collapsible",
+  "author": "@mrzachnugent",
+  "description": "A control that allows the user to toggle between checked and not checked.",
+  "dependencies": [
+    "@rn-primitives/collapsible"
+  ],
+  "files": [
+    {
+      "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/collapsible.tsx",
+      "content": "import * as CollapsiblePrimitive from '@rn-primitives/collapsible';\n\nconst Collapsible = CollapsiblePrimitive.Root;\n\nconst CollapsibleTrigger = CollapsiblePrimitive.Trigger;\n\nconst CollapsibleContent = CollapsiblePrimitive.Content;\n\nexport { Collapsible, CollapsibleTrigger, CollapsibleContent };\n",
+      "type": "registry:ui"
+    }
+  ]
+}

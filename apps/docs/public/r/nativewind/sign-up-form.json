@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sign-up-form",
+  "type": "registry:component",
+  "title": "Sign Up Form",
+  "author": "@mrzachnugent",
+  "description": "A form for creating an account with email and password or social providers.",
+  "registryDependencies": [
+    "https://reactnativereusables.com/r/nativewind/button.json",
+    "https://reactnativereusables.com/r/nativewind/card.json",
+    "https://reactnativereusables.com/r/nativewind/input.json",
+    "https://reactnativereusables.com/r/nativewind/label.json",
+    "https://reactnativereusables.com/r/nativewind/separator.json",
+    "https://reactnativereusables.com/r/nativewind/social-connections.json",
+    "https://reactnativereusables.com/r/nativewind/text.json"
+  ],
+  "files": [
+    {
+      "path": "./node_modules/@rnr/registry/src/blocks/sign-up-form.tsx",
+      "content": "import { SocialConnections } from '@/registry/blocks/social-connections';\nimport { Button } from '@/registry/nativewind/components/ui/button';\nimport {\n  Card,\n  CardContent,\n  CardDescription,\n  CardHeader,\n  CardTitle,\n} from '@/registry/nativewind/components/ui/card';\nimport { Input } from '@/registry/nativewind/components/ui/input';\nimport { Label } from '@/registry/nativewind/components/ui/label';\nimport { Separator } from '@/registry/nativewind/components/ui/separator';\nimport { Text } from '@/registry/nativewind/components/ui/text';\nimport * as React from 'react';\nimport { Pressable, TextInput, View } from 'react-native';\n\nexport function SignUpForm() {\n  const passwordInputRef = React.useRef<TextInput>(null);\n\n  function onEmailSubmitEditing() {\n    passwordInputRef.current?.focus();\n  }\n\n  function onSubmit() {\n    // TODO: Submit form and navigate to protected screen if successful\n  }\n\n  return (\n    <View className=\"gap-6\">\n      <Card className=\"border-border/0 sm:border-border shadow-none sm:shadow-sm sm:shadow-black/5\">\n        <CardHeader>\n          <CardTitle className=\"text-center text-xl sm:text-left\">Create your account</CardTitle>\n          <CardDescription className=\"text-center sm:text-left\">\n            Welcome! Please fill in the details to get started.\n          </CardDescription>\n        </CardHeader>\n        <CardContent className=\"gap-6\">\n          <View className=\"gap-6\">\n            <View className=\"gap-1.5\">\n              <Label htmlFor=\"email\">Email</Label>\n              <Input\n                id=\"email\"\n                placeholder=\"m@example.com\"\n                keyboardType=\"email-address\"\n                autoComplete=\"email\"\n                autoCapitalize=\"none\"\n                onSubmitEditing={onEmailSubmitEditing}\n                returnKeyType=\"next\"\n                submitBehavior=\"submit\"\n              />\n            </View>\n            <View className=\"gap-1.5\">\n              <View className=\"flex-row items-center\">\n                <Label htmlFor=\"password\">Password</Label>\n              </View>\n              <Input\n                ref={passwordInputRef}\n                id=\"password\"\n                secureTextEntry\n                returnKeyType=\"send\"\n                onSubmitEditing={onSubmit}\n              />\n            </View>\n            <Button className=\"w-full\" onPress={onSubmit}>\n              <Text>Continue</Text>\n            </Button>\n          </View>\n          <Text className=\"text-center text-sm\">\n            Already have an account?{' '}\n            <Pressable\n              onPress={() => {\n                // TODO: Navigate to sign in screen\n              }}>\n              <Text className=\"text-sm underline underline-offset-4\">Sign in</Text>\n            </Pressable>\n          </Text>\n          <View className=\"flex-row items-center\">\n            <Separator className=\"flex-1\" />\n            <Text className=\"text-muted-foreground px-4 text-sm\">or</Text>\n            <Separator className=\"flex-1\" />\n          </View>\n          <SocialConnections />\n        </CardContent>\n      </Card>\n    </View>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toggle",
+  "type": "registry:ui",
+  "title": "Toggle",
+  "author": "@mrzachnugent",
+  "description": "A two-state button that can be either on or off.",
+  "dependencies": [
+    "@rn-primitives/toggle"
+  ],
+  "registryDependencies": [
+    "https://reactnativereusables.com/r/uniwind/text.json",
+    "https://reactnativereusables.com/r/uniwind/icon.json"
+  ],
+  "files": [
+    {
+      "path": "./node_modules/@rnr/registry/src/uniwind/components/ui/toggle.tsx",
+      "content": "import { Icon } from '@/registry/uniwind/components/ui/icon';\nimport { TextClassContext } from '@/registry/uniwind/components/ui/text';\nimport { cn } from '@/registry/uniwind/lib/utils';\nimport * as TogglePrimitive from '@rn-primitives/toggle';\nimport { cva, type VariantProps } from 'class-variance-authority';\nimport * as React from 'react';\nimport { Platform } from 'react-native';\n\nconst toggleVariants = cva(\n  cn(\n    'active:bg-muted group flex flex-row items-center justify-center gap-2 rounded-md',\n    Platform.select({\n      web: 'hover:bg-muted hover:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex cursor-default whitespace-nowrap outline-none transition-[color,box-shadow] focus-visible:ring-[3px] disabled:pointer-events-none [&_svg]:pointer-events-none',\n    })\n  ),\n  {\n    variants: {\n      variant: {\n        default: 'bg-transparent',\n        outline: cn(\n          'border-input active:bg-accent border bg-transparent shadow-sm shadow-black/5',\n          Platform.select({\n            web: 'hover:bg-accent hover:text-accent-foreground',\n          })\n        ),\n      },\n      size: {\n        default: 'h-10 min-w-10 px-2.5 sm:h-9 sm:min-w-9 sm:px-2',\n        sm: 'h-9 min-w-9 px-2 sm:h-8 sm:min-w-8 sm:px-1.5',\n        lg: 'h-11 min-w-11 px-3 sm:h-10 sm:min-w-10 sm:px-2.5',\n      },\n    },\n    defaultVariants: {\n      variant: 'default',\n      size: 'default',\n    },\n  }\n);\n\nfunction Toggle({\n  className,\n  variant,\n  size,\n  ...props\n}: TogglePrimitive.RootProps &\n  VariantProps<typeof toggleVariants> &\n  React.RefAttributes<TogglePrimitive.RootRef>) {\n  return (\n    <TextClassContext.Provider\n      value={cn(\n        'text-sm text-foreground font-medium',\n        props.pressed\n          ? 'text-accent-foreground'\n          : Platform.select({ web: 'group-hover:text-muted-foreground' }),\n        className\n      )}>\n      <TogglePrimitive.Root\n        className={cn(\n          toggleVariants({ variant, size }),\n          props.disabled && 'opacity-50',\n          props.pressed && 'bg-accent',\n          className\n        )}\n        {...props}\n      />\n    </TextClassContext.Provider>\n  );\n}\n\nfunction ToggleIcon({ className, ...props }: React.ComponentProps<typeof Icon>) {\n  const textClass = React.useContext(TextClassContext);\n  return <Icon className={cn('size-4 shrink-0', textClass, className)} {...props} />;\n}\n\nexport { Toggle, ToggleIcon, toggleVariants };\n",
+      "type": "registry:ui"
+    }
+  ]
+}

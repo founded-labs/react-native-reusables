@@ -57,7 +57,8 @@
     "react-native-screens": "^4.16.0",
     "react-native-svg": "15.12.1",
     "react-native-worklets": "0.5.1",
-    "tailwind-merge": "^3.3.1"
+    "tailwind-merge": "^3.3.1",
+    "uniwind": "^1.2.2"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.1",

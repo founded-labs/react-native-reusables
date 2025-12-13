@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toggle-group",
+  "type": "registry:ui",
+  "title": "Toggle Group",
+  "author": "@mrzachnugent",
+  "description": "A set of two-state buttons that can be toggled on or off.",
+  "dependencies": [
+    "@rn-primitives/toggle-group"
+  ],
+  "registryDependencies": [
+    "https://reactnativereusables.com/r/nativewind/text.json",
+    "https://reactnativereusables.com/r/nativewind/icon.json",
+    "https://reactnativereusables.com/r/nativewind/toggle.json"
+  ],
+  "files": [
+    {
+      "path": "./node_modules/@rnr/registry/src/nativewind/components/ui/toggle-group.tsx",
+      "content": "import { Icon } from '@/registry/nativewind/components/ui/icon';\nimport { TextClassContext } from '@/registry/nativewind/components/ui/text';\nimport { toggleVariants } from '@/registry/nativewind/components/ui/toggle';\nimport { cn } from '@/registry/nativewind/lib/utils';\nimport * as ToggleGroupPrimitive from '@rn-primitives/toggle-group';\nimport type { VariantProps } from 'class-variance-authority';\nimport * as React from 'react';\nimport { Platform } from 'react-native';\n\nconst ToggleGroupContext = React.createContext<VariantProps<typeof toggleVariants> | null>(null);\n\nfunction ToggleGroup({\n  className,\n  variant,\n  size,\n  children,\n  ...props\n}: ToggleGroupPrimitive.RootProps &\n  VariantProps<typeof toggleVariants> &\n  React.RefAttributes<ToggleGroupPrimitive.RootRef>) {\n  return (\n    <ToggleGroupPrimitive.Root\n      className={cn(\n        'flex flex-row items-center rounded-md shadow-none',\n        Platform.select({ web: 'w-fit' }),\n        variant === 'outline' && 'shadow-sm shadow-black/5',\n        className\n      )}\n      {...props}>\n      <ToggleGroupContext.Provider value={{ variant, size }}>\n        {children}\n      </ToggleGroupContext.Provider>\n    </ToggleGroupPrimitive.Root>\n  );\n}\n\nfunction useToggleGroupContext() {\n  const context = React.useContext(ToggleGroupContext);\n  if (context === null) {\n    throw new Error(\n      'ToggleGroup compound components cannot be rendered outside the ToggleGroup component'\n    );\n  }\n  return context;\n}\n\nfunction ToggleGroupItem({\n  className,\n  children,\n  variant,\n  size,\n  isFirst,\n  isLast,\n  ...props\n}: ToggleGroupPrimitive.ItemProps &\n  VariantProps<typeof toggleVariants> &\n  React.RefAttributes<ToggleGroupPrimitive.ItemRef> & {\n    isFirst?: boolean;\n    isLast?: boolean;\n  }) {\n  const context = useToggleGroupContext();\n  const { value } = ToggleGroupPrimitive.useRootContext();\n\n  return (\n    <TextClassContext.Provider\n      value={cn(\n        'text-sm text-foreground font-medium',\n        ToggleGroupPrimitive.utils.getIsSelected(value, props.value)\n          ? 'text-accent-foreground'\n          : Platform.select({ web: 'group-hover:text-muted-foreground' })\n      )}>\n      <ToggleGroupPrimitive.Item\n        className={cn(\n          toggleVariants({\n            variant: context.variant || variant,\n            size: context.size || size,\n          }),\n          props.disabled && 'opacity-50',\n          ToggleGroupPrimitive.utils.getIsSelected(value, props.value) && 'bg-accent',\n          'min-w-0 shrink-0 rounded-none shadow-none',\n          isFirst && 'rounded-l-md',\n          isLast && 'rounded-r-md',\n          (context.variant === 'outline' || variant === 'outline') && 'border-l-0',\n          (context.variant === 'outline' || variant === 'outline') && isFirst && 'border-l',\n          Platform.select({\n            web: 'flex-1 focus:z-10 focus-visible:z-10',\n          }),\n          className\n        )}\n        {...props}>\n        {children}\n      </ToggleGroupPrimitive.Item>\n    </TextClassContext.Provider>\n  );\n}\n\nfunction ToggleGroupIcon({ className, ...props }: React.ComponentProps<typeof Icon>) {\n  const textClass = React.useContext(TextClassContext);\n  return <Icon className={cn('size-4 shrink-0', textClass, className)} {...props} />;\n}\n\nexport { ToggleGroup, ToggleGroupIcon, ToggleGroupItem };\n",
+      "type": "registry:ui"
+    }
+  ]
+}
