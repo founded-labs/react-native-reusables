@@ -33,7 +33,7 @@ const DEPENDENCIES = [
   "tailwind-merge"
 ]
 
-const DEV_DEPENDENCIES = ["tailwindcss@^3.4.17"]
+const DEV_DEPENDENCIES = ["tailwindcss@^3.4.14"]
 
 const FILE_CHECKS: Array<FileCheck> = [
   {
