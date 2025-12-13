@@ -291,12 +291,17 @@ const COMPONENTS = [
 
 const TEMPLATES = [
   {
-    name: "Minimal",
+    name: "Minimal (Nativewind)",
     url: "https://github.com/founded-labs/react-native-reusables-templates.git",
     subPath: "minimal"
   },
   {
-    name: "Clerk auth",
+    name: "Minimal (Uniwind)",
+    url: "https://github.com/founded-labs/react-native-reusables-templates.git",
+    subPath: "minimal-uniwind"
+  },
+  {
+    name: "Clerk auth (Nativewind)",
     url: "https://github.com/founded-labs/react-native-reusables-templates.git",
     subPath: "clerk-auth"
   }
