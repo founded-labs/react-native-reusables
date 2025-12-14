@@ -1,7 +1,7 @@
 import { CliOptions } from "@cli/contexts/cli-options.js"
 import type { CustomFileCheck, FileCheck, FileWithContent, MissingInclude } from "@cli/project-manifest.js"
 import { PROJECT_MANIFEST } from "@cli/project-manifest.js"
-import { ProjectConfig } from "@cli/services/project-config.js"
+import { ProjectConfig, type StylingLibrary } from "@cli/services/project-config.js"
 import { retryWith } from "@cli/utils/retry-with.js"
 import { FileSystem, Path } from "@effect/platform"
 import { Data, Effect } from "effect"
@@ -184,7 +184,7 @@ class RequiredFilesChecker extends Effect.Service<RequiredFilesChecker>()("Requi
           missingIncludes.push({ ...include, fileName: customFileChecks.css.name })
         }
 
-        let stylingLibrary = "nativewind"
+        let stylingLibrary: StylingLibrary = "nativewind"
 
         // Check Nativewind env or Uniwind types file
         if (componentJson.tsx !== false) {
@@ -198,14 +198,16 @@ class RequiredFilesChecker extends Effect.Service<RequiredFilesChecker>()("Requi
               })
             )
 
-          const uniwindTypesContent = yield* fs
-            .readFileString(path.join(options.cwd, PROJECT_MANIFEST.uniwindTypesFile))
-            .pipe(
+          // Get uniwind dts path from metro config (supports custom dtsFile)
+          const uniwindDtsPath = yield* projectConfig.getUniwindDtsPath()
+          const uniwindTypesContent: string | null = uniwindDtsPath
+            ? yield* fs.readFileString(uniwindDtsPath).pipe(
               Effect.catchAll(() => {
                 missingTypeFiles.push(customFileChecks.uniwindTypes)
                 return Effect.succeed(null)
               })
             )
+            : null
 
           if (nativewindEnvContent) {
             for (const include of customFileChecks.nativewindEnv.includes) {

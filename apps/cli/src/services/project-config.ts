@@ -1,4 +1,6 @@
 import { CliOptions } from "@cli/contexts/cli-options.js"
+import { PROJECT_MANIFEST } from "@cli/project-manifest.js"
+import { retryWith } from "@cli/utils/retry-with.js"
 import { Prompt } from "@effect/cli"
 import { FileSystem, Path } from "@effect/platform"
 import { Effect, Schema } from "effect"
@@ -28,6 +30,8 @@ const componentJsonSchema = Schema.Struct({
 })
 
 const supportedExtensions = [".ts", ".tsx", ".jsx", ".js", ".css"]
+
+type StylingLibrary = "nativewind" | "uniwind"
 
 class ProjectConfig extends Effect.Service<ProjectConfig>()("ProjectConfig", {
   dependencies: [Git.Default],
@@ -64,18 +68,47 @@ class ProjectConfig extends Effect.Service<ProjectConfig>()("ProjectConfig", {
         return config
       })
 
+    const getUniwindDtsPath = () =>
+      Effect.gen(function* () {
+        const metroConfigPaths = ["metro.config.js", "metro.config.ts"].map((p) => path.join(options.cwd, p)) as [
+          string,
+          ...Array<string>
+        ]
+
+        const metroContent = yield* retryWith(
+          (filePath: string) => fs.readFileString(filePath),
+          metroConfigPaths
+        ).pipe(Effect.catchAll(() => Effect.succeed(null)))
+
+        if (!metroContent?.includes("withUniwindConfig")) {
+          return null
+        }
+
+        const dtsFileMatch = metroContent.match(/dtsFile\s*:\s*["']([^"']+)["']/)
+        if (dtsFileMatch?.[1]) {
+          const dtsPath = dtsFileMatch[1].replace(/^\.\//, "")
+          return path.join(options.cwd, dtsPath)
+        }
+
+        return path.join(options.cwd, PROJECT_MANIFEST.uniwindTypesFile)
+      })
+
     const getStylingLibrary = () =>
       Effect.gen(function* () {
         const nativewindEnvExists = yield* fs.exists(path.join(options.cwd, "nativewind-env.d.ts"))
-        const uniwindTypesExists = yield* fs.exists(path.join(options.cwd, "uniwind-types.d.ts"))
-
         if (nativewindEnvExists) {
-          return "nativewind"
+          return "nativewind" as StylingLibrary
         }
-        if (uniwindTypesExists) {
-          return "uniwind"
+
+        const uniwindDtsPath = yield* getUniwindDtsPath()
+        if (uniwindDtsPath) {
+          const uniwindTypesExists = yield* fs.exists(uniwindDtsPath)
+          if (uniwindTypesExists) {
+            return "uniwind" as StylingLibrary
+          }
         }
-        return "nativewind" // default to nativewind
+
+        return "nativewind" as StylingLibrary // default to nativewind
       })
 
     const handleInvalidComponentJson = (exists: boolean) =>
@@ -86,11 +119,11 @@ class ProjectConfig extends Effect.Service<ProjectConfig>()("ProjectConfig", {
         const agreeToWrite = options.yes
           ? true
           : yield* Prompt.confirm({
-              message: `Would you like to ${exists ? "update the" : "write a"} components.json file?`,
-              label: { confirm: "y", deny: "n" },
-              initial: true,
-              placeholder: { defaultConfirm: "y/n" }
-            })
+            message: `Would you like to ${exists ? "update the" : "write a"} components.json file?`,
+            label: { confirm: "y", deny: "n" },
+            initial: true,
+            placeholder: { defaultConfirm: "y/n" }
+          })
         if (!agreeToWrite) {
           return yield* Effect.fail(new Error("Unable to continue without a valid components.json file."))
         }
@@ -98,15 +131,15 @@ class ProjectConfig extends Effect.Service<ProjectConfig>()("ProjectConfig", {
         const baseColor = options.yes
           ? "neutral"
           : yield* Prompt.select({
-              message: "Which color would you like to use as the base color?",
-              choices: [
-                { title: "neutral", value: "neutral" },
-                { title: "stone", value: "stone" },
-                { title: "zinc", value: "zinc" },
-                { title: "gray", value: "gray" },
-                { title: "slate", value: "slate" }
-              ] as const
-            })
+            message: "Which color would you like to use as the base color?",
+            choices: [
+              { title: "neutral", value: "neutral" },
+              { title: "stone", value: "stone" },
+              { title: "zinc", value: "zinc" },
+              { title: "gray", value: "gray" },
+              { title: "slate", value: "slate" }
+            ] as const
+          })
 
         const hasRootGlobalCss = yield* fs.exists(path.join(options.cwd, "global.css"))
 
@@ -118,19 +151,19 @@ class ProjectConfig extends Effect.Service<ProjectConfig>()("ProjectConfig", {
           options.yes && detectedCss
             ? detectedCss
             : yield* Prompt.text({
-                message: "What is the name of the CSS file and path to it? (e.g. global.css or src/global.css)",
-                default: detectedCss
-              })
+              message: "What is the name of the CSS file and path to it? (e.g. global.css or src/global.css)",
+              default: detectedCss
+            })
 
         const hasTailwindConfig = yield* fs.exists(path.join(options.cwd, "tailwind.config.js"))
         const tailwindConfig =
           options.yes && hasTailwindConfig
             ? "tailwind.config.js"
             : yield* Prompt.text({
-                message:
-                  "What is the name of the Tailwind config file and path to it? (e.g. tailwind.config.js or src/tailwind.config.js)",
-                default: "tailwind.config.js"
-              })
+              message:
+                "What is the name of the Tailwind config file and path to it? (e.g. tailwind.config.js or src/tailwind.config.js)",
+              default: "tailwind.config.js"
+            })
 
         const tsConfig = yield* getTsConfig()
 
@@ -246,9 +279,11 @@ class ProjectConfig extends Effect.Service<ProjectConfig>()("ProjectConfig", {
       getComponentJson,
       getTsConfig,
       resolvePathFromAlias,
-      getStylingLibrary
+      getStylingLibrary,
+      getUniwindDtsPath
     }
   })
 }) {}
 
 export { ProjectConfig }
+export type { StylingLibrary }
