@@ -1,1 +1,1 @@
-export * from '@/registry/uniwind/registry/nativewind/lib/utils';
+export * from '@/registry/uniwind/lib/utils';
