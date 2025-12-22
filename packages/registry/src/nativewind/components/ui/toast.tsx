@@ -56,7 +56,7 @@ interface ToastState {
 // Store
 // ---------------------------------------------------------------------------
 
-const toastTimers = new Map<string, NodeJS.Timeout>();
+const toastTimers = new Map<string, ReturnType<typeof setTimeout>>();
 
 const useToastStore = create<ToastState>((set, get) => ({
   toasts: [],
