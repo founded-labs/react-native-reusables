@@ -102,9 +102,10 @@ const useToastStore = create<ToastState>((set, get) => ({
   },
 
   update: (id, data) => {
-    if (data.duration) {
+    if (data.duration !== undefined) {
       const existingTimer = toastTimers.get(id);
       if (existingTimer) clearTimeout(existingTimer);
+      toastTimers.delete(id);
 
       if (data.duration !== Infinity) {
         const timer = setTimeout(() => {
