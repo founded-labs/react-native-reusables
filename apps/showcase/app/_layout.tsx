@@ -1,6 +1,7 @@
 import '../global.css';
 
 import { Text } from '@/registry/nativewind/components/ui/text';
+import { Toaster } from '@/registry/nativewind/components/ui/toast';
 import { ThemeProvider } from '@react-navigation/native';
 import { PortalHost } from '@rn-primitives/portal';
 import { HeaderRightView } from '@showcase/components/header-right-view';
@@ -68,6 +69,7 @@ export default function RootLayout() {
               }}
             />
           </Stack>
+          <Toaster />
           <PortalHost />
         </KeyboardProvider>
       </GestureHandlerRootView>

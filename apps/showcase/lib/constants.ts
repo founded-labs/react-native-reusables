@@ -26,6 +26,7 @@ export const COMPONENTS = [
   { slug: 'tabs', name: 'Tabs' },
   { slug: 'text', name: 'Text' },
   { slug: 'textarea', name: 'Textarea' },
+  { slug: 'toast', name: 'Toast' },
   { slug: 'toggle', name: 'Toggle' },
   { slug: 'toggle-group', name: 'Toggle Group' },
   { slug: 'tooltip', name: 'Tooltip' },
