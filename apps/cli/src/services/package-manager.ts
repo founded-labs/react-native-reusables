@@ -7,8 +7,8 @@ const BINARY_RUNNERS = {
   npm: ["npx"],
   bun: ["bunx", "--bun"],
   pnpm: ["pnpm", "dlx"],
-  yarn: ["yarn"],
-  "yarn@berry": ["yarn", "dlx"]
+  yarn: ["npx"],
+  "yarn@berry": ["npx"]
 } as const
 
 const detectPackageManager = (cwd: string) =>
