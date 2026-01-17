@@ -119,9 +119,7 @@ class ProjectConfig extends Effect.Service<ProjectConfig>()("ProjectConfig", {
         yield* Effect.logWarning(
           `${exists ? "Invalid components.json" : "Missing components.json"}${" (required to continue)"}`
         )
-        const agreeToWrite = options.yes
-          ? true
-          : yield* Prompt.confirm({
+        const agreeToWrite =  yield* Prompt.confirm({
               message: `Would you like to ${exists ? "update the" : "write a"} components.json file?`,
               label: { confirm: "y", deny: "n" },
               initial: true,
@@ -157,9 +155,11 @@ class ProjectConfig extends Effect.Service<ProjectConfig>()("ProjectConfig", {
                 message: "What is the name of the CSS file and path to it? (e.g. global.css or src/global.css)",
                 default: detectedCss
               })
+        
+        const stylingLibrary = yield* getStylingLibrary()
 
         const hasTailwindConfig = yield* fs.exists(path.join(options.cwd, "tailwind.config.js"))
-        const tailwindConfig =
+        const tailwindConfig = stylingLibrary === "uniwind" ? "" :
           options.yes && hasTailwindConfig
             ? "tailwind.config.js"
             : yield* Prompt.text({
