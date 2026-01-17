@@ -104,7 +104,14 @@ class ProjectConfig extends Effect.Service<ProjectConfig>()("ProjectConfig", {
         if (metroContent?.includes("withUniwindConfig")) {
           return "uniwind" as const
         }
-        return "nativewind" as const // default to nativewind
+
+        // v4 uses withNativeWind
+        // v5 uses withNativewind
+        if (metroContent?.toLowerCase().includes("withnativewind")) {
+          return "nativewind" as const
+        }
+
+        return "unknown" as const 
       })
 
     const handleInvalidComponentJson = (exists: boolean) =>

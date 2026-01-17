@@ -53,10 +53,12 @@ class Add extends Effect.Service<Add>()("Add", {
 
           const stylingLibrary = yield* projectConfig.getStylingLibrary()
 
+          const registry = stylingLibrary === "uniwind" ? "uniwind" : "nativewind"
+
           const baseUrl =
             process.env.INTERNAL_ENV === "development"
-              ? `http://localhost:3000/local/r/${stylingLibrary}`
-              : `https://reactnativereusables.com/r/${stylingLibrary}`
+              ? `http://localhost:3000/local/r/${registry}`
+              : `https://reactnativereusables.com/r/${registry}`
 
           const componentUrls = components.map((component) => {
             const lowerCaseComponent = component.toLocaleLowerCase()

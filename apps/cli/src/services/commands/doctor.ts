@@ -37,9 +37,12 @@ class Doctor extends Effect.Service<Doctor>()("Doctor", {
 
     const stylingLibrary = yield* projectConfig.getStylingLibrary()
 
-    console.log(
-      `\x1b[2m${logSymbols.info} Styling Library: ${stylingLibrary === "uniwind" ? "Uniwind" : "Nativewind"}\x1b[0m`
-    )
+    if (stylingLibrary !== "unknown"){
+      console.log(
+        `\x1b[2m${logSymbols.info} Styling Library: ${stylingLibrary === "uniwind" ? "Uniwind" : "Nativewind"}\x1b[0m`
+      )
+    } 
+
 
     const checkRequiredDependencies = ({
       dependencies,
@@ -94,12 +97,14 @@ class Doctor extends Effect.Service<Doctor>()("Doctor", {
         return { uninstalledDependencies, uninstalledDevDependencies }
       })
 
+    const registry = stylingLibrary === "uniwind" ? "uniwind" : "nativewind"
+
     return {
       run: (options: DoctorOptions) =>
         Effect.gen(function* () {
           yield* Effect.logDebug(`Doctor options: ${JSON.stringify(options, null, 2)}`)
           const { uninstalledDependencies, uninstalledDevDependencies } = yield* checkRequiredDependencies({
-            dependencies: PROJECT_MANIFEST.dependencies[stylingLibrary],
+            dependencies: PROJECT_MANIFEST.dependencies[registry],
             devDependencies: PROJECT_MANIFEST.devDependencies
           })
 
@@ -108,7 +113,7 @@ class Doctor extends Effect.Service<Doctor>()("Doctor", {
             deprecatedFromLib: PROJECT_MANIFEST.deprecatedFromLib,
             deprecatedFromUi: PROJECT_MANIFEST.deprecatedFromUi,
             fileChecks: PROJECT_MANIFEST.fileChecks,
-            stylingLibrary
+            stylingLibrary: registry 
           })
 
           const result = {
