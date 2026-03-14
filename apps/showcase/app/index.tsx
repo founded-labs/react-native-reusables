@@ -10,9 +10,11 @@ import { Link } from 'expo-router';
 import { ChevronRight } from 'lucide-react-native';
 import { cssInterop, useColorScheme } from 'nativewind';
 import * as React from 'react';
-import { Platform, View } from 'react-native';
+import { Animated, Platform, View } from 'react-native';
 
-cssInterop(FlashList, { className: 'style', contentContainerClassName: 'contentContainerStyle' });
+const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
+
+cssInterop(AnimatedFlashList, { className: 'style', contentContainerClassName: 'contentContainerStyle' });
 
 export default function ComponentsScreen() {
   const { colorScheme } = useColorScheme();
@@ -44,6 +46,7 @@ export default function ComponentsScreen() {
             }
           },
         })}
+        scrollToOverflowEnabled={Platform.OS === 'ios'}
         contentInsetAdjustmentBehavior="automatic"
         contentContainerClassName="px-4 pb-2"
         keyboardShouldPersistTaps="handled"
@@ -57,6 +60,11 @@ export default function ComponentsScreen() {
                 clearButtonMode="always"
                 onChangeText={setSearch}
                 autoCorrect={false}
+                onFocus={Platform.select({
+                  ios: () => {
+                    flashListRef.current?.scrollToOffset({ offset: -116, animated: true });
+                  }
+                })}
               />
             </View>
           ),
