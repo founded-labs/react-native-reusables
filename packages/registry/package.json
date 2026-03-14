@@ -15,7 +15,7 @@
     ]
   },
   "dependencies": {
-    "@clerk/clerk-expo": "^2.16.1",
+    "@clerk/clerk-expo": "^2.19.31",
     "@rn-primitives/accordion": "~1.2.0",
     "@rn-primitives/alert-dialog": "~1.2.0",
     "@rn-primitives/aspect-ratio": "~1.2.0",
@@ -47,24 +47,26 @@
     "@rn-primitives/tooltip": "~1.2.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "expo-router": "~6.0.19",
-    "expo-constants": "~18.0.12",
-    "expo-linking": "~8.0.10",
-    "lucide-react-native": "^0.545.0",
-    "nativewind": "^4.2.1",
-    "react-native-reanimated": "~4.1.2",
-    "react-native-safe-area-context": "5.6.1",
-    "react-native-screens": "^4.16.0",
-    "react-native-svg": "15.12.1",
-    "react-native-worklets": "0.5.1",
-    "tailwind-merge": "^3.3.1",
-    "uniwind": "^1.2.2"
+    "expo-auth-session": "~55.0.8",
+    "expo-constants": "~55.0.7",
+    "expo-crypto": "~55.0.9",
+    "expo-linking": "~55.0.7",
+    "expo-router": "~55.0.5",
+    "lucide-react-native": "^0.577.0",
+    "nativewind": "^4.2.2",
+    "react-native-reanimated": "~4.2.1",
+    "react-native-safe-area-context": "5.6.2",
+    "react-native-screens": "^4.23.0",
+    "react-native-svg": "15.15.3",
+    "react-native-worklets": "0.7.2",
+    "tailwind-merge": "^3.5.0",
+    "uniwind": "^1.5.0"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.1",
-    "@types/react": "~19.1.17",
-    "react": "19.1.0",
-    "react-native": "0.81.5"
+    "@types/react": "~19.2.14",
+    "react": "19.2.0",
+    "react-native": "0.83.2"
   },
   "peerDependencies": {
     "react": "*",
