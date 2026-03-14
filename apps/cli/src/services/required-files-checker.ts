@@ -10,7 +10,7 @@ import logSymbols from "log-symbols"
 class RequiredFileError extends Data.TaggedError("RequiredFileError")<{
   file: string
   message?: string
-}> {}
+}> { }
 
 class RequiredFilesChecker extends Effect.Service<RequiredFilesChecker>()("RequiredFilesChecker", {
   effect: Effect.gen(function* () {
@@ -225,11 +225,11 @@ class RequiredFilesChecker extends Effect.Service<RequiredFilesChecker>()("Requi
             const uniwindDtsPath = yield* projectConfig.getUniwindDtsPath()
             const uniwindTypesContent: string | null = uniwindDtsPath
               ? yield* fs.readFileString(uniwindDtsPath).pipe(
-                  Effect.catchAll(() => {
-                    missingTypeFiles.push(customFileChecks.uniwindTypes)
-                    return Effect.succeed(null)
-                  })
-                )
+                Effect.catchAll(() => {
+                  missingTypeFiles.push(customFileChecks.uniwindTypes)
+                  return Effect.succeed(null)
+                })
+              )
               : null
 
             if (uniwindTypesContent) {
@@ -269,15 +269,11 @@ class RequiredFilesChecker extends Effect.Service<RequiredFilesChecker>()("Requi
               }),
             tailwindConfigPaths.map((p) => path.join(options.cwd, p)) as [string, ...Array<string>]
           ).pipe(
-            Effect.catchAll(() =>
-              Effect.fail(
-                new RequiredFileError({
-                  file: "Tailwind config",
-                  message:
-                    "Tailwind config not found, Please follow the instructions at https://www.nativewind.dev/docs/getting-started/installation#installation-with-expo"
-                })
-              )
-            )
+            Effect.catchAll(() => {
+              console.warn(
+                `${logSymbols.warning} Tailwind config not found, Please follow the instructions at https://www.nativewind.dev/docs/getting-started/installation#installation-with-expo`);
+              return Effect.succeed("")
+            })
           )
 
           for (const include of customFileChecks.tailwindConfig.includes) {
@@ -374,6 +370,6 @@ class RequiredFilesChecker extends Effect.Service<RequiredFilesChecker>()("Requi
         })
     }
   })
-}) {}
+}) { }
 
 export { RequiredFilesChecker }

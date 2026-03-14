@@ -216,7 +216,7 @@ class Doctor extends Effect.Service<Doctor>()("Doctor", {
 }) {}
 
 function make(options: DoctorOptions) {
-  const optionsLayer = Layer.succeed(CliOptions, options)
+  const optionsLayer = Layer.succeed(CliOptions, { ...options, stylingLibrary: undefined })
   return Effect.gen(function* () {
     const doctor = yield* Doctor
     return yield* doctor.run(options)

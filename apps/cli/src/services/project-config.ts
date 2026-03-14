@@ -92,6 +92,10 @@ class ProjectConfig extends Effect.Service<ProjectConfig>()("ProjectConfig", {
 
     const getStylingLibrary = () =>
       Effect.gen(function* () {
+        if (options.stylingLibrary) {
+          return options.stylingLibrary
+        }
+
         const metroConfigPaths = ["metro.config.js", "metro.config.ts"].map((p) => path.join(options.cwd, p)) as [
           string,
           ...Array<string>

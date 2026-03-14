@@ -1,4 +1,4 @@
-import { all, cwd, overwrite, path, summary, template, yes } from "@cli/contexts/cli-options.js"
+import { all, cwd, overwrite, path, stylingLibrary, summary, template, yes } from "@cli/contexts/cli-options.js"
 import * as Add from "@cli/services/commands/add.js"
 import * as Doctor from "@cli/services/commands/doctor.js"
 import * as Init from "@cli/services/commands/init.js"
@@ -9,7 +9,7 @@ const addArgs = Args.all({
   components: Args.text({ name: "components" }).pipe(Args.repeated)
 })
 
-const AddCommand = Command.make("add", { args: addArgs, cwd, yes, overwrite, all, path })
+const AddCommand = Command.make("add", { args: addArgs, cwd, yes, overwrite, all, path, stylingLibrary })
   .pipe(Command.withDescription("Add React Native components to your project"))
   .pipe(Command.withHandler(Add.make))
 
@@ -43,6 +43,7 @@ const Cli = Command.make("react-native-reusables/cli", { cwd })
             overwrite: false,
             all: false,
             path: "",
+            stylingLibrary: undefined,
             args: { components: [] }
           })
         } else if (choice === "doctor") {

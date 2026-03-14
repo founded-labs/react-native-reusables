@@ -40,6 +40,7 @@ Add one or more React Native components to your project.
 | `-c, --cwd <cwd>`   | The working directory.               | . (current dir) |
 | `-a, --all`         | Add all available components.        | false           |
 | `-p, --path <path>` | The path to add the component(s) to. |                 |
+| `--styling-library <styling-library>` | Override detected styling library (`nativewind` or `uniwind`). | auto-detect |
 | `-h, --help`        | Display help for command.            |                 |
 
 ---

@@ -78,7 +78,7 @@ class Init extends Effect.Service<Init>()("Init", {
 }) {}
 
 function make(options: InitOptions) {
-  const optionsLayer = Layer.succeed(CliOptions, { ...options, yes: true })
+  const optionsLayer = Layer.succeed(CliOptions, { ...options, yes: true, stylingLibrary: undefined })
   return Effect.gen(function* () {
     const init = yield* Init
 

@@ -1,4 +1,4 @@
-import { CliOptions } from "@cli/contexts/cli-options.js"
+import { CliOptions, type StylingLibrary } from "@cli/contexts/cli-options.js"
 import { PROJECT_MANIFEST } from "@cli/project-manifest.js"
 import { Doctor } from "@cli/services/commands/doctor.js"
 import { runCommand } from "@cli/utils/run-command.js"
@@ -14,6 +14,7 @@ type AddOptions = {
   overwrite: boolean
   all: boolean
   path: string
+  stylingLibrary: StylingLibrary | undefined
 }
 
 class Add extends Effect.Service<Add>()("Add", {
