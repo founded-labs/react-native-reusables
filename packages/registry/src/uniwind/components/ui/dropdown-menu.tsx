@@ -55,6 +55,7 @@ function DropdownMenuSubTrigger({
           Platform.select({
             web: 'focus:bg-accent focus:text-accent-foreground cursor-default outline-none [&_svg]:pointer-events-none',
           }),
+          className,
           open && 'bg-accent',
           inset && 'pl-8'
         )}
@@ -109,9 +110,9 @@ function DropdownMenuContent({
             web: overlayStyle ?? undefined,
             native: overlayStyle
               ? StyleSheet.flatten([
-                  StyleSheet.absoluteFill,
-                  overlayStyle as typeof StyleSheet.absoluteFill,
-                ])
+                StyleSheet.absoluteFill,
+                overlayStyle as typeof StyleSheet.absoluteFill,
+              ])
               : StyleSheet.absoluteFill,
           })}
           className={overlayClassName}>

@@ -122,6 +122,7 @@ function MenubarSubTrigger({
           Platform.select({
             web: 'focus:bg-accent focus:text-accent-foreground cursor-default outline-none [&_svg]:pointer-events-none',
           }),
+          className,
           open && 'bg-accent',
           inset && 'pl-8'
         )}
@@ -155,8 +156,6 @@ function MenubarSubContent({
 
 function MenubarContent({
   className,
-  overlayClassName,
-  overlayStyle,
   portalHost,
   align = 'start',
   alignOffset = -4,
@@ -164,8 +163,6 @@ function MenubarContent({
   ...props
 }: MenubarPrimitive.ContentProps &
   React.RefAttributes<MenubarPrimitive.ContentRef> & {
-    overlayStyle?: StyleProp<ViewStyle>;
-    overlayClassName?: string;
     portalHost?: string;
   }) {
   return (

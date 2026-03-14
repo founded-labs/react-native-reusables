@@ -122,6 +122,7 @@ function MenubarSubTrigger({
           Platform.select({
             web: 'focus:bg-accent focus:text-accent-foreground cursor-default outline-none [&_svg]:pointer-events-none',
           }),
+          className,
           open && 'bg-accent',
           inset && 'pl-8'
         )}
