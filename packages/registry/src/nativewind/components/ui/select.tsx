@@ -5,7 +5,7 @@ import { cn } from '@/registry/nativewind/lib/utils';
 import * as SelectPrimitive from '@rn-primitives/select';
 import { Check, ChevronDown, ChevronDownIcon, ChevronUpIcon } from 'lucide-react-native';
 import * as React from 'react';
-import { Platform, ScrollView, StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import { FadeIn, FadeOut } from 'react-native-reanimated';
 import { FullWindowOverlay as RNFullWindowOverlay } from 'react-native-screens';
 
@@ -98,12 +98,12 @@ function SelectContent({
                     native: 'p-1',
                   }),
                   position === 'popper' &&
-                    Platform.select({
-                      web: cn(
-                        props.side === 'bottom' && 'translate-y-1',
-                        props.side === 'top' && '-translate-y-1'
-                      ),
-                    }),
+                  Platform.select({
+                    web: cn(
+                      props.side === 'bottom' && 'translate-y-1',
+                      props.side === 'top' && '-translate-y-1'
+                    ),
+                  }),
                   className
                 )}
                 position={position}
@@ -113,12 +113,12 @@ function SelectContent({
                   className={cn(
                     'p-1',
                     position === 'popper' &&
-                      cn(
-                        'w-full',
-                        Platform.select({
-                          web: 'h-[var(--radix-select-trigger-height)] min-w-[var(--radix-select-trigger-width)]',
-                        })
-                      )
+                    cn(
+                      'w-full',
+                      Platform.select({
+                        web: 'h-[var(--radix-select-trigger-height)] min-w-[var(--radix-select-trigger-width)]',
+                      })
+                    )
                   )}>
                   {children}
                 </SelectPrimitive.Viewport>
@@ -226,19 +226,9 @@ function SelectScrollDownButton({
   );
 }
 
-/**
- * @platform Native only
- * Returns the children on the web
- */
-function NativeSelectScrollView({ className, ...props }: React.ComponentProps<typeof ScrollView>) {
-  if (Platform.OS === 'web') {
-    return <>{props.children}</>;
-  }
-  return <ScrollView className={cn('max-h-52', className)} {...props} />;
-}
+
 
 export {
-  NativeSelectScrollView,
   Select,
   SelectContent,
   SelectGroup,

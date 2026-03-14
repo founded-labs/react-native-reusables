@@ -11,6 +11,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@docs/components/ui/ta
 import { SelectPreview, ScrollableSelectPreview } from "@docs/components/examples";
 import { Step, Steps } from 'fumadocs-ui/components/steps';
 import { StylingLibraryTabs, StylingLibraryTabsNativewindContent, StylingLibraryTabsUnwindContent } from '@docs/components/styling-library-tabs';
+import { Callout } from '@docs/components/callout';
+import Link from 'next/link';
 
 <ExternalLinks
   links={[
@@ -208,6 +210,25 @@ import {
 ### Example
 
 #### Scrollable
+
+<Callout type="warn" title="React Native Gesture Handler Required">
+  Install {' '}<Link target="_blank" href="https://docs.swmansion.com/react-native-gesture-handler/docs/fundamentals/installation#setup" className="hover:underline"><code className="bg-muted rounded-sm px-1 py-0.5 text-[0.813rem]">react-native-gesture-handler</code></Link>{' '}
+  to your project and add the following `NativeSelectScrollView` component to your `@/components/ui/select.tsx` file or the file using the scrollable select.
+</Callout>
+
+```tsx
+import { ScrollView } from 'react-native-gesture-handler';
+/**
+ * @platform Native only
+ * Returns the children on the web
+ */
+function NativeSelectScrollView({ className, ...props }: React.ComponentProps<typeof ScrollView>) {
+  if (Platform.OS === 'web') {
+    return <>{props.children}</>;
+  }
+  return <ScrollView className={cn('max-h-52', className)} {...props} />;
+}
+```
 
 <Tabs defaultValue="preview">
   <TabsList>

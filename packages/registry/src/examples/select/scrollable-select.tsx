@@ -1,5 +1,4 @@
 import {
-  NativeSelectScrollView,
   Select,
   SelectContent,
   SelectGroup,
@@ -8,9 +7,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/registry/nativewind/components/ui/select';
+import { cn } from '@/registry/nativewind/lib/utils';
 import type { TriggerRef } from '@rn-primitives/select';
 import * as React from 'react';
 import { Platform } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const fruits = [
@@ -45,14 +46,14 @@ export function ScrollableSelectPreview() {
     right: 12,
   };
 
-  // Workaround for rn-primitives/select not opening on mobile
+  // Workaround for rn-primitives/select not opening on web-mobile
   function onTouchStart() {
     ref.current?.open();
   }
 
   return (
     <Select>
-      <SelectTrigger ref={ref} className="w-[180px]" onTouchStart={onTouchStart}>
+      <SelectTrigger ref={ref} className="w-[180px]" onTouchStart={Platform.select({ web: onTouchStart })}>
         <SelectValue placeholder="Select a fruit" />
       </SelectTrigger>
       <SelectContent insets={contentInsets} className="w-[180px]">
@@ -69,4 +70,15 @@ export function ScrollableSelectPreview() {
       </SelectContent>
     </Select>
   );
+}
+
+/**
+ * @platform Native only
+ * Returns the children on the web
+ */
+function NativeSelectScrollView({ className, ...props }: React.ComponentProps<typeof ScrollView>) {
+  if (Platform.OS === 'web') {
+    return <>{props.children}</>;
+  }
+  return <ScrollView className={cn('max-h-52', className)} {...props} />;
 }

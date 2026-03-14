@@ -30,14 +30,14 @@ export function SelectPreview() {
     right: 12,
   };
 
-  // Workaround for rn-primitives/select not opening on mobile
+  // Workaround for rn-primitives/select not opening on web-mobile
   function onTouchStart() {
     ref.current?.open();
   }
 
   return (
     <Select>
-      <SelectTrigger ref={ref} className="w-[180px]" onTouchStart={onTouchStart}>
+      <SelectTrigger ref={ref} className="w-[180px]" onTouchStart={Platform.select({ web: onTouchStart })}>
         <SelectValue placeholder="Select a fruit" />
       </SelectTrigger>
       <SelectContent insets={contentInsets} className="w-[180px]">

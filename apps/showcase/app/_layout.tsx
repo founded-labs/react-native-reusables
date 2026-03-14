@@ -11,6 +11,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useColorScheme } from 'nativewind';
 import * as React from 'react';
+import { Platform } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 
@@ -64,7 +65,9 @@ export default function RootLayout() {
                 headerLargeTitle: true,
                 headerTitle: 'Showcase',
                 headerLargeTitleShadowVisible: false,
-                headerTransparent: true,
+                headerShadowVisible: false,
+                headerTransparent: Platform.OS === 'ios',
+
               }}
             />
           </Stack>
