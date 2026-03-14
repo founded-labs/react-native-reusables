@@ -11,7 +11,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     orientation: 'portrait',
     icon: './assets/images/icon.png',
     userInterfaceStyle: 'automatic',
-    newArchEnabled: true,
     runtimeVersion: {
       policy: 'appVersion',
     },
@@ -35,7 +34,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     },
     android: {
       scheme: `${SLUG}android`,
-      edgeToEdgeEnabled: true,
       adaptiveIcon: {
         foregroundImage: './assets/images/adaptive-icon.png',
         backgroundColor: '#0A0A0A',
