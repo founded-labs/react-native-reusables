@@ -46,14 +46,9 @@ export function ScrollableSelectPreview() {
     right: 12,
   };
 
-  // Workaround for rn-primitives/select not opening on web-mobile
-  function onTouchStart() {
-    ref.current?.open();
-  }
-
   return (
     <Select>
-      <SelectTrigger ref={ref} className="w-[180px]" onTouchStart={Platform.select({ web: onTouchStart })}>
+      <SelectTrigger ref={ref} className="w-[180px]">
         <SelectValue placeholder="Select a fruit" />
       </SelectTrigger>
       <SelectContent insets={contentInsets} className="w-[180px]">
