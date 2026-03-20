@@ -1,20 +1,18 @@
-import { cn } from '@/registry/nativewind/lib/utils';
 import { Button } from '@/registry/nativewind/components/ui/button';
 import { Icon } from '@/registry/nativewind/components/ui/icon';
 import { Input } from '@/registry/nativewind/components/ui/input';
 import { Text } from '@/registry/nativewind/components/ui/text';
+import { cn } from '@/registry/nativewind/lib/utils';
 import { useScrollToTop } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
 import { COMPONENTS } from '@showcase/lib/constants';
 import { Link } from 'expo-router';
 import { ChevronRight } from 'lucide-react-native';
-import { cssInterop, useColorScheme } from 'nativewind';
+import { useColorScheme } from 'nativewind';
 import * as React from 'react';
-import { Animated, Platform, View } from 'react-native';
+import { Platform, View } from 'react-native';
 
-const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
 
-cssInterop(AnimatedFlashList, { className: 'style', contentContainerClassName: 'contentContainerStyle' });
 
 export default function ComponentsScreen() {
   const { colorScheme } = useColorScheme();
@@ -60,11 +58,7 @@ export default function ComponentsScreen() {
                 clearButtonMode="always"
                 onChangeText={setSearch}
                 autoCorrect={false}
-                onFocus={Platform.select({
-                  ios: () => {
-                    flashListRef.current?.scrollToOffset({ offset: -116, animated: true });
-                  }
-                })}
+                enterKeyHint='search'
               />
             </View>
           ),
