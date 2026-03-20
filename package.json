@@ -3,10 +3,6 @@
   "private": true,
   "scripts": {
     "dev": "turbo dev",
-    "dev:docs": "turbo dev --filter=docs",
-    "dev:showcase": "turbo dev --filter=showcase --concurrency 32",
-    "dev:showcase:android": "turbo dev:android --filter=showcase --concurrency 32",
-    "dev:showcase:web": "turbo dev:web --filter=showcase --concurrency 32",
     "lint": "turbo lint",
     "test": "turbo test",
     "build": "turbo build",
