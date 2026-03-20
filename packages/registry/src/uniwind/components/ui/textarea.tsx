@@ -1,5 +1,5 @@
 import { cn } from '@/registry/uniwind/lib/utils';
-import { Platform, TextInput, type TextInputProps } from 'react-native';
+import { Platform, TextInput } from 'react-native';
 
 function Textarea({
   className,
@@ -7,7 +7,7 @@ function Textarea({
   numberOfLines = Platform.select({ web: 2, native: 8 }), // On web, numberOfLines also determines initial height. On native, it determines the maximum height.
   placeholderClassName,
   ...props
-}: TextInputProps & React.RefAttributes<TextInput>) {
+}: React.ComponentProps<typeof TextInput>) {
   return (
     <TextInput
       className={cn(

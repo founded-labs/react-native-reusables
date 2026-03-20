@@ -10,7 +10,6 @@ import {
   type StyleProp,
   StyleSheet,
   Text,
-  type TextProps,
   View,
   type ViewStyle,
 } from 'react-native';
@@ -35,8 +34,7 @@ function DropdownMenuSubTrigger({
   children,
   iconClassName,
   ...props
-}: DropdownMenuPrimitive.SubTriggerProps &
-  React.RefAttributes<DropdownMenuPrimitive.SubTriggerRef> & {
+}: React.ComponentProps<typeof DropdownMenuPrimitive.SubTrigger> & {
     children?: React.ReactNode;
     iconClassName?: string;
     inset?: boolean;
@@ -70,8 +68,7 @@ function DropdownMenuSubTrigger({
 function DropdownMenuSubContent({
   className,
   ...props
-}: DropdownMenuPrimitive.SubContentProps &
-  React.RefAttributes<DropdownMenuPrimitive.SubContentRef>) {
+}: React.ComponentProps<typeof DropdownMenuPrimitive.SubContent>) {
   return (
     <NativeOnlyAnimatedView entering={FadeIn}>
       <DropdownMenuPrimitive.SubContent
@@ -96,8 +93,7 @@ function DropdownMenuContent({
   overlayStyle,
   portalHost,
   ...props
-}: DropdownMenuPrimitive.ContentProps &
-  React.RefAttributes<DropdownMenuPrimitive.ContentRef> & {
+}: React.ComponentProps<typeof DropdownMenuPrimitive.Content> & {
     overlayStyle?: StyleProp<ViewStyle>;
     overlayClassName?: string;
     portalHost?: string;
@@ -145,8 +141,7 @@ function DropdownMenuItem({
   inset,
   variant,
   ...props
-}: DropdownMenuPrimitive.ItemProps &
-  React.RefAttributes<DropdownMenuPrimitive.ItemRef> & {
+}: React.ComponentProps<typeof DropdownMenuPrimitive.Item> & {
     className?: string;
     inset?: boolean;
     variant?: 'default' | 'destructive';
@@ -181,8 +176,7 @@ function DropdownMenuCheckboxItem({
   className,
   children,
   ...props
-}: DropdownMenuPrimitive.CheckboxItemProps &
-  React.RefAttributes<DropdownMenuPrimitive.CheckboxItemRef> & {
+}: React.ComponentProps<typeof DropdownMenuPrimitive.CheckboxItem> & {
     children?: React.ReactNode;
   }) {
   return (
@@ -218,8 +212,7 @@ function DropdownMenuRadioItem({
   className,
   children,
   ...props
-}: DropdownMenuPrimitive.RadioItemProps &
-  React.RefAttributes<DropdownMenuPrimitive.RadioItemRef> & {
+}: React.ComponentProps<typeof DropdownMenuPrimitive.RadioItem> & {
     children?: React.ReactNode;
   }) {
   return (
@@ -249,8 +242,7 @@ function DropdownMenuLabel({
   className,
   inset,
   ...props
-}: DropdownMenuPrimitive.LabelProps &
-  React.RefAttributes<DropdownMenuPrimitive.LabelRef> & {
+}: React.ComponentProps<typeof DropdownMenuPrimitive.Label> & {
     className?: string;
     inset?: boolean;
   }) {
@@ -269,7 +261,7 @@ function DropdownMenuLabel({
 function DropdownMenuSeparator({
   className,
   ...props
-}: DropdownMenuPrimitive.SeparatorProps & React.RefAttributes<DropdownMenuPrimitive.SeparatorRef>) {
+}: React.ComponentProps<typeof DropdownMenuPrimitive.Separator>) {
   return (
     <DropdownMenuPrimitive.Separator
       className={cn('bg-border -mx-1 my-1 h-px', className)}
@@ -278,7 +270,7 @@ function DropdownMenuSeparator({
   );
 }
 
-function DropdownMenuShortcut({ className, ...props }: TextProps & React.RefAttributes<Text>) {
+function DropdownMenuShortcut({ className, ...props }: React.ComponentProps<typeof Text>) {
   return (
     <Text
       className={cn('text-muted-foreground ml-auto text-xs tracking-widest', className)}

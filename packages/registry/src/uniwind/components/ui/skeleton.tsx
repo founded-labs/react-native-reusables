@@ -13,7 +13,7 @@ const duration = 1000;
 function Skeleton({
   className,
   ...props
-}: React.ComponentProps<typeof View> & React.RefAttributes<View>) {
+}: React.ComponentProps<typeof View>) {
   const sv = useSharedValue(1);
 
   React.useEffect(() => {

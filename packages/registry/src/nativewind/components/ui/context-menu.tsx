@@ -10,7 +10,6 @@ import {
   type StyleProp,
   StyleSheet,
   Text,
-  type TextProps,
   View,
   type ViewStyle,
 } from 'react-native';
@@ -29,8 +28,7 @@ function ContextMenuSubTrigger({
   children,
   iconClassName,
   ...props
-}: ContextMenuPrimitive.SubTriggerProps &
-  React.RefAttributes<ContextMenuPrimitive.SubTriggerRef> & {
+}: React.ComponentProps<typeof ContextMenuPrimitive.SubTrigger> & {
     children?: React.ReactNode;
     iconClassName?: string;
     inset?: boolean;
@@ -64,7 +62,7 @@ function ContextMenuSubTrigger({
 function ContextMenuSubContent({
   className,
   ...props
-}: ContextMenuPrimitive.SubContentProps & React.RefAttributes<ContextMenuPrimitive.SubContentRef>) {
+}: React.ComponentProps<typeof ContextMenuPrimitive.SubContent>) {
   return (
     <NativeOnlyAnimatedView entering={FadeIn}>
       <ContextMenuPrimitive.SubContent
@@ -89,8 +87,7 @@ function ContextMenuContent({
   overlayStyle,
   portalHost,
   ...props
-}: ContextMenuPrimitive.ContentProps &
-  React.RefAttributes<ContextMenuPrimitive.ContentRef> & {
+}: React.ComponentProps<typeof ContextMenuPrimitive.Content> & {
     overlayStyle?: StyleProp<ViewStyle>;
     overlayClassName?: string;
     portalHost?: string;
@@ -138,8 +135,7 @@ function ContextMenuItem({
   inset,
   variant,
   ...props
-}: ContextMenuPrimitive.ItemProps &
-  React.RefAttributes<ContextMenuPrimitive.ItemRef> & {
+}: React.ComponentProps<typeof ContextMenuPrimitive.Item> & {
     className?: string;
     inset?: boolean;
     variant?: 'default' | 'destructive';
@@ -174,8 +170,7 @@ function ContextMenuCheckboxItem({
   className,
   children,
   ...props
-}: ContextMenuPrimitive.CheckboxItemProps &
-  React.RefAttributes<ContextMenuPrimitive.CheckboxItemRef> & {
+}: React.ComponentProps<typeof ContextMenuPrimitive.CheckboxItem> & {
     children?: React.ReactNode;
   }) {
   return (
@@ -211,8 +206,7 @@ function ContextMenuRadioItem({
   className,
   children,
   ...props
-}: ContextMenuPrimitive.RadioItemProps &
-  React.RefAttributes<ContextMenuPrimitive.RadioItemRef> & {
+}: React.ComponentProps<typeof ContextMenuPrimitive.RadioItem> & {
     children?: React.ReactNode;
   }) {
   return (
@@ -242,8 +236,7 @@ function ContextMenuLabel({
   className,
   inset,
   ...props
-}: ContextMenuPrimitive.LabelProps &
-  React.RefAttributes<ContextMenuPrimitive.LabelRef> & {
+}: React.ComponentProps<typeof ContextMenuPrimitive.Label> & {
     className?: string;
     inset?: boolean;
   }) {
@@ -262,7 +255,7 @@ function ContextMenuLabel({
 function ContextMenuSeparator({
   className,
   ...props
-}: ContextMenuPrimitive.SeparatorProps & React.RefAttributes<ContextMenuPrimitive.SeparatorRef>) {
+}: React.ComponentProps<typeof ContextMenuPrimitive.Separator>) {
   return (
     <ContextMenuPrimitive.Separator
       className={cn('bg-border -mx-1 my-1 h-px', className)}
@@ -271,7 +264,7 @@ function ContextMenuSeparator({
   );
 }
 
-function ContextMenuShortcut({ className, ...props }: TextProps & React.RefAttributes<Text>) {
+function ContextMenuShortcut({ className, ...props }: React.ComponentProps<typeof Text>) {
   return (
     <Text
       className={cn('text-muted-foreground ml-auto text-xs tracking-widest', className)}

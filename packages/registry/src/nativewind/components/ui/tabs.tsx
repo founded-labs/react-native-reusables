@@ -6,14 +6,14 @@ import { Platform } from 'react-native';
 function Tabs({
   className,
   ...props
-}: TabsPrimitive.RootProps & React.RefAttributes<TabsPrimitive.RootRef>) {
+}: React.ComponentProps<typeof TabsPrimitive.Root>) {
   return <TabsPrimitive.Root className={cn('flex flex-col gap-2', className)} {...props} />;
 }
 
 function TabsList({
   className,
   ...props
-}: TabsPrimitive.ListProps & React.RefAttributes<TabsPrimitive.ListRef>) {
+}: React.ComponentProps<typeof TabsPrimitive.List>) {
   return (
     <TabsPrimitive.List
       className={cn(
@@ -29,7 +29,7 @@ function TabsList({
 function TabsTrigger({
   className,
   ...props
-}: TabsPrimitive.TriggerProps & React.RefAttributes<TabsPrimitive.TriggerRef>) {
+}: React.ComponentProps<typeof TabsPrimitive.Trigger>) {
   const { value } = TabsPrimitive.useRootContext();
   return (
     <TextClassContext.Provider
@@ -56,7 +56,7 @@ function TabsTrigger({
 function TabsContent({
   className,
   ...props
-}: TabsPrimitive.ContentProps & React.RefAttributes<TabsPrimitive.ContentRef>) {
+}: React.ComponentProps<typeof TabsPrimitive.Content>) {
   return (
     <TabsPrimitive.Content
       className={cn(Platform.select({ web: 'flex-1 outline-none' }), className)}

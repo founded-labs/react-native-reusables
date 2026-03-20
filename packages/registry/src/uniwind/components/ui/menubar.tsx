@@ -12,7 +12,6 @@ import {
   type StyleProp,
   StyleSheet,
   Text,
-  type TextProps,
   View,
   type ViewStyle,
 } from 'react-native';
@@ -36,7 +35,7 @@ function Menubar({
   value: valueProp,
   onValueChange: onValueChangeProp,
   ...props
-}: MenubarPrimitive.RootProps & React.RefAttributes<MenubarPrimitive.RootRef>) {
+}: React.ComponentProps<typeof MenubarPrimitive.Root>) {
   const id = React.useId();
   const [value, setValue] = React.useState<string | undefined>(undefined);
 
@@ -71,7 +70,7 @@ function Menubar({
 function MenubarTrigger({
   className,
   ...props
-}: MenubarPrimitive.TriggerProps & React.RefAttributes<MenubarPrimitive.TriggerRef>) {
+}: React.ComponentProps<typeof MenubarPrimitive.Trigger>) {
   const { value } = MenubarPrimitive.useRootContext();
   const { value: itemValue } = MenubarPrimitive.useMenuContext();
 
@@ -102,8 +101,7 @@ function MenubarSubTrigger({
   children,
   iconClassName,
   ...props
-}: MenubarPrimitive.SubTriggerProps &
-  React.RefAttributes<MenubarPrimitive.SubTriggerRef> & {
+}: React.ComponentProps<typeof MenubarPrimitive.SubTrigger> & {
     children?: React.ReactNode;
     iconClassName?: string;
     inset?: boolean;
@@ -137,7 +135,7 @@ function MenubarSubTrigger({
 function MenubarSubContent({
   className,
   ...props
-}: MenubarPrimitive.SubContentProps & React.RefAttributes<MenubarPrimitive.SubContentRef>) {
+}: React.ComponentProps<typeof MenubarPrimitive.SubContent>) {
   return (
     <NativeOnlyAnimatedView entering={FadeIn}>
       <MenubarPrimitive.SubContent
@@ -163,8 +161,7 @@ function MenubarContent({
   alignOffset = -4,
   sideOffset = 8,
   ...props
-}: MenubarPrimitive.ContentProps &
-  React.RefAttributes<MenubarPrimitive.ContentRef> & {
+}: React.ComponentProps<typeof MenubarPrimitive.Content> & {
     overlayStyle?: StyleProp<ViewStyle>;
     overlayClassName?: string;
     portalHost?: string;
@@ -206,8 +203,7 @@ function MenubarItem({
   inset,
   variant,
   ...props
-}: MenubarPrimitive.ItemProps &
-  React.RefAttributes<MenubarPrimitive.ItemRef> & {
+}: React.ComponentProps<typeof MenubarPrimitive.Item> & {
     className?: string;
     inset?: boolean;
     variant?: 'default' | 'destructive';
@@ -242,8 +238,7 @@ function MenubarCheckboxItem({
   className,
   children,
   ...props
-}: MenubarPrimitive.CheckboxItemProps &
-  React.RefAttributes<MenubarPrimitive.CheckboxItemRef> & {
+}: React.ComponentProps<typeof MenubarPrimitive.CheckboxItem> & {
     children?: React.ReactNode;
   }) {
   return (
@@ -279,8 +274,7 @@ function MenubarRadioItem({
   className,
   children,
   ...props
-}: MenubarPrimitive.RadioItemProps &
-  React.RefAttributes<MenubarPrimitive.RadioItemRef> & {
+}: React.ComponentProps<typeof MenubarPrimitive.RadioItem> & {
     children?: React.ReactNode;
   }) {
   return (
@@ -310,8 +304,7 @@ function MenubarLabel({
   className,
   inset,
   ...props
-}: MenubarPrimitive.LabelProps &
-  React.RefAttributes<MenubarPrimitive.LabelRef> & {
+}: React.ComponentProps<typeof MenubarPrimitive.Label> & {
     className?: string;
     inset?: boolean;
   }) {
@@ -330,13 +323,13 @@ function MenubarLabel({
 function MenubarSeparator({
   className,
   ...props
-}: MenubarPrimitive.SeparatorProps & React.RefAttributes<MenubarPrimitive.SeparatorRef>) {
+}: React.ComponentProps<typeof MenubarPrimitive.Separator>) {
   return (
     <MenubarPrimitive.Separator className={cn('bg-border -mx-1 my-1 h-px', className)} {...props} />
   );
 }
 
-function MenubarShortcut({ className, ...props }: TextProps & React.RefAttributes<Text>) {
+function MenubarShortcut({ className, ...props }: React.ComponentProps<typeof Text>) {
   return (
     <Text
       className={cn('text-muted-foreground ml-auto text-xs tracking-widest', className)}

@@ -19,8 +19,7 @@ function TooltipContent({
   portalHost,
   side = 'top',
   ...props
-}: TooltipPrimitive.ContentProps &
-  React.RefAttributes<TooltipPrimitive.ContentRef> & {
+}: React.ComponentProps<typeof TooltipPrimitive.Content> & {
     portalHost?: string;
   }) {
   return (

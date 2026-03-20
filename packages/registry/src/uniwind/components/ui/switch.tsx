@@ -5,7 +5,7 @@ import { Platform } from 'react-native';
 function Switch({
   className,
   ...props
-}: SwitchPrimitives.RootProps & React.RefAttributes<SwitchPrimitives.RootRef>) {
+}: React.ComponentProps<typeof SwitchPrimitives.Root>) {
   return (
     <SwitchPrimitives.Root
       className={cn(
