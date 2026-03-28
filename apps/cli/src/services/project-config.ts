@@ -68,10 +68,9 @@ class ProjectConfig extends Effect.Service<ProjectConfig>()("ProjectConfig", {
 
     const getUniwindDtsPath = () =>
       Effect.gen(function* () {
-        const metroConfigPaths = ["metro.config.js", "metro.config.ts"].map((p) => path.join(options.cwd, p)) as [
-          string,
-          ...Array<string>
-        ]
+        const metroConfigPaths = ["metro.config.js", "metro.config.ts", "metro.config.cjs"].map((p) =>
+          path.join(options.cwd, p)
+        ) as [string, ...Array<string>]
 
         const metroContent = yield* retryWith((filePath: string) => fs.readFileString(filePath), metroConfigPaths).pipe(
           Effect.catchAll(() => Effect.succeed(null))
@@ -96,10 +95,9 @@ class ProjectConfig extends Effect.Service<ProjectConfig>()("ProjectConfig", {
           return options.stylingLibrary
         }
 
-        const metroConfigPaths = ["metro.config.js", "metro.config.ts"].map((p) => path.join(options.cwd, p)) as [
-          string,
-          ...Array<string>
-        ]
+        const metroConfigPaths = ["metro.config.js", "metro.config.ts", "metro.config.cjs"].map((p) =>
+          path.join(options.cwd, p)
+        ) as [string, ...Array<string>]
 
         const metroContent = yield* retryWith((filePath: string) => fs.readFileString(filePath), metroConfigPaths).pipe(
           Effect.catchAll(() => Effect.succeed(null))
