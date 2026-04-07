@@ -56,7 +56,7 @@ const FILE_CHECKS: Array<FileCheck> = [
   },
   {
     name: "Metro Config",
-    fileNames: ["metro.config.js", "metro.config.ts"],
+    fileNames: ["metro.config.js", "metro.config.ts", "metro.config.cjs"],
     docs: "https://www.nativewind.dev/docs/getting-started/installation#4-create-or-modify-your-metroconfigjs",
     includes: [
       {
@@ -74,7 +74,7 @@ const FILE_CHECKS: Array<FileCheck> = [
   },
   {
     name: "Metro Config",
-    fileNames: ["metro.config.js", "metro.config.ts"],
+    fileNames: ["metro.config.js", "metro.config.ts", "metro.config.cjs"],
     docs: "https://www.nativewind.dev/docs/getting-started/installation#4-create-or-modify-your-metroconfigjs",
     includes: [
       {
