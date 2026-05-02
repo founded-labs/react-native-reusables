@@ -6,7 +6,7 @@ import { withUniwind } from 'uniwind';
 
 type IconProps = LucideProps & {
   as: LucideIcon;
-};
+} & React.RefAttributes<LucideIcon>;
 
 function IconImpl({ as: IconComponent, ...props }: IconProps) {
   return <IconComponent {...props} />;
@@ -46,7 +46,11 @@ const StyledIcon = withUniwind(IconImpl, {
 function Icon({ as: IconComponent, className, ...props }: IconProps) {
   const textClass = React.useContext(TextClassContext);
   return (
-    <StyledIcon as={IconComponent} className={cn('text-foreground size-5', textClass, className)} {...props} />
+    <StyledIcon
+      as={IconComponent}
+      className={cn('text-foreground size-5', textClass, className)}
+      {...props}
+    />
   );
 }
 

@@ -1,6 +1,6 @@
 import { TextClassContext } from '@/registry/nativewind/components/ui/text';
 import { cn } from '@/registry/nativewind/lib/utils';
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { Platform, View } from 'react-native';
 
@@ -49,12 +49,12 @@ const badgeTextVariants = cva('text-xs font-medium', {
   },
 });
 
-type BadgeProps = React.ComponentProps<typeof View> & {
-    asChild?: boolean;
-  } & VariantProps<typeof badgeVariants>;
+type BadgeProps = React.ComponentProps<typeof View> & React.RefAttributes<View> & {
+  asChild?: boolean;
+} & VariantProps<typeof badgeVariants>;
 
 function Badge({ className, variant, asChild, ...props }: BadgeProps) {
-  const Component = asChild ? Slot.View : View;
+  const Component = asChild ? Slot : View;
   return (
     <TextClassContext.Provider value={badgeTextVariants({ variant })}>
       <Component className={cn(badgeVariants({ variant }), className)} {...props} />

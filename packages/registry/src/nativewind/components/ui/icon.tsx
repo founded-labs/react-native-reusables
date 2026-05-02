@@ -6,7 +6,7 @@ import * as React from 'react';
 
 type IconProps = LucideProps & {
   as: LucideIcon;
-};
+} & React.RefAttributes<LucideIcon>;
 
 function IconImpl({ as: IconComponent, ...props }: IconProps) {
   return <IconComponent {...props} />;

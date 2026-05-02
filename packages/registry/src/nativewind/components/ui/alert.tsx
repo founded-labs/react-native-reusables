@@ -12,11 +12,11 @@ function Alert({
   icon,
   iconClassName,
   ...props
-}: React.ComponentProps<typeof View> & {
-    icon: LucideIcon;
-    variant?: 'default' | 'destructive';
-    iconClassName?: string;
-  }) {
+}: React.ComponentProps<typeof View> & React.RefAttributes<View> & {
+  icon: LucideIcon;
+  variant?: 'default' | 'destructive';
+  iconClassName?: string;
+}) {
   return (
     <TextClassContext.Provider
       value={cn(
