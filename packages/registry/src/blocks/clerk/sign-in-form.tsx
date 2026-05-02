@@ -11,49 +11,60 @@ import { Input } from '@/registry/nativewind/components/ui/input';
 import { Label } from '@/registry/nativewind/components/ui/label';
 import { Separator } from '@/registry/nativewind/components/ui/separator';
 import { Text } from '@/registry/nativewind/components/ui/text';
-import { useSignIn } from '@clerk/clerk-expo';
+import { cn } from '@/registry/nativewind/lib/utils';
+import { useSignIn } from '@clerk/expo';
 import * as React from 'react';
 import { Pressable, type TextInput, View } from 'react-native';
 
 export function SignInForm() {
-  const { signIn, setActive, isLoaded } = useSignIn();
+  const { signIn, fetchStatus } = useSignIn();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const passwordInputRef = React.useRef<TextInput>(null);
   const [error, setError] = React.useState<{ email?: string; password?: string }>({});
 
   async function onSubmit() {
-    if (!isLoaded) {
+    if (fetchStatus === 'fetching') {
       return;
     }
 
     // Start the sign-in process using the email and password provided
     try {
-      const signInAttempt = await signIn.create({
+      const { error } = await signIn.password({
         identifier: email,
         password,
       });
 
+      if (error) {
+        const message = error.longMessage ?? error.message;
+        const isEmailMessage =
+          message.toLowerCase().includes('identifier') || message.toLowerCase().includes('email');
+        setError(isEmailMessage ? { email: message } : { password: message });
+        return;
+      }
+
+      if (signIn.status === 'needs_client_trust') {
+        setError({
+          password: 'Additional verification is required before this device can sign in.',
+        });
+        return;
+      }
+
       // If sign-in process is complete, set the created session as active
       // and redirect the user
-      if (signInAttempt.status === 'complete') {
+      if (signIn.status === 'complete') {
         setError({ email: '', password: '' });
-        await setActive({ session: signInAttempt.createdSessionId });
-        // TODO: If your app does not use `Stack.Protected`, navigate to your protected screen
+        await signIn.finalize();
         return;
       }
       // TODO: Handle other statuses
-      console.error(JSON.stringify(signInAttempt, null, 2));
+      console.error(JSON.stringify(signIn, null, 2));
     } catch (err) {
       // See https://go.clerk.com/mRUDrIe for more info on error handling
-      if (err instanceof Error) {
-        const isEmailMessage =
-          err.message.toLowerCase().includes('identifier') ||
-          err.message.toLowerCase().includes('email');
-        setError(isEmailMessage ? { email: err.message } : { password: err.message });
-        return;
-      }
-      console.error(JSON.stringify(err, null, 2));
+      const message = err instanceof Error ? err.message : 'Something went wrong';
+      const isEmailMessage =
+        message.toLowerCase().includes('identifier') || message.toLowerCase().includes('email');
+      setError(isEmailMessage ? { email: message } : { password: message });
     }
   }
 
@@ -63,9 +74,9 @@ export function SignInForm() {
 
   return (
     <View className="gap-6">
-      <Card className="border-border/0 sm:border-border shadow-none sm:shadow-sm sm:shadow-black/5">
+      <Card className="border-border/0 shadow-none sm:border-border sm:shadow-sm sm:shadow-black/5">
         <CardHeader>
-          <CardTitle className="text-center text-xl sm:text-left">Sign in to your app</CardTitle>
+          <CardTitle className="text-center text-xl sm:text-left">Sign in to clerk-auth</CardTitle>
           <CardDescription className="text-center sm:text-left">
             Welcome back! Please sign in to continue
           </CardDescription>
@@ -86,7 +97,7 @@ export function SignInForm() {
                 submitBehavior="submit"
               />
               {error.email ? (
-                <Text className="text-destructive text-sm font-medium">{error.email}</Text>
+                <Text className="text-sm font-medium text-destructive">{error.email}</Text>
               ) : null}
             </View>
             <View className="gap-1.5">
@@ -111,10 +122,10 @@ export function SignInForm() {
                 onSubmitEditing={onSubmit}
               />
               {error.password ? (
-                <Text className="text-destructive text-sm font-medium">{error.password}</Text>
+                <Text className="text-sm font-medium text-destructive">{error.password}</Text>
               ) : null}
             </View>
-            <Button className="w-full" onPress={onSubmit}>
+            <Button className={cn("w-full", fetchStatus === 'fetching' && 'opacity-50')} onPress={onSubmit}>
               <Text>Continue</Text>
             </Button>
           </View>
@@ -129,7 +140,7 @@ export function SignInForm() {
           </Text>
           <View className="flex-row items-center">
             <Separator className="flex-1" />
-            <Text className="text-muted-foreground px-4 text-sm">or</Text>
+            <Text className="px-4 text-sm text-muted-foreground">or</Text>
             <Separator className="flex-1" />
           </View>
           <SocialConnections />

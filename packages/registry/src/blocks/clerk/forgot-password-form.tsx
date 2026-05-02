@@ -9,13 +9,14 @@ import {
 import { Input } from '@/registry/nativewind/components/ui/input';
 import { Label } from '@/registry/nativewind/components/ui/label';
 import { Text } from '@/registry/nativewind/components/ui/text';
-import { useSignIn } from '@clerk/clerk-expo';
+import { cn } from '@/registry/nativewind/lib/utils';
+import { useSignIn } from '@clerk/expo';
 import * as React from 'react';
 import { View } from 'react-native';
 
 export function ForgotPasswordForm() {
-  const [email, setEmail] = React.useState('');
-  const { signIn, isLoaded } = useSignIn();
+  const [email, setEmail] = React.useState("");
+  const { signIn, fetchStatus } = useSignIn();
   const [error, setError] = React.useState<{ email?: string; password?: string }>({});
 
   const onSubmit = async () => {
@@ -23,30 +24,37 @@ export function ForgotPasswordForm() {
       setError({ email: 'Email is required' });
       return;
     }
-    if (!isLoaded) {
+    if (fetchStatus === 'fetching') {
       return;
     }
 
     try {
-      await signIn.create({
-        strategy: 'reset_password_email_code',
+      const { error: createError } = await signIn.create({
         identifier: email,
       });
+
+      if (createError) {
+        setError({ email: createError.longMessage ?? createError.message });
+        return;
+      }
+
+      const { error: sendCodeError } = await signIn.resetPasswordEmailCode.sendCode();
+
+      if (sendCodeError) {
+        setError({ email: sendCodeError.longMessage ?? sendCodeError.message });
+        return;
+      }
 
       // TODO: Navigate to reset password screen
     } catch (err) {
       // See https://go.clerk.com/mRUDrIe for more info on error handling
-      if (err instanceof Error) {
-        setError({ email: err.message });
-        return;
-      }
-      console.error(JSON.stringify(err, null, 2));
+      setError({ email: err instanceof Error ? err.message : 'Something went wrong' });
     }
   };
 
   return (
     <View className="gap-6">
-      <Card className="border-border/0 sm:border-border shadow-none sm:shadow-sm sm:shadow-black/5">
+      <Card className="border-border/0 shadow-none sm:border-border sm:shadow-sm sm:shadow-black/5">
         <CardHeader>
           <CardTitle className="text-center text-xl sm:text-left">Forgot password?</CardTitle>
           <CardDescription className="text-center sm:text-left">
@@ -69,10 +77,10 @@ export function ForgotPasswordForm() {
                 returnKeyType="send"
               />
               {error.email ? (
-                <Text className="text-destructive text-sm font-medium">{error.email}</Text>
+                <Text className="text-sm font-medium text-destructive">{error.email}</Text>
               ) : null}
             </View>
-            <Button className="w-full" onPress={onSubmit}>
+            <Button className={cn("w-full", fetchStatus === 'fetching' && 'opacity-50')} onPress={onSubmit}>
               <Text>Reset your password</Text>
             </Button>
           </View>

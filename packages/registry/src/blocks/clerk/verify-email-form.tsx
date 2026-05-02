@@ -9,7 +9,8 @@ import {
 import { Input } from '@/registry/nativewind/components/ui/input';
 import { Label } from '@/registry/nativewind/components/ui/label';
 import { Text } from '@/registry/nativewind/components/ui/text';
-import { useSignUp } from '@clerk/clerk-expo';
+import { cn } from '@/registry/nativewind/lib/utils';
+import { useSignUp } from '@clerk/expo';
 import * as React from 'react';
 import { type TextStyle, View } from 'react-native';
 
@@ -18,54 +19,56 @@ const RESEND_CODE_INTERVAL_SECONDS = 30;
 const TABULAR_NUMBERS_STYLE: TextStyle = { fontVariant: ['tabular-nums'] };
 
 export function VerifyEmailForm() {
-  const { signUp, setActive, isLoaded } = useSignUp();
+  const { signUp, fetchStatus } = useSignUp();
   const [code, setCode] = React.useState('');
   const [error, setError] = React.useState('');
   const { countdown, restartCountdown } = useCountdown(RESEND_CODE_INTERVAL_SECONDS);
 
   async function onSubmit() {
-    if (!isLoaded) return;
+    if (fetchStatus === 'fetching') return;
 
     try {
       // Use the code the user provided to attempt verification
-      const signUpAttempt = await signUp.attemptEmailAddressVerification({
+      const { error: verifyCodeError } = await signUp.verifications.verifyEmailCode({
         code,
       });
 
+      if (verifyCodeError) {
+        setError(verifyCodeError.longMessage ?? verifyCodeError.message);
+        return;
+      }
+
       // If verification was completed, set the session to active
       // and redirect the user
-      if (signUpAttempt.status === 'complete') {
-        await setActive({ session: signUpAttempt.createdSessionId });
-        // TODO: Redirect authenticated users to your protected screen
+      if (signUp.status === 'complete') {
+        await signUp.finalize();
         return;
       }
       // TODO: Handle other statuses
       // If the status is not complete, check why. User may need to
       // complete further steps.
-      console.error(JSON.stringify(signUpAttempt, null, 2));
+      console.error(JSON.stringify(signUp, null, 2));
     } catch (err) {
       // See https://go.clerk.com/mRUDrIe for more info on error handling
-      if (err instanceof Error) {
-        setError(err.message);
-        return;
-      }
-      console.error(JSON.stringify(err, null, 2));
+      setError(err instanceof Error ? err.message : 'Something went wrong');
     }
   }
 
   async function onResendCode() {
-    if (!isLoaded) return;
+    if (fetchStatus === 'fetching') return;
 
     try {
-      await signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
+      const { error: sendCodeError } = await signUp.verifications.sendEmailCode();
+
+      if (sendCodeError) {
+        setError(sendCodeError.longMessage ?? sendCodeError.message);
+        return;
+      }
+
       restartCountdown();
     } catch (err) {
       // See https://go.clerk.com/mRUDrIe for more info on error handling
-      if (err instanceof Error) {
-        setError(err.message);
-        return;
-      }
-      console.error(JSON.stringify(err, null, 2));
+      setError(err instanceof Error ? err.message : 'Something went wrong');
     }
   }
 
@@ -107,7 +110,7 @@ export function VerifyEmailForm() {
               </Button>
             </View>
             <View className="gap-3">
-              <Button className="w-full" onPress={onSubmit}>
+              <Button className={cn("w-full", fetchStatus === 'fetching' && 'opacity-50')} onPress={onSubmit}>
                 <Text>Continue</Text>
               </Button>
               <Button
@@ -130,36 +133,34 @@ function useCountdown(seconds = 30) {
   const [countdown, setCountdown] = React.useState(seconds);
   const intervalRef = React.useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const startCountdown = React.useCallback(() => {
-    setCountdown(seconds);
-
-    if (intervalRef.current) {
+  const stopCountdown = React.useCallback(() => {
+    if (intervalRef.current !== null) {
       clearInterval(intervalRef.current);
+      intervalRef.current = null;
     }
+  }, []);
+
+  const startCountdown = React.useCallback(() => {
+    stopCountdown();
+    setCountdown(seconds);
 
     intervalRef.current = setInterval(() => {
       setCountdown((prev) => {
         if (prev <= 1) {
-          if (intervalRef.current) {
-            clearInterval(intervalRef.current);
-            intervalRef.current = null;
-          }
+          stopCountdown();
           return 0;
         }
+
         return prev - 1;
       });
     }, 1000);
-  }, [seconds]);
+  }, [seconds, stopCountdown]);
 
   React.useEffect(() => {
     startCountdown();
 
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [startCountdown]);
+    return stopCountdown;
+  }, [startCountdown, stopCountdown]);
 
   return { countdown, restartCountdown: startCountdown };
 }

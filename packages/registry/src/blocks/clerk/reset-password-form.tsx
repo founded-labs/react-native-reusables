@@ -9,44 +9,60 @@ import {
 import { Input } from '@/registry/nativewind/components/ui/input';
 import { Label } from '@/registry/nativewind/components/ui/label';
 import { Text } from '@/registry/nativewind/components/ui/text';
-import { useSignIn } from '@clerk/clerk-expo';
+import { cn } from '@/registry/nativewind/lib/utils';
+import { useSignIn } from '@clerk/expo';
 import * as React from 'react';
 import { TextInput, View } from 'react-native';
 
 export function ResetPasswordForm() {
-  const { signIn, setActive, isLoaded } = useSignIn();
+  const { signIn, fetchStatus } = useSignIn();
   const [password, setPassword] = React.useState('');
   const [code, setCode] = React.useState('');
   const codeInputRef = React.useRef<TextInput>(null);
   const [error, setError] = React.useState({ code: '', password: '' });
 
   async function onSubmit() {
-    if (!isLoaded) {
+    if (fetchStatus === 'fetching') {
       return;
     }
     try {
-      const result = await signIn?.attemptFirstFactor({
-        strategy: 'reset_password_email_code',
+      const { error: verifyCodeError } = await signIn.resetPasswordEmailCode.verifyCode({
         code,
+      });
+
+      if (verifyCodeError) {
+        setError({ code: verifyCodeError.longMessage ?? verifyCodeError.message, password: '' });
+        return;
+      }
+
+      const { error: submitPasswordError } = await signIn.resetPasswordEmailCode.submitPassword({
         password,
       });
 
-      if (result.status === 'complete') {
+      if (submitPasswordError) {
+        setError({
+          code: '',
+          password: submitPasswordError.longMessage ?? submitPasswordError.message,
+        });
+        return;
+      }
+
+      if (signIn.status === 'complete') {
         // Set the active session to
         // the newly created session (user is now signed in)
-        setActive({ session: result.createdSessionId });
-        // TODO: If your app does not use `Stack.Protected`, navigate to your protected screen
+        await signIn.finalize();
         return;
       }
       // TODO: Handle other statuses
     } catch (err) {
       // See https://go.clerk.com/mRUDrIe for more info on error handling
-      if (err instanceof Error) {
-        const isPasswordMessage = err.message.toLowerCase().includes('password');
-        setError({ code: '', password: isPasswordMessage ? err.message : '' });
-        return;
-      }
-      console.error(JSON.stringify(err, null, 2));
+      const message = err instanceof Error ? err.message : 'Something went wrong';
+      const isPasswordMessage = message.toLowerCase().includes('password');
+      setError({
+        code: isPasswordMessage ? '' : message,
+        password: isPasswordMessage ? message : '',
+      });
+      console.error(err);
     }
   }
 
@@ -56,7 +72,7 @@ export function ResetPasswordForm() {
 
   return (
     <View className="gap-6">
-      <Card className="border-border/0 sm:border-border shadow-none sm:shadow-sm sm:shadow-black/5">
+      <Card className="border-border/0 shadow-none sm:border-border sm:shadow-sm sm:shadow-black/5">
         <CardHeader>
           <CardTitle className="text-center text-xl sm:text-left">Reset password</CardTitle>
           <CardDescription className="text-center sm:text-left">
@@ -78,7 +94,7 @@ export function ResetPasswordForm() {
                 onSubmitEditing={onPasswordSubmitEditing}
               />
               {error.password ? (
-                <Text className="text-destructive text-sm font-medium">{error.password}</Text>
+                <Text className="text-sm font-medium text-destructive">{error.password}</Text>
               ) : null}
             </View>
             <View className="gap-1.5">
@@ -94,10 +110,10 @@ export function ResetPasswordForm() {
                 onSubmitEditing={onSubmit}
               />
               {error.code ? (
-                <Text className="text-destructive text-sm font-medium">{error.code}</Text>
+                <Text className="text-sm font-medium text-destructive">{error.code}</Text>
               ) : null}
             </View>
-            <Button className="w-full" onPress={onSubmit}>
+            <Button className={cn("w-full", fetchStatus === 'fetching' && 'opacity-50')} onPress={onSubmit}>
               <Text>Reset Password</Text>
             </Button>
           </View>

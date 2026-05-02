@@ -7,7 +7,7 @@ import {
   PopoverTrigger,
 } from '@/registry/nativewind/components/ui/popover';
 import { Text } from '@/registry/nativewind/components/ui/text';
-import { useAuth, useUser } from '@clerk/clerk-expo';
+import { useAuth, useUser } from '@clerk/expo';
 import type { TriggerRef } from '@rn-primitives/popover';
 import { LogOutIcon, PlusIcon, SettingsIcon } from 'lucide-react-native';
 import * as React from 'react';
@@ -88,7 +88,7 @@ function UserAvatar(props: Omit<React.ComponentProps<typeof Avatar>, 'alt'>) {
     const userName = user?.fullName || user?.emailAddresses[0]?.emailAddress || 'Unknown';
     const initials = userName
       .split(' ')
-      .map((name) => name[0])
+      .map((name: string) => name[0])
       .join('');
 
     const imageSource = user?.imageUrl ? { uri: user.imageUrl } : undefined;
