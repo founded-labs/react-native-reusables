@@ -657,7 +657,7 @@
           "type": "registry:component"
         }
       ],
-      "dependencies": ["@clerk/clerk-expo"],
+      "dependencies": ["@clerk/expo"],
       "registryDependencies": [
         "https://reactnativereusables.com/r/nativewind/button.json",
         "https://reactnativereusables.com/r/nativewind/card.json",
@@ -680,7 +680,7 @@
           "type": "registry:component"
         }
       ],
-      "dependencies": ["@clerk/clerk-expo"],
+      "dependencies": ["@clerk/expo"],
       "registryDependencies": [
         "https://reactnativereusables.com/r/nativewind/button.json",
         "https://reactnativereusables.com/r/nativewind/card.json",
@@ -703,7 +703,7 @@
           "type": "registry:component"
         }
       ],
-      "dependencies": ["@clerk/clerk-expo"],
+      "dependencies": ["@clerk/expo"],
       "registryDependencies": [
         "https://reactnativereusables.com/r/nativewind/button.json",
         "https://reactnativereusables.com/r/nativewind/card.json",
@@ -724,7 +724,7 @@
           "type": "registry:component"
         }
       ],
-      "dependencies": ["@clerk/clerk-expo"],
+      "dependencies": ["@clerk/expo"],
       "registryDependencies": [
         "https://reactnativereusables.com/r/nativewind/button.json",
         "https://reactnativereusables.com/r/nativewind/card.json",
@@ -745,7 +745,7 @@
           "type": "registry:component"
         }
       ],
-      "dependencies": ["@clerk/clerk-expo"],
+      "dependencies": ["@clerk/expo"],
       "registryDependencies": [
         "https://reactnativereusables.com/r/nativewind/button.json",
         "https://reactnativereusables.com/r/nativewind/card.json",
@@ -766,7 +766,7 @@
           "type": "registry:component"
         }
       ],
-      "dependencies": ["@clerk/clerk-expo"],
+      "dependencies": ["@clerk/expo"],
       "registryDependencies": [
         "https://reactnativereusables.com/r/nativewind/avatar.json",
         "https://reactnativereusables.com/r/nativewind/button.json",
@@ -787,7 +787,7 @@
           "type": "registry:component"
         }
       ],
-      "dependencies": ["@clerk/clerk-expo", "expo-auth-session", "expo-web-browser"],
+      "dependencies": ["@clerk/expo", "expo-auth-session", "expo-web-browser"],
       "registryDependencies": ["https://reactnativereusables.com/r/nativewind/button.json"]
     }
   ]
