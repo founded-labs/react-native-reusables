@@ -87,36 +87,34 @@ function useCountdown(seconds = 30) {
   const [countdown, setCountdown] = React.useState(seconds);
   const intervalRef = React.useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const startCountdown = React.useCallback(() => {
-    setCountdown(seconds);
-
-    if (intervalRef.current) {
+  const stopCountdown = React.useCallback(() => {
+    if (intervalRef.current !== null) {
       clearInterval(intervalRef.current);
+      intervalRef.current = null;
     }
+  }, []);
+
+  const startCountdown = React.useCallback(() => {
+    stopCountdown();
+    setCountdown(seconds);
 
     intervalRef.current = setInterval(() => {
       setCountdown((prev) => {
         if (prev <= 1) {
-          if (intervalRef.current) {
-            clearInterval(intervalRef.current);
-            intervalRef.current = null;
-          }
+          stopCountdown();
           return 0;
         }
+
         return prev - 1;
       });
     }, 1000);
-  }, [seconds]);
+  }, [seconds, stopCountdown]);
 
   React.useEffect(() => {
     startCountdown();
 
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [startCountdown]);
+    return stopCountdown;
+  }, [startCountdown, stopCountdown]);
 
   return { countdown, restartCountdown: startCountdown };
 }
