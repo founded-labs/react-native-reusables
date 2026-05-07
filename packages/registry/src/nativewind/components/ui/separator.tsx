@@ -1,5 +1,6 @@
 import { cn } from '@/registry/nativewind/lib/utils';
 import * as SeparatorPrimitive from '@rn-primitives/separator';
+import { Platform } from 'react-native';
 
 function Separator({
   className,
@@ -12,8 +13,19 @@ function Separator({
       decorative={decorative}
       orientation={orientation}
       className={cn(
-        'bg-border shrink-0',
-        orientation === 'horizontal' ? 'h-[1px] w-full' : 'h-full w-[1px]',
+        'shrink-0',
+        Platform.select({
+          web:
+            orientation === 'horizontal'
+              ? 'border-t border-border'
+              : 'border-l border-border',
+          default: cn(
+            'bg-border',
+            orientation === 'horizontal'
+              ? 'h-[1px] w-full'
+              : 'h-full w-[1px]'
+          ),
+        }),
         className
       )}
       {...props}
