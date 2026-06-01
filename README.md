@@ -25,3 +25,8 @@ Licensed under the [MIT license](/LICENSE).
 <a href="https://vercel.com/oss">
   <img alt="Vercel OSS Program" src="https://vercel.com/oss/program-badge.svg" />
 </a>
+
+<br />
+<br />
+
+[![Sponsored by CodeRabbit](https://img.shields.io/badge/Sponsored%20by-CodeRabbit-FF570A?style=flat-square)](https://coderabbit.ai)
