@@ -52,7 +52,7 @@
     "expo-linking": "~56.0.14",
     "expo-router": "~56.2.11",
     "expo-crypto": "~56.0.4",
-    "lucide-react-native": "^1.21.0",
+    "lucide-react-native": "^0.577.0",
     "nativewind": "^4.2.2",
     "react-native-reanimated": "~4.3.1",
     "react-native-safe-area-context": "5.7.0",
