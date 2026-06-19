@@ -3,7 +3,7 @@ import { Icon } from '@/registry/nativewind/components/ui/icon';
 import { Input } from '@/registry/nativewind/components/ui/input';
 import { Text } from '@/registry/nativewind/components/ui/text';
 import { cn } from '@/registry/nativewind/lib/utils';
-import { useScrollToTop } from '@react-navigation/native';
+import { useScrollToTop } from 'expo-router/react-navigation';
 import { FlashList } from '@shopify/flash-list';
 import { COMPONENTS } from '@showcase/lib/constants';
 import { Link } from 'expo-router';
