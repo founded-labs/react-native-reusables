@@ -4,10 +4,13 @@ import {
   AuthIntegrationSelect,
   useAuthIntegration,
 } from '@docs/components/auth-integration-select';
+import { Callout } from '@docs/components/callout';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@docs/components/ui/tabs';
 import * as React from 'react';
 
 export function AuthBlockTabs({ children }: React.PropsWithChildren) {
+  const [integration] = useAuthIntegration();
+
   return (
     <Tabs defaultValue="cli">
       <div className="flex items-center justify-between">
@@ -21,6 +24,11 @@ export function AuthBlockTabs({ children }: React.PropsWithChildren) {
         </TabsList>
         <AuthIntegrationSelect className="mt-px" />
       </div>
+      {integration === 'clerk' ? (
+        <Callout title="Development build recommended" type="warning">
+          To ensure all Clerk Expo features work correctly, use a development build.
+        </Callout>
+      ) : null}
       {children}
     </Tabs>
   );
