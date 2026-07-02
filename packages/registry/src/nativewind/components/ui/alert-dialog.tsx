@@ -5,7 +5,7 @@ import { cn } from '@/registry/nativewind/lib/utils';
 import * as AlertDialogPrimitive from '@rn-primitives/alert-dialog';
 import * as React from 'react';
 import { Platform, View, type ViewProps } from 'react-native';
-import { FadeIn, FadeOut } from 'react-native-reanimated';
+import { FadeIn, FadeOut, ReduceMotion } from 'react-native-reanimated';
 import { FullWindowOverlay as RNFullWindowOverlay } from 'react-native-screens';
 
 const AlertDialog = AlertDialogPrimitive.Root;
@@ -33,10 +33,12 @@ function AlertDialogOverlay({
           }),
           className
         )}
-        {...props}>
+        {...props}
+        asChild={Platform.OS !== 'web'}>
         <NativeOnlyAnimatedView
-          entering={FadeIn.duration(200).delay(50)}
-          exiting={FadeOut.duration(150)}>
+          entering={FadeIn.duration(200).delay(50).reduceMotion(ReduceMotion.System)}
+          exiting={FadeOut.duration(150).reduceMotion(ReduceMotion.System)}
+          as="Pressable">
           <>{children}</>
         </NativeOnlyAnimatedView>
       </AlertDialogPrimitive.Overlay>

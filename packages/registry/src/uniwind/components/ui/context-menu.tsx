@@ -13,7 +13,7 @@ import {
   View,
   type ViewStyle,
 } from 'react-native';
-import { FadeIn } from 'react-native-reanimated';
+import { FadeIn, ReduceMotion } from 'react-native-reanimated';
 import { FullWindowOverlay as RNFullWindowOverlay } from 'react-native-screens';
 
 const ContextMenu = ContextMenuPrimitive.Root;
@@ -64,7 +64,7 @@ function ContextMenuSubContent({
   ...props
 }: React.ComponentProps<typeof ContextMenuPrimitive.SubContent>) {
   return (
-    <NativeOnlyAnimatedView entering={FadeIn}>
+    <NativeOnlyAnimatedView entering={FadeIn.reduceMotion(ReduceMotion.System)}>
       <ContextMenuPrimitive.SubContent
         className={cn(
           'bg-popover border-border overflow-hidden rounded-md border p-1 shadow-lg shadow-black/5',
@@ -105,8 +105,9 @@ function ContextMenuContent({
               ])
               : StyleSheet.absoluteFill,
           })}
-          className={overlayClassName}>
-          <NativeOnlyAnimatedView entering={FadeIn}>
+          className={overlayClassName}
+          asChild={Platform.OS !== 'web'}>
+          <NativeOnlyAnimatedView entering={FadeIn.reduceMotion(ReduceMotion.System)} as="Pressable">
             <TextClassContext.Provider value="text-popover-foreground">
               <ContextMenuPrimitive.Content
                 className={cn(

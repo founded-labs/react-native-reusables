@@ -4,7 +4,7 @@ import { cn } from '@/registry/uniwind/lib/utils';
 import * as PopoverPrimitive from '@rn-primitives/popover';
 import * as React from 'react';
 import { Platform, StyleSheet } from 'react-native';
-import { FadeIn, FadeOut } from 'react-native-reanimated';
+import { FadeIn, FadeOut, ReduceMotion } from 'react-native-reanimated';
 import { FullWindowOverlay as RNFullWindowOverlay } from 'react-native-screens';
 
 const Popover = PopoverPrimitive.Root;
@@ -25,8 +25,13 @@ function PopoverContent({
   return (
     <PopoverPrimitive.Portal hostName={portalHost}>
       <FullWindowOverlay>
-        <PopoverPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>
-          <NativeOnlyAnimatedView entering={FadeIn.duration(200)} exiting={FadeOut}>
+        <PopoverPrimitive.Overlay
+          style={Platform.select({ native: StyleSheet.absoluteFill })}
+          asChild={Platform.OS !== 'web'}>
+          <NativeOnlyAnimatedView
+            entering={FadeIn.duration(200).reduceMotion(ReduceMotion.System)}
+            exiting={FadeOut.reduceMotion(ReduceMotion.System)}
+            as="Pressable">
             <TextClassContext.Provider value="text-popover-foreground">
               <PopoverPrimitive.Content
                 align={align}

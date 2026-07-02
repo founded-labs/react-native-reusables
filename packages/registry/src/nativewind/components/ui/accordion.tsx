@@ -8,6 +8,7 @@ import Animated, {
   FadeOutUp,
   LayoutAnimationConfig,
   LinearTransition,
+  ReduceMotion,
   useAnimatedStyle,
   useDerivedValue,
   withTiming,
@@ -129,7 +130,9 @@ function AccordionContent({
         )}
         {...props}>
         <Animated.View
-          exiting={Platform.select({ native: FadeOutUp.duration(200) })}
+          exiting={Platform.select({
+            native: FadeOutUp.duration(200).reduceMotion(ReduceMotion.System),
+          })}
           className={cn('pb-4', className)}>
           {children}
         </Animated.View>
