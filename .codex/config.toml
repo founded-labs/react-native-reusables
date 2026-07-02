@@ -1,0 +1,222 @@
+developer_instructions = "# --- argent rules (managed by argent init — do not edit) ---\n<description>\nIf argent is installed and configured in this environment, its MCP tools are the preferred form of interaction with the application for iOS simulator, Android emulator, Chromium (CDP) app, and Vega (Amazon Fire TV) device control; otherwise see `<availability_check>` below before attempting any argent workflow. A \"Chromium (CDP) app\" is any Chromium runtime exposing a Chrome DevTools Protocol endpoint — an Electron app, or any Chromium-family browser (Chrome/Brave/Edge) launched with `--remote-debugging-port`; all are driven through the same tool surface and tagged `platform: \"chromium\"`. A \"Vega device\" is a virtual device (VVD) or physical unit — driven by tv-remote (D-pad) and tagged `platform: \"vega\"`.\nRunning MCP server and managing the Argent toolkit utilises `argent` command - if asked use `argent --help` for reference.\nTo check current version of MCP server run `argent --version` command.\n\nUse cases:\n\n- User mentions iOS simulator, Android emulator, device, or app interaction\n- The app user is working with is a mobile application which can be run in a simulator/emulator\n- Any tapping, swiping, typing, screenshotting, or inspecting a running app\n- Any code change that affects visible mobile UI, layout, styling, copy, navigation, or screen composition\n- Any request to execute manual QA, UI QA, or visual behavior validation for a mobile app\n- Running, debugging, or testing a React Native app (iOS, Android or Vega)\n- Profiling performance or diagnosing re-renders in a React Native app (iOS or Android)\n- Running, debugging, or testing a Chromium (CDP) app — an Electron app (boot with `boot-device` + `electronAppPath`) or a Chromium browser exposing CDP (auto-discovered on port `9222` / `ARGENT_CHROMIUM_PORTS`); on Chromium scroll with `gesture-scroll` and drag with `gesture-drag` — `gesture-swipe` is touch-only\n  </description>\n\n<availability_check>\n<important>Run this check once per session, before the first argent tool call or `argent` command. Do not re-probe before later calls.</important>\n\nConfirm argent is available:\n\n1. Are `mcp__argent__*` tools in your tool list? If none are present, argent is not available.\n2. If still unsure, run `command -v argent`. A non-zero exit means the CLI is not on PATH.\n\nIf argent IS available, ignore the rest of this block and follow this rule normally.\n\nIf argent is ABSENT, treat it as an expected state, not an error to retry. Do not call `mcp__argent__*` tools, do not run `argent` commands, and do not attempt any argent workflow. Tell the user once, and ask if you should continue without argent:\n\n> Argent isn't installed in this environment. To enable the mobile/Chromium tooling this repo is configured for, run `npx @swmansion/argent init -y` (or `npm i -g @swmansion/argent && argent init -y`).\n> </availability_check>\n\n<tapping_rule>\n<important>**Never** derive tap coordinates from a screenshot</important>\nBefore **every** tap, you MUST call a discovery tool and extract coordinates from the result. This is not optional. Preferred tools are, in order:\n\n- `describe` - native app-level components and safely targetable foreground apps (iOS and Android).\n- `native-describe-screen` - accessibility screen description via injected native devtools (iOS only)\n- `debugger-component-tree` - react-native specific components\n\n`native-user-interactable-view-at-point` / `native-view-at-point` are follow-up diagnostics once you already have a candidate point (iOS only).\n\nWhenever something changed YOU MUST first call `describe`, or another appropriate discovery tool so you do not hallucinate element positions. Do not guess coordinates if you can use discovery tool. Do not tap if you have not called a discovery tool in the current step. Screenshots alone are never sufficient for coordinates.\n\nIf a **tap fails twice** at the same coordinates, **stop retrying**. Re-run the discovery tool.\n\nIf `describe` fails, **read the exact error before reacting**, follow the recovery guidance in `argent-device-interact` to choose the correct next action.\n\nBefore starting to interact with the app, read the `argent-device-interact` skill first.\n</tapping_rule>\n\n<device_selection_rule>\nBefore booting, running, or interacting with any app, call `list-devices` first - prefer running devices.\n\nDecision order:\n\n1. **Explicit user intent** - choose the user named platform or device. Look for words \"simulator\" and \"emulator\".\n2. **Prefer a running device.** iOS simulators - state `Booted` and Android devices - `state: \"device\"` come first in `list-devices`; Chromium (CDP) apps appear as `platform: \"chromium\"`, `state: \"Running\"`.\n3. **Single-platform project:** (per `argent-environment-inspector` flags `is_native_ios`/`is_native_android`, or RN with only one platform configured) → boot that platform.\n   </device_selection_rule>\n\n<skill_reading_rule>\n<important>Always read relevant skills for guidance before executing argent-mcp tool - read skill_routing reference</important>\n</skill_reading_rule>\n\n<general_rules>\n\n- All simulator/emulator interactions go through argent MCP tools — never use `xcrun simctl`,\n  raw `curl` to simulator ports, or the simulator-server binary directly.\n- Before calling any gesture tool for the first time, use ToolSearch to load its schema.\n- Interaction tools (`gesture-tap`, `gesture-swipe`, `gesture-pinch`, `gesture-rotate`, `gesture-custom`, `launch-app`, etc.) return a screenshot automatically.\n  Call `screenshot` separately only for a baseline before any action or after a delay.\n- Always open apps with `launch-app` or `open-url` — never tap home screen icons.\n- Always use `run-sequence` when performing multiple sequential device actions where you don't need to observe the screen between steps. More in `argent-device-interact` skill.\n- When the session ends or the user says they are done: call `stop-all-simulator-servers`.\n  If the user started Metro separately, ask whether to call `stop-metro` (specify the port if not 8081).\n- If tools provided by mcp-server are not sufficient and action can be done using `xcrun`, `adb`, or other commands, use the command. Examples: changing device options, performing a device action such as lock, shake, etc.\n- When waiting for an action, do not call `screenshot` repeatedly without a proper wait mechanism. Use the `await-ui-element` tool to block until the UI settles (e.g. wait for an element to become `visible`/`hidden`, or to contain expected `text`) instead of polling.\n  </general_rules>\n\n<react_native_detection>\nProject type is determined by the `argent-environment-inspector` subagent (see `subagents` section).\nWhen the subagent result is available, use its `is_react_native` field as the authoritative\nsource — do not re-inspect files manually.\n\nIf the subagent has not run yet and project type is unknown, run it first before proceeding. Always use subagents if available to run `gather-workspace-data` data tool, if possible do not run yourself.\n\nWhen `is_react_native` is true: load `argent-react-native-app-workflow` skill. Use `debugger-component-tree` for element discovery - if the responses are large or unhelpful, try `describe`.\n</react_native_detection>\n\n<skill_routing>\nLoad the matching skill before starting work and executing tools from argent-mcp — skills contain the full step-by-step\nprocedure and edge-case handling for each workflow.\n\nPLATFORM DETECTION\nIf the user did not specify a platform, call `list-devices` first and pick the booted target — do not default to iOS. Vega (Amazon Fire TV) devices appear as `platform:\"vega\"`, when present load `argent-tv-interact`\n\niOS SIMULATOR SETUP\nSkill: `argent-ios-simulator-setup`\nWhen: Beginning a task that involves the iOS simulator, no simulator booted yet, need UDID or simulator-server.\n\nANDROID EMULATOR SETUP\nSkill: `argent-android-emulator-setup`\nWhen: Beginning a task that involves the Android emulator, no emulator running yet, need an adb serial, or about to install an APK.\n\nTAPPING, SWIPING, TYPING, GESTURES, SCREENSHOTS, SCROLLING\nSkill: `argent-device-interact`\nWhen: Performing touch interactions, typing, pressing hardware buttons, launching/restarting apps, opening URLs, rotating device, taking standalone screenshots, or verifying a visible UI code change. Phone/tablet iOS and Android only — for any TV target use the TV skill below.\n\nTV INTERACTION (APPLE TV / ANDROID TV / FIRE TV)\nSkill: `argent-tv-interact`\nWhen: Any TV target — a `list-devices` entry with `runtimeKind: \"tv\"` (Apple TV simulator or Android TV emulator) or `platform:\"vega\"` / `kind:\"vvd\"` (Amazon Fire TV / VVD), or the user mentions Apple TV / tvOS / Android TV / leanback / Vega / Fire TV. A TV UI is focus-driven, not touch-driven: drive it with `describe` (read focus) + `tv-remote` (D-pad presses) + `keyboard` (type); `gesture-*` tools do NOT apply. Covers booting the target, app lifecycle, focus navigation, typing, screenshots, and (Vega) VVD lifecycle + Fast Refresh.\nPrompt keywords: apple tv, tvos, android tv, leanback, vega, fire tv, vvd, d-pad\n\nSCREENSHOT DIFF & VISUAL REGRESSION\nSkill: `argent-screenshot-diff`\nWhen: Explicit visual regression, screenshot diff, compare screenshots, before/after visual comparison requests, or visible UI changes where stable pixel comparison would add useful evidence.\n\nRUNNING / BUILDING / DEBUGGING REACT NATIVE APP\nSkill: `argent-react-native-app-workflow`\nWhen: Project is react-native, starting Metro or running the iOS or Android app, build failures, pod issues, lost Metro connection, reading logs, reloading JS bundle, reinstalling app.\n\nJS EVALUATION, METRO CONNECTION, REACT NATIVE\nSkill: `argent-metro-debugger`\nWhen: evaluating expressions, inspecting React component tree at source level, finding element placement via `debugger-component-tree`.\n\nREACT APP & COMPONENT PROFILING\nUse skill: `argent-react-native-profiler`\nWhen: To measure performance of specific components, to find app-wide bottlenecks. Investigating re-renders or CPU hotspots, producing ranked performance reports.\n\nNATIVE PROFILING\nUse skill: `argent-native-profiler`\nWhen: Profiling native performance (CPU hotspots, UI hangs, memory leaks). iOS only today; Android on the roadmap. Useful as a reference for platform-specific investigation when running dual profiling via `argent-react-native-profiler`.\n\nPERFORMANCE OPTIMIZATION\nUse skill: `argent-react-native-optimization`\nWhen: App feels slow, user asks to optimize, reducing bundle size, improving startup time, fixing re-renders, optimizing lists/images/navigation, or any performance-related task. This is the entry-point skill for all performance work — it delegates to `argent-react-native-profiler` for measurement.\n\nEND-TO-END UI TESTING\nSkill: `argent-test-ui-flow`\nWhen: Verifying complete user flows, running interact → screenshot → verify loops, testing features by using the app, executing manual QA steps, or validating visible UI changes or visual behavior after implementation.\n\nRECORDING & REPLAYING FLOWS\nUse skill: `argent-create-flow`\nWhen: A multi-step interaction sequence needs to be repeated — re-profiling after a fix, A/B comparisons, regression checks, user says \"again\" / \"run that flow\", or you worked through a complex path worth saving. Also use proactively: if you are about to repeat steps you already performed, record first, then replay.\nPrompt keywords: flow, repeat, test X times\n\nPROPOSING DESIGN VARIANTS FOR HUMAN SELECTION\nUse skill: `argent-lens`\nWhen: The user asks for design alternatives / options / A-B choices for a screen or component, or you have produced more than one candidate look for an element and want a human to pick before committing. Covers the build → navigate → screenshot → propose_variant loop and the single blocking await_user_selection call. (Gated behind the `argent-lens` flag, off by default — run `argent enable argent-lens` first.)\nPrompt keywords: variant, design option, alternative, A/B, \"let me pick\", \"show me options\"\n</skill_routing>\n\n<subagents>\nENVIRONMENT INSPECTION AT SESSION START\nUse subagent: `argent-environment-inspector`\nWhen:\n- Environment context of the project is not yet known\n- No \"Project Environment\" section exists in project memory / `MEMORY.md` or you lack information about basic setup workflows\n- Need to determine build commands, startup scripts, metro port, platform support, or QA tooling\n  If the subagent already ran this session (result in memory), use that context directly — do NOT re-run.\nRules:\n  - Run the `argent-environment-inspector` subagent if possible. Never call `gather-workspace-data` yourself - do only if subagent is not available.\n  - The main agent is responsible for persisting the subagent's JSON result to project memory\n</subagents>\n# --- end argent rules ---"
+
+[mcp_servers.argent]
+command = "argent"
+args = [ "mcp" ]
+
+[mcp_servers.argent.env]
+ARGENT_MCP_LOG = "/Users/zach/.argent/mcp-calls.log"
+
+[mcp_servers.argent.tools.list-devices]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.boot-device]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.launch-app]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.restart-app]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.reinstall-app]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.open-url]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.screenshot]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.screenshot-diff]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.gesture-tap]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.chromium-tabs]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.chromium-cookies]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.chromium-storage]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.gesture-swipe]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.gesture-scroll]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.gesture-drag]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.gesture-custom]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.gesture-pinch]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.gesture-rotate]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.button]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.keyboard]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.rotate]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.tv-remote]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.run-sequence]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.debugger-connect]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.debugger-status]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.debugger-evaluate]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.debugger-reload-metro]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.debugger-component-tree]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.debugger-inspect-element]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.debugger-log-registry]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.view-network-logs]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.view-network-request-details]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.describe]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.await-ui-element]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.react-profiler-start]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.react-profiler-stop]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.react-profiler-status]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.react-profiler-analyze]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.react-profiler-component-source]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.react-profiler-cpu-summary]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.react-profiler-renders]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.react-profiler-fiber-tree]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.native-profiler-start]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.native-profiler-stop]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.native-profiler-analyze]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.profiler-cpu-query]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.profiler-commit-query]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.profiler-stack-query]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.profiler-combined-report]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.profiler-load]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.gather-workspace-data]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.native-devtools-status]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.native-network-logs]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.native-find-views]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.native-full-hierarchy]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.native-describe-screen]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.native-view-at-point]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.native-user-interactable-view-at-point]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.stop-simulator-server]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.stop-all-simulator-servers]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.stop-metro]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.flow-start-recording]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.flow-add-step]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.flow-add-echo]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.flow-finish-recording]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.flow-read-prerequisite]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.flow-execute]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.update-argent]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.dismiss-update]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.propose_variant]
+approval_mode = "approve"
+
+[mcp_servers.argent.tools.await_user_selection]
+approval_mode = "approve"
+

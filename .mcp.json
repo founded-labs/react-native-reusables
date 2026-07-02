@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "argent": {
+      "type": "stdio",
+      "command": "argent",
+      "args": [
+        "mcp"
+      ],
+      "env": {
+        "ARGENT_MCP_LOG": "/Users/zach/.argent/mcp-calls.log"
+      }
+    }
+  }
+}
