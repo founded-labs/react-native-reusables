@@ -18,8 +18,8 @@ export default function HomePage() {
               variant="outline"
               asChild
               className="bg-card dark:bg-secondary border-border/75 gap-1 rounded-full pr-2 font-normal">
-              <Link href="/docs/catalogs">
-                Now available on catalogs.dev <ArrowRightIcon className="size-3" />
+              <Link href="/docs/blocks/authentication">
+                New Authentication Blocks <ArrowRightIcon className="size-3" />
               </Link>
             </Badge>
           </div>

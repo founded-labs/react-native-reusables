@@ -1,17 +1,13 @@
 import { Button } from '@docs/components/ui/button';
-import { CatalogsMark } from '@docs/lib/CatalogsIcon';
 import { source } from '@docs/lib/source';
 import { cn } from '@docs/lib/utils';
 import { findNeighbour } from 'fumadocs-core/server';
 import { CodeBlock, Pre } from 'fumadocs-ui/components/codeblock';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 import { DocsBody, DocsDescription, DocsPage, DocsTitle } from 'fumadocs-ui/page';
-import { ArrowLeftIcon, ArrowRightIcon, ArrowUpRightIcon } from 'lucide-react';
-import { Hanken_Grotesk } from 'next/font/google';
+import { ArrowLeftIcon, ArrowRightIcon, ExternalLinkIcon } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-
-const hankenGrotesk = Hanken_Grotesk({ subsets: ['latin'], weight: '700' });
 
 export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
   const params = await props.params;
@@ -172,27 +168,20 @@ export function Footer({ url }: { url: string }) {
 
 function TableOfContentFooter() {
   return (
-    <div className="bg-card dark:bg-fd-muted border-border/50 text-fd-foreground/80 group relative mt-12 flex flex-col overflow-clip rounded-lg border p-6 text-sm">
-      <div
-        className={cn(
-          hankenGrotesk.className,
-          'text-fd-foreground flex items-center gap-2 text-lg font-bold leading-none tracking-[-0.02em]'
-        )}>
-        <CatalogsMark className="h-auto w-[1em]" />
-        catalogs.dev
+    <div className="bg-card dark:bg-fd-muted border-border/50 text-fd-foreground/80 group relative mt-12 flex flex-col gap-2 overflow-clip rounded-lg border p-6 text-sm">
+      <div className="text-balance text-base font-semibold leading-tight group-hover:underline">
+        Want to work with us?
       </div>
-      <div className="text-fd-foreground mt-4 font-medium">The new place for UI.</div>
-      <div className="text-muted-foreground mt-1 text-pretty">
-        Every catalog in one place, adapted to your project.
-      </div>
+      <div className="">Mention us to your team.</div>
+      <div className="text-muted-foreground pb-2">We help companies ship world-class UI/UX.</div>
       <Button
         size="sm"
-        className="relative mt-4 w-fit opacity-[.85] transition-opacity duration-150 group-hover:opacity-100 dark:opacity-80 dark:group-hover:opacity-100">
-        Explore
-        <ArrowUpRightIcon />
+        className="from-primary to-primary/75 group-hover:to-primary/80 relative w-fit bg-transparent bg-gradient-to-br duration-150 group-hover:pr-8">
+        Learn more
+        <ExternalLinkIcon className="absolute right-2 top-1/2 size-3.5 -translate-x-1 -translate-y-1/2 scale-y-0 opacity-0 duration-100 group-hover:translate-x-0 group-hover:scale-y-100 group-hover:opacity-100" />
       </Button>
-      <Link href="https://catalogs.dev" target="_blank" className="absolute inset-0">
-        <span className="sr-only">Explore catalogs.dev</span>
+      <Link href="https://foundedlabs.com" target="_blank" className="absolute inset-0">
+        <span className="sr-only">Learn more about Founded Labs</span>
       </Link>
     </div>
   );
