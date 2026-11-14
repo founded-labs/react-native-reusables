@@ -77,11 +77,7 @@ function NeighbourButtons({ url }: { url: string }) {
       ) : null}
       {neighbours.next || isManualInstallation ? (
         <Button variant="outline" size="icon" className="border-border/70 size-8" asChild>
-          <Link
-            href={neighbours.next?.url || '/docs/customization'}
-            target={
-              neighbours.next?.url.startsWith('https://foundedlabs.com') ? '_blank' : undefined
-            }>
+          <Link href={neighbours.next?.url || '/docs/customization'}>
             <ArrowRightIcon />
           </Link>
         </Button>
